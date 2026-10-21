@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>จัดการคลังสื่อ — BUU | FSS Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .admin-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .admin-table-wrap { overflow-x: auto; }
+    .admin-table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+    .admin-table th, .admin-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      vertical-align: top;
+    }
+    .admin-table th { background: var(--color-gray-bg); font-weight: 700; color: var(--color-gray-dark); white-space: nowrap; }
+    .status-select {
+      height: 44px;
+      padding: 0 0.6rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      background: var(--color-white);
+      cursor: pointer;
+    }
+    .btn-delete {
+      color: var(--color-danger);
+      background: #FEE2E2;
+      border: 1px solid var(--color-danger);
+      height: 44px;
+      padding: 0 0.75rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-delete:hover { background: var(--color-danger); color: var(--color-white); }
+    .empty-state { text-align: center; padding: 2rem; color: var(--color-gray-medium); }
+    .modal {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.4); display: none;
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal.is-open { display: flex; }
+    .modal-card {
+      background: var(--color-white);
+      border-radius: 10px;
+      width: 100%; max-width: 600px;
+      padding: 1.5rem; max-height: 90vh; overflow-y: auto;
+    }
+    .modal h3 { margin-top: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-gray-dark); margin-bottom: 1rem; }
+    .form-row { margin-bottom: 1rem; }
+    .form-row label { display: block; font-weight: 600; color: var(--color-gray-medium); margin-bottom: 0.4rem; font-size: 1rem; }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; height: 44px; padding: 0 0.75rem;
+      font-family: inherit; font-size: 1rem;
+      border: 1px solid var(--color-gray-light); border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .form-row textarea { height: auto; min-height: 100px; padding: 0.75rem; resize: vertical; }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+      border-color: var(--color-green); outline: none;
+    }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; }
+    .help-text { font-size: 0.85rem; color: var(--color-gray-medium); margin-top: 0.25rem; }
+    .type-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.1rem 0.5rem;
+      border-radius: 6px;
+      background: var(--color-green-soft);
+      color: var(--color-green);
+    }
+  </style>
+</head>
+<body data-page="admin-media">
+  <div id="site-header"></div>
+  <main class="page-main">
+    <div class="admin-toolbar">
+      <div>
+        <h1 style="font-size:1.25rem;font-weight:700;color:var(--color-gray-dark);margin:0;">จัดการคลังภาพและวิดีโอ</h1>
+      </div>
+      <button class="btn btn-primary" onclick="openModal()" style="height:44px;">+ เพิ่มสื่อใหม่</button>
+    </div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th style="width:40px;">#</th>
+            <th>ชื่อสื่อ</th>
+            <th style="width:80px;">ประเภท</th>
+            <th style="width:140px;">วันที่เผยแพร่</th>
+            <th style="width:140px;">ลิงก์ YouTube</th>
+            <th style="width:100px;">สถานะ</th>
+            <th style="width:120px;">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody id="mediaTableBody">
+          <tr><td colspan="7" class="text-meta">กำลังโหลดข้อมูล...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p id="noData" class="empty-state" style="display:none;">ยังไม่มีสื่อในระบบ</p>
+  </main>
+  <div id="site-footer"></div>
+
+  <div id="mediaModal" class="modal">
+    <div class="modal-card">
+      <h3 id="modalTitle">เพิ่มสื่อใหม่</h3>
+      <form id="mediaForm">
+        <input type="hidden" id="mediaId" />
+        <div class="form-row">
+          <label>ชื่อสื่อ <span style="color:var(--color-danger);">*</span></label>
+          <input type="text" id="fTitle" required placeholder="เช่น วีดิทัศน์แนะนำคณะ" />
+        </div>
+        <div class="form-row">
+          <label>ประเภทสื่อ <span style="color:var(--color-danger);">*</span></label>
+          <select id="fMediaType" required>
+            <option value="video">วิดีโอ (YouTube)</option>
+            <option value="album">อัลบั้มภาพ</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>คำอธิบาย</label>
+          <textarea id="fDescription" placeholder="เขียนคำอธิบายสื่อ"></textarea>
+        </div>
+        <div class="form-row">
+          <label>วันที่เผยแพร่</label>
+          <input type="date" id="fPublishedDate" />
+        </div>
+        <div class="form-row">
+          <label>ลิงก์ YouTube (ถ้าเป็นวิดีโอ)</label>
+          <input type="url" id="fYoutubeUrl" placeholder="https://www.youtube.com/watch?v=..." />
+          <div class="help-text">วางลิงก์วิดีโอจาก YouTube เพื่อให้ผู้ใช้สามารถดูได้จากหน้าแกลเลอรี</div>
+        </div>
+        <div class="form-row">
+          <label>ลิงก์ภาพขนาดย่อ (thumbnail) (ตัวเลือก)</label>
+          <input type="url" id="fThumbnailUrl" placeholder="https://..." />
+        </div>
+        <div class="form-row">
+          <label>สถานะ</label>
+          <select id="fStatus">
+            <option value="published">เผยแพร่</option>
+            <option value="draft">ฉบับร่าง</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>ลิงก์แหล่งที่มา (ตัวเลือก)</label>
+          <input type="url" id="fSourceUrl" placeholder="https://..." />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/layout.js?v=1"></script>
+  <script>
+    const token = localStorage.getItem("sb-access-token");
+    const user = localStorage.getItem("sb-admin-user");
+    if (!token || !user) {
+      window.location.href = "login.html";
+    }
+
+    const modal = document.getElementById("mediaModal");
+    const form = document.getElementById("mediaForm");
+    const tbody = document.getElementById("mediaTableBody");
+    const noData = document.getElementById("noData");
+
+    window.openModal = function(editingId = null) {
+      document.getElementById("modalTitle").textContent = editingId ? "แก้ไขสื่อ" : "เพิ่มสื่อใหม่";
+      form.reset();
+      document.getElementById("mediaId").value = "";
+      document.getElementById("fStatus").value = "published";
+      if (editingId) loadMediaForEdit(editingId);
+      modal.classList.add("is-open");
+    };
+
+    window.closeModal = function() {
+      modal.classList.remove("is-open");
+    };
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    async function loadMedia() {
+      try {
+        const sb = window.getSupabase();
+        const { data } = await sb.from("media_gallery").select("*").order("published_date", { ascending: false });
+        renderMediaTable(data || []);
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = '<tr><td colspan="7" class="text-meta" style="color:var(--color-danger);">โหลดข้อมูลไม่สำเร็จ</td></tr>';
+      }
+    }
+
+    function renderMediaTable(rows) {
+      tbody.innerHTML = "";
+      if (!rows || rows.length === 0) {
+        noData.style.display = "block";
+        return;
+      }
+      noData.style.display = "none";
+      rows.forEach((m) => {
+        const isPub = m.status === "published";
+        const statusHtml = isPub
+          ? '<span style="background:var(--color-green-soft);color:var(--color-green);padding:0.1rem 0.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">เผยแพร่</span>'
+          : '<span style="background:#FEE2E2;color:var(--color-danger);padding:0.1rem 0.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">ฉบับร่าง</span>';
+        const typeBadge = m.media_type === "video"
+          ? '<span class="type-badge">วิดีโอ</span>'
+          : '<span class="type-badge">รูปภาพ</span>';
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${m.id}</td>
+          <td><strong>${m.title || "-"}</strong></td>
+          <td>${typeBadge}</td>
+          <td>${m.published_date || "-"}</td>
+          <td>${m.youtube_url || "-"}</td>
+          <td>${statusHtml}</td>
+          <td>
+            <button class="btn btn-outline" onclick="openModal(${m.id})" style="font-size:0.9rem;padding:0 0.6rem;height:auto;">แก้ไข</button>
+            <button class="btn-delete" onclick="deleteMedia(${m.id})" style="font-size:0.9rem;padding:0 0.6rem;height:auto;">ลบ</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function loadMediaForEdit(id) {
+      try {
+        const sb = window.getSupabase();
+        const { data } = await sb.from("media_gallery").select("*").eq("id", id).single();
+        if (!data) return;
+        document.getElementById("mediaId").value = data.id;
+        document.getElementById("fTitle").value = data.title || "";
+        document.getElementById("fMediaType").value = data.media_type || "video";
+        document.getElementById("fDescription").value = data.description || "";
+        document.getElementById("fPublishedDate").value = data.published_date ? data.published_date.split("T")[0] : "";
+        document.getElementById("fYoutubeUrl").value = data.youtube_url || "";
+        document.getElementById("fThumbnailUrl").value = data.thumbnail_url || "";
+        document.getElementById("fStatus").value = data.status || "published";
+        document.getElementById("fSourceUrl").value = data.source_url || "";
+      } catch (err) {
+        console.error(err);
+        alert("โหลดข้อมูลสื่อไม่สำเร็จ");
+      }
+    }
+
+    async function deleteMedia(id) {
+      if (!confirm("ยืนยันการลบสื่อนี้หรือไม่?")) return;
+      try {
+        const sb = window.getSupabase();
+        const { error } = await sb.from("media_gallery").delete().eq("id", id);
+        if (error) throw error;
+        loadMedia();
+      } catch (err) {
+        console.error(err);
+        alert("ลบข้อมูลไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("mediaId").value;
+      const row = {
+        media_type: document.getElementById("fMediaType").value,
+        title: document.getElementById("fTitle").value.trim(),
+        description: document.getElementById("fDescription").value.trim(),
+        published_date: document.getElementById("fPublishedDate").value,
+        youtube_url: document.getElementById("fYoutubeUrl").value.trim(),
+        thumbnail_url: document.getElementById("fThumbnailUrl").value.trim(),
+        status: document.getElementById("fStatus").value,
+        source_url: document.getElementById("fSourceUrl").value.trim(),
+      };
+      try {
+        const sb = window.getSupabase();
+        if (id) {
+          await sb.from("media_gallery").update(row).eq("id", parseInt(id));
+        } else {
+          await sb.from("media_gallery").insert([row]);
+        }
+        closeModal();
+        loadMedia();
+      } catch (err) {
+        console.error(err);
+        alert("บันทึกข้อมูลไม่สำเร็จ: " + err.message);
+      }
+    });
+
+    loadMedia();
+  </script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>จัดการทุนการศึกษา — BUU | FSS Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .admin-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .admin-table-wrap { overflow-x: auto; }
+    .admin-table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+    .admin-table th, .admin-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      vertical-align: top;
+    }
+    .admin-table th { background: var(--color-gray-bg); font-weight: 700; color: var(--color-gray-dark); white-space: nowrap; }
+    .status-select {
+      height: 44px;
+      padding: 0 0.6rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      background: var(--color-white);
+      cursor: pointer;
+    }
+    .btn-delete {
+      color: var(--color-danger);
+      background: #FEE2E2;
+      border: 1px solid var(--color-danger);
+      height: 44px;
+      padding: 0 0.75rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-delete:hover { background: var(--color-danger); color: var(--color-white); }
+    .empty-state { text-align: center; padding: 2rem; color: var(--color-gray-medium); }
+    .modal {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.4); display: none;
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal.is-open { display: flex; }
+    .modal-card {
+      background: var(--color-white);
+      border-radius: 10px;
+      width: 100%; max-width: 600px;
+      padding: 1.5rem; max-height: 90vh; overflow-y: auto;
+    }
+    .modal h3 { margin-top: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-gray-dark); margin-bottom: 1rem; }
+    .form-row { margin-bottom: 1rem; }
+    .form-row label { display: block; font-weight: 600; color: var(--color-gray-medium); margin-bottom: 0.4rem; font-size: 1rem; }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; height: 44px; padding: 0 0.75rem;
+      font-family: inherit; font-size: 1rem;
+      border: 1px solid var(--color-gray-light); border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .form-row textarea { height: auto; min-height: 100px; padding: 0.75rem; resize: vertical; }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+      border-color: var(--color-green); outline: none;
+    }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; }
+    .help-text { font-size: 0.85rem; color: var(--color-gray-medium); margin-top: 0.25rem; }
+  </style>
+</head>
+<body data-page="admin-scholarships">
+  <div id="site-header"></div>
+  <main class="page-main">
+    <div class="admin-toolbar">
+      <div>
+        <h1 style="font-size:1.25rem;font-weight:700;color:var(--color-gray-dark);margin:0;">จัดการทุนการศึกษาและทุนวิจัย</h1>
+      </div>
+      <button class="btn btn-primary" onclick="openModal()" style="height:44px;">+ เพิ่มทุนใหม่</button>
+    </div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th style="width:40px;">#</th>
+            <th>ชื่อทุน</th>
+            <th>ประเภททุน</th>
+            <th style="width:140px;">วันปิดรับ</th>
+            <th style="width:100px;">จำนวนเงิน</th>
+            <th style="width:100px;">สถานะ</th>
+            <th style="width:120px;">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody id="scholarshipTableBody">
+          <tr><td colspan="7" class="text-meta">กำลังโหลดข้อมูล...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p id="noData" class="empty-state" style="display:none;">ยังไม่มีทุนในระบบ</p>
+  </main>
+  <div id="site-footer"></div>
+
+  <div id="scholarshipModal" class="modal">
+    <div class="modal-card">
+      <h3 id="modalTitle">เพิ่มทุนใหม่</h3>
+      <form id="scholarshipForm">
+        <input type="hidden" id="scholarshipId" />
+        <div class="form-row">
+          <label>ชื่อทุน <span style="color:var(--color-danger);">*</span></label>
+          <input type="text" id="fTitle" required placeholder="เช่น ทุนส่งเสริมการศึกษานิสิต" />
+        </div>
+        <div class="form-row">
+          <label>ประเภททุน</label>
+          <input type="text" id="fType" placeholder="เช่น ทุนการศึกษาระดับปริญญาตรี" />
+        </div>
+        <div class="form-row">
+          <label>จำนวนเงิน (บาท)</label>
+          <input type="number" id="fAmount" placeholder="เช่น 5000" />
+        </div>
+        <div class="form-row">
+          <label>วันปิดรับสมัคร <span style="color:var(--color-danger);">*</span></label>
+          <input type="date" id="fDeadline" required />
+        </div>
+        <div class="form-row">
+          <label>คุณสมบัติและรายละเอียด <span style="color:var(--color-danger);">*</span></label>
+          <textarea id="fEligibility" required placeholder="เขียนคุณสมบัติผู้สมัคร"></textarea>
+        </div>
+        <div class="form-row">
+          <label>ชื่อไฟล์เอกสารแนบ (ตัวเลือก)</label>
+          <input type="text" id="fAttachment" placeholder="ใบสมัครทุน.pdf" />
+        </div>
+        <div class="form-row">
+          <label>ลิงก์แหล่งข้อมูล (ตัวเลือก)</label>
+          <input type="url" id="fSourceUrl" placeholder="https://..." />
+        </div>
+        <div class="form-row">
+          <label>สถานะ</label>
+          <select id="fStatus">
+            <option value="published">เผยแพร่</option>
+            <option value="draft">ฉบับร่าง</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/layout.js?v=1"></script>
+  <script>
+    const token = localStorage.getItem("sb-access-token");
+    const user = localStorage.getItem("sb-admin-user");
+    if (!token || !user) {
+      window.location.href = "login.html";
+    }
+
+    const modal = document.getElementById("scholarshipModal");
+    const form = document.getElementById("scholarshipForm");
+    const tbody = document.getElementById("scholarshipTableBody");
+    const noData = document.getElementById("noData");
+
+    window.openModal = function(editingId = null) {
+      document.getElementById("modalTitle").textContent = editingId ? "แก้ไขทุน" : "เพิ่มทุนใหม่";
+      form.reset();
+      document.getElementById("scholarshipId").value = "";
+      document.getElementById("fStatus").value = "published";
+      if (editingId) loadScholarshipForEdit(editingId);
+      modal.classList.add("is-open");
+    };
+
+    window.closeModal = function() {
+      modal.classList.remove("is-open");
+    };
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    async function loadScholarships() {
+      try {
+        const sb = window.getSupabase();
+        const { data } = await sb.from("scholarships").select("*").order("deadline", { ascending: true });
+        renderScholarshipsTable(data || []);
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = '<tr><td colspan="7" class="text-meta" style="color:var(--color-danger);">โหลดข้อมูลไม่สำเร็จ</td></tr>';
+      }
+    }
+
+    function renderScholarshipsTable(rows) {
+      tbody.innerHTML = "";
+      if (!rows || rows.length === 0) {
+        noData.style.display = "block";
+        return;
+      }
+      noData.style.display = "none";
+      rows.forEach((s) => {
+        const isPub = s.status === "published";
+        const statusHtml = isPub
+          ? '<span style="background:var(--color-green-soft);color:var(--color-green);padding:0.1rem 0.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">เผยแพร่</span>'
+          : '<span style="background:#FEE2E2;color:var(--color-danger);padding:0.1rem 0.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">ฉบับร่าง</span>';
+        const amount = s.amount_baht !== null ? s.amount_baht.toLocaleString() : "-";
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${s.id}</td>
+          <td><strong>${s.title || "-"}</strong></td>
+          <td>${s.scholarship_type || "-"}</td>
+          <td>${s.deadline || "-"}</td>
+          <td>${amount}</td>
+          <td>${statusHtml}</td>
+          <td>
+            <button class="btn btn-outline" onclick="openModal(${s.id})" style="font-size:0.9rem;padding:0 0.6rem;height:auto;">แก้ไข</button>
+            <button class="btn-delete" onclick="deleteScholarship(${s.id})" style="font-size:0.9rem;padding:0 0.6rem;height:auto;">ลบ</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function loadScholarshipForEdit(id) {
+      try {
+        const sb = window.getSupabase();
+        const { data } = await sb.from("scholarships").select("*").eq("id", id).single();
+        if (!data) return;
+        document.getElementById("scholarshipId").value = data.id;
+        document.getElementById("fTitle").value = data.title || "";
+        document.getElementById("fType").value = data.scholarship_type || "";
+        document.getElementById("fAmount").value = data.amount_baht || "";
+        document.getElementById("fDeadline").value = data.deadline ? data.deadline.split("T")[0] : "";
+        document.getElementById("fEligibility").value = data.eligibility || "";
+        document.getElementById("fAttachment").value = data.attachment_name || "";
+        document.getElementById("fSourceUrl").value = data.source_url || "";
+        document.getElementById("fStatus").value = data.status || "published";
+      } catch (err) {
+        console.error(err);
+        alert("โหลดข้อมูลทุนไม่สำเร็จ");
+      }
+    }
+
+    async function deleteScholarship(id) {
+      if (!confirm("ยืนยันการลบทุนนี้หรือไม่?")) return;
+      try {
+        const sb = window.getSupabase();
+        const { error } = await sb.from("scholarships").delete().eq("id", id);
+        if (error) throw error;
+        loadScholarships();
+      } catch (err) {
+        console.error(err);
+        alert("ลบข้อมูลไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("scholarshipId").value;
+      const row = {
+        title: document.getElementById("fTitle").value.trim(),
+        scholarship_type: document.getElementById("fType").value.trim(),
+        amount_baht: document.getElementById("fAmount").value ? parseInt(document.getElementById("fAmount").value) : null,
+        deadline: document.getElementById("fDeadline").value,
+        eligibility: document.getElementById("fEligibility").value.trim(),
+        attachment_name: document.getElementById("fAttachment").value.trim(),
+        source_url: document.getElementById("fSourceUrl").value.trim(),
+        status: document.getElementById("fStatus").value,
+      };
+      try {
+        const sb = window.getSupabase();
+        if (id) {
+          await sb.from("scholarships").update(row).eq("id", parseInt(id));
+        } else {
+          await sb.from("scholarships").insert([row]);
+        }
+        closeModal();
+        loadScholarships();
+      } catch (err) {
+        console.error(err);
+        alert("บันทึกข้อมูลไม่สำเร็จ: " + err.message);
+      }
+    });
+
+    loadScholarships();
+  </script>
+</body>
+</html>

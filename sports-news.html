@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ข่าวกีฬาและการแข่งขัน — BUU | FSS คณะวิทยาศาสตร์การกีฬา</title>
+  <meta name="description" content="ข่าวกีฬา ผลการแข่งขัน ตารางการแข่งขัน และข้อมูลนักกีฬาคณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body data-page="news">
+
+  <div id="site-header"></div>
+
+  <main class="page-main">
+
+    <p class="sample-notice">
+      ⚠️ หน้านี้กำลังแสดง<strong>ข้อมูลตัวอย่าง</strong>เพื่อการพัฒนา —
+      เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน
+    </p>
+
+    <!-- ============ หัวข้อหน้า ============ -->
+    <section class="content-section-card" aria-labelledby="page-title">
+      <div class="section-head gold">
+        <h1 id="page-title" class="text-section-title">ข่าวกีฬาและการแข่งขัน</h1>
+      </div>
+      <p class="text-meta">
+        รายงานผลการแข่งขัน ตารางการแข่งขันที่กำลังจะมาถึง และข้อมูลนักกีฬาของคณะ
+      </p>
+    </section>
+
+    <!-- ============ แท็บสลับหน้าใน ============ -->
+    <nav class="tab-nav" role="tablist" aria-label="หมวดข้อมูลกีฬา">
+      <button class="tab-btn is-active" data-tab="tab-news" role="tab" aria-selected="true">
+        ข่าวกีฬา
+      </button>
+      <button class="tab-btn" data-tab="tab-results" role="tab" aria-selected="false">
+        ผลการแข่งขัน
+      </button>
+      <button class="tab-btn" data-tab="tab-fixtures" role="tab" aria-selected="false">
+        ตารางการแข่งขัน
+      </button>
+      <button class="tab-btn" data-tab="tab-athletes" role="tab" aria-selected="false">
+        นักกีฬาคณะ
+      </button>
+    </nav>
+
+    <!-- ============ แท็บ 1 : ข่าวกีฬา ============ -->
+    <section id="tab-news" class="tab-panel is-active" role="tabpanel" aria-label="ข่าวกีฬา">
+      <div id="sports-news-list" class="news-grid"></div>
+    </section>
+
+    <!-- ============ แท็บ 2 : ผลการแข่งขัน ============ -->
+    <section id="tab-results" class="tab-panel" role="tabpanel" aria-label="ผลการแข่งขัน">
+      <div class="content-section-card">
+        <div class="section-head green">
+          <h2 class="text-section-title">ผลการแข่งขันล่าสุด</h2>
+        </div>
+        <div class="table-wrap">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th scope="col">กีฬา</th>
+                <th scope="col">รายการ</th>
+                <th scope="col">วันที่</th>
+                <th scope="col">คู่แข่ง</th>
+                <th scope="col">สกอร์</th>
+                <th scope="col">ผล</th>
+                <th scope="col">รอบ</th>
+              </tr>
+            </thead>
+            <tbody id="match-results-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ แท็บ 3 : ตารางการแข่งขัน ============ -->
+    <section id="tab-fixtures" class="tab-panel" role="tabpanel" aria-label="ตารางการแข่งขัน">
+      <div class="content-section-card">
+        <div class="section-head gold">
+          <h2 class="text-section-title">ตารางการแข่งขันที่กำลังจะมาถึง</h2>
+        </div>
+        <div id="match-fixtures-list"></div>
+      </div>
+    </section>
+
+    <!-- ============ แท็บ 4 : นักกีฬาคณะ ============ -->
+    <section id="tab-athletes" class="tab-panel" role="tabpanel" aria-label="นักกีฬาคณะ">
+      <div class="content-section-card">
+        <div class="section-head green">
+          <h2 class="text-section-title">นักกีฬาคณะวิทยาศาสตร์การกีฬา</h2>
+        </div>
+        <div id="athlete-list" class="athlete-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <!-- คลัง supabase-js จาก CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="js/layout.js?v=1"></script>
+  <script src="js/sample-data.js?v=1"></script>
+  <script src="js/data.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+  <script src="js/news.js?v=1"></script>
+
+</body>
+</html>

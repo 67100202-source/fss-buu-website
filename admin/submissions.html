@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ดูข้อความติดต่อ — BUU | FSS Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .admin-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .admin-table-wrap { overflow-x: auto; }
+    .admin-table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+    .admin-table th, .admin-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      vertical-align: top;
+    }
+    .admin-table th { background: var(--color-gray-bg); font-weight: 700; color: var(--color-gray-dark); white-space: nowrap; }
+    .status-badge {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.1rem 0.5rem;
+      border-radius: 6px;
+    }
+    .status-new { background: #FEE2E2; color: var(--color-danger); }
+    .status-read { background: var(--color-green-soft); color: var(--color-green); }
+    .type-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.1rem 0.5rem;
+      border-radius: 6px;
+      background: var(--color-gray-bg);
+      color: var(--color-gray-dark);
+    }
+    .empty-state { text-align: center; padding: 2rem; color: var(--color-gray-medium); }
+    .btn-mark-read {
+      background: var(--color-green);
+      color: var(--color-white);
+      border: none;
+      height: 44px;
+      padding: 0 0.75rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-mark-read:hover { background: #14542f; }
+  </style>
+</head>
+<body data-page="admin-submissions">
+  <div id="site-header"></div>
+  <main class="page-main">
+    <div class="admin-toolbar">
+      <div>
+        <h1 style="font-size:1.25rem;font-weight:700;color:var(--color-gray-dark);margin:0;">ข้อความจากแบบฟอร์มติดต่อ / สมัครกิจกรรม</h1>
+      </div>
+    </div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th style="width:40px;">#</th>
+            <th>ชื่อผู้ส่ง</th>
+            <th>อีเมล</th>
+            <th>ประเภท</th>
+            <th>หัวข้อ / กิจกรรม</th>
+            <th>ข้อความ</th>
+            <th style="width:100px;">สถานะ</th>
+            <th style="width:140px;">วันที่ส่ง</th>
+            <th style="width:100px;">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody id="submissionTableBody">
+          <tr><td colspan="9" class="text-meta">กำลังโหลดข้อมูล...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p id="noData" class="empty-state" style="display:none;">ไม่มีข้อความในระบบ</p>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/layout.js?v=1"></script>
+  <script>
+    const token = localStorage.getItem("sb-access-token");
+    const user = localStorage.getItem("sb-admin-user");
+    if (!token || !user) {
+      window.location.href = "login.html";
+    }
+
+    const tbody = document.getElementById("submissionTableBody");
+    const noData = document.getElementById("noData");
+
+    async function loadSubmissions() {
+      try {
+        const sb = window.getSupabase();
+        const { data } = await sb.from("form_submissions").select("*").order("created_at", { ascending: false });
+        renderSubmissionsTable(data || []);
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = '<tr><td colspan="9" class="text-meta" style="color:var(--color-danger);">โหลดข้อมูลไม่สำเร็จ</td></tr>';
+      }
+    }
+
+    function renderSubmissionsTable(rows) {
+      tbody.innerHTML = "";
+      if (!rows || rows.length === 0) {
+        noData.style.display = "block";
+        return;
+      }
+      noData.style.display = "none";
+      rows.forEach((s) => {
+        const isNew = s.is_new !== false;
+        const statusBadge = isNew
+          ? '<span class="status-badge status-new">ยังไม่ได้อ่าน</span>'
+          : '<span class="status-badge status-read">อ่านแล้ว</span>';
+        const typeBadge = s.submission_type === "activity_register"
+          ? '<span class="type-badge">สมัครกิจกรรม</span>'
+          : '<span class="type-badge">ติดต่อสอบถาม</span>';
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${s.id}</td>
+          <td><strong>${s.sender_name || "-"}</strong></td>
+          <td>${s.sender_email || "-"}</td>
+          <td>${typeBadge}</td>
+          <td>${s.subject_or_activity || "-"}</td>
+          <td style="max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.message || "-"}</td>
+          <td>${statusBadge}</td>
+          <td>${s.created_at || "-"}</td>
+          <td>
+            <button class="btn-mark-read" onclick="markRead(${s.id}, ${isNew})">${isNew ? "ทำเครื่องหมายอ่านแล้ว" : "ดูอีกครั้ง"}</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function markRead(id, isNew) {
+      if (!isNew) return;
+      try {
+        const sb = window.getSupabase();
+        const { error } = await sb.from("form_submissions").update({ is_new: false }).eq("id", id);
+        if (error) throw error;
+        loadSubmissions();
+      } catch (err) {
+        console.error(err);
+        alert("อัปเดตสถานะไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    loadSubmissions();
+  </script>
+</body>
+</html>

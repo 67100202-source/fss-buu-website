@@ -1,0 +1,33 @@
+# ระบบปฏิบัติการ
+.DS_Store
+Thumbs.db
+*.log
+
+# โฟลเดอร์และไฟล์ระบบ
+node_modules/
+.npm/
+.yarn/
+.env
+.env.local
+.env.*.local
+
+# IDE และเครื่องมือพัฒนา
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ไฟล์สำรองและชั่วคราว
+*.bak
+*.tmp
+*~
+
+# หน้าเว็บที่สร้างขึ้นแล้ว (ถ้ามี build output)
+dist/
+build/
+out/
+
+# ไฟล์ติดตั้งและซิป
+*.zip
+*.rar
+*.7z

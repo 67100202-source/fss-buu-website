@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เข้าสู่ระบบ Admin — BUU | FSS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .login-wrap {
+      min-height: calc(100vh - 60px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background-color: var(--color-gray-bg);
+    }
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .login-card h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-gray-dark);
+      margin: 0 0 1.5rem;
+      text-align: center;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-gray-medium);
+      margin-bottom: 0.4rem;
+    }
+    .form-group input {
+      width: 100%;
+      height: 44px;
+      padding: 0 0.75rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .form-group input:focus {
+      border-color: var(--color-green);
+      outline: none;
+    }
+    .btn-login {
+      width: 100%;
+      height: 44px;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .btn-login:hover { background-color: #14542f; }
+    .msg-error {
+      color: var(--color-danger);
+      font-size: 0.95rem;
+      text-align: center;
+      margin-top: 1rem;
+      display: none;
+    }
+    .logo-div {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .logo-div .logo-buu { color: var(--color-yellow); font-weight: 700; font-size: 1.25rem; }
+    .logo-div .logo-sep { color: var(--color-gray-light); margin: 0 0.25rem; }
+    .logo-div .logo-fss { color: var(--color-green); font-weight: 700; font-size: 1.25rem; }
+    .footer-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--color-gray-medium);
+    }
+  </style>
+</head>
+<body data-page="admin-login">
+  <div id="site-header"></div>
+  <main class="page-main">
+    <div class="login-wrap">
+      <div class="login-card">
+        <div class="logo-div">
+          <span class="logo-buu">BUU</span><span class="logo-sep">|</span><span class="logo-fss">FSS</span>
+        </div>
+        <h2>เข้าสู่ระบบผู้ดูแล</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">อีเมล</label>
+            <input type="email" id="email" placeholder="attaporns@go.buu.ac.th" required />
+          </div>
+          <div class="form-group">
+            <label for="password">รหัสผ่าน</label>
+            <input type="password" id="password" placeholder="กรุณาใส่รหัสผ่าน" required />
+          </div>
+          <button type="submit" class="btn-login">เข้าสู่ระบบ</button>
+        </form>
+        <p id="loginError" class="msg-error">อีเมลหรือรหัสผ่านไม่ถูกต้อง</p>
+        <p class="footer-note">สำหรับเจ้าหน้าที่คณะวิทยาศาสตร์การกีฬา เท่านั้น</p>
+      </div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/layout.js?v=1"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const errorBox = document.getElementById("loginError");
+      try {
+        const sb = window.getSupabase();
+        if (!sb) throw new Error("ยังไม่ได้ตั้งค่า Supabase");
+        const { data, error } = await sb.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        localStorage.setItem("sb-access-token", data.session.access_token);
+        localStorage.setItem("sb-admin-user", JSON.stringify({
+          email: data.user.email,
+          role: "admin",
+          full_name: data.user.user_metadata.full_name || data.user.email
+        }));
+        window.location.href = "dashboard.html";
+      } catch (err) {
+        errorBox.style.display = "block";
+        console.error("Login error:", err.message);
+      }
+    });
+  </script>
+</body>
+</html>

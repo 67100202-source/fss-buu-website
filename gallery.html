@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>คลังภาพและวิดีโอ — BUU | FSS คณะวิทยาศาสตร์การกีฬา</title>
+  <meta name="description" content="คลังภาพกิจกรรมและวิดีโอแนะนำคณะ คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .media-item {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .media-thumb {
+      aspect-ratio: 16 / 9;
+      background: var(--color-gray-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .media-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .media-thumb.video::after {
+      content: "▶";
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.5rem;
+      background: rgba(0,0,0,0.5);
+      color: var(--color-white);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .media-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-gray-medium);
+      font-size: 1rem;
+      text-align: center;
+    }
+    .media-body {
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .media-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-gray-dark);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .media-date {
+      font-size: 0.9rem;
+      color: var(--color-gray-medium);
+      margin: 0;
+    }
+    .media-type {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-green);
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+    .youtube-link {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.9rem;
+      color: var(--color-green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .youtube-link:hover {
+      text-decoration: underline;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--color-gray-medium);
+    }
+    @media (min-width: 640px) {
+      .media-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .media-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body data-page="gallery">
+
+  <!-- ส่วนหัวเว็บ ( สร้างอัตโนมัติโดย js/layout.js ) -->
+  <div id="site-header"></div>
+
+  <main class="page-main">
+
+    <!-- แถบเตือนข้อมูลตัวอย่าง -->
+    <p class="sample-notice">
+      ⚠️ หน้านี้กำลังแสดง<strong>ข้อมูลตัวอย่าง</strong>เพื่อการพัฒนา —
+      เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน
+    </p>
+
+    <section class="content-section-card" aria-labelledby="media-title">
+      <div class="section-head green">
+        <h1 id="media-title" class="text-section-title">คลังภาพและวิดีโอ</h1>
+      </div>
+      <p class="text-meta">
+        อัลบั้มภาพกิจกรรมและวิดีโอแนะนำคณะ (รองรับการฝังจาก YouTube)
+      </p>
+
+      <div id="media-list" class="media-grid"></div>
+      <p id="media-empty" class="empty-state" style="display:none;">ยังไม่มีสื่อในคลังค่ะ</p>
+    </section>
+
+  </main>
+
+  <!-- ส่วนท้ายเว็บ -->
+  <div id="site-footer"></div>
+
+  <!-- คลัง supabase-js จาก CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="js/layout.js?v=1"></script>
+  <script src="js/sample-data.js?v=1"></script>
+  <script src="js/data.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+  <script src="js/gallery.js?v=1"></script>
+
+</body>
+</html>

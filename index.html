@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BUU | FSS — คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา</title>
+  <meta name="description" content="เว็บไซต์คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา — ตารางเรียน ข่าวสาร ทุนการศึกษา และหลักสูตร" />
+
+  <!-- ฟอนต์ Noto Sans Thai จาก Google Fonts ( ตาม style_guide ) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- ไฟล์ CSS Design System -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="home">
+
+  <!-- =====================================================================
+       ส่วนหัวเว็บ ( สร้างอัตโนมัติโดย js/layout.js )
+       ===================================================================== -->
+  <div id="site-header"></div>
+
+  <!-- =====================================================================
+       เนื้อหาหลักของหน้าแรก ( แพทเทิร์นแบบ KMITL คงสีเดิม )
+       ===================================================================== -->
+  <main class="page-main">
+
+    <!-- แถบเตือนว่าเป็นข้อมูลตัวอย่าง ( ลบออกเมื่อเชื่อม Supabase แล้ว ) -->
+    <p class="sample-notice">
+      ⚠️ หน้านี้กำลังแสดง<strong>ข้อมูลตัวอย่าง</strong>เพื่อการพัฒนา —
+      เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน
+    </p>
+
+    <!-- ============ โซน Hero : สไลด์ Banner ด้านบนสุด ( แบบ KMITL ) ============ -->
+    <section class="hero-slider" aria-roledescription="carousel" aria-label="banner หลัก">
+      <div id="hero-track" class="hero-track"></div>
+
+      <!-- แถบควบคุมด้านล่าง ( จุดบอกสไลด์ ) ไม่บังตัวหนังสือ -->
+      <div class="hero-controls">
+        <div id="hero-dots" class="hero-dots" role="tablist" aria-label="เลือกสไลด์"></div>
+        <!-- คำใบ้ว่าให้ปัดสไลด์ ( จะหายไปเองใน 4 วินาที ) -->
+        <span id="hero-hint" class="hero-hint" aria-hidden="true">ปัดเพื่อเลื่อนสไลด์</span>
+      </div>
+    </section>
+
+    <!-- ============ ทางลัดตามกลุ่มผู้ใช้ ( Top resources แบบ KMITL ) ============ -->
+    <section class="content-section-card" aria-labelledby="quicklinks-title">
+      <div class="section-head green">
+        <h2 id="quicklinks-title" class="text-section-title">ทางลัดสำหรับคุณ</h2>
+      </div>
+      <div id="quicklinks-grid" class="quicklinks-grid"></div>
+    </section>
+
+    <!-- ============ ตารางไอคอนทางลัด ( แบบ Life in KMITL ) ============ -->
+    <section class="content-section-card" aria-labelledby="services-title">
+      <div class="section-head gold">
+        <h2 id="services-title" class="text-section-title">บริการและข้อมูลสำคัญ</h2>
+      </div>
+      <div id="services-grid" class="services-grid"></div>
+    </section>
+
+    <!-- ============ โซนที่ 2 : ตารางเรียน ( Above the Fold ตาม sitemap ) ============ -->
+    <section class="content-section-card" aria-labelledby="schedule-title">
+      <div class="section-head gold">
+        <h2 id="schedule-title" class="text-section-title">ตารางเรียนวันนี้</h2>
+        <a class="section-more" href="schedule.html">ดูทั้งหมด →</a>
+      </div>
+
+      <!-- ปุ่มเลือกชั้นปี ปี 1 - ปี 4 -->
+      <div class="year-tabs" role="tablist" aria-label="เลือกชั้นปี">
+        <button class="year-tab is-active" data-year="1" role="tab" aria-selected="true">ปี 1</button>
+        <button class="year-tab" data-year="2" role="tab" aria-selected="false">ปี 2</button>
+        <button class="year-tab" data-year="3" role="tab" aria-selected="false">ปี 3</button>
+        <button class="year-tab" data-year="4" role="tab" aria-selected="false">ปี 4</button>
+      </div>
+
+      <div id="schedule-list"></div>
+    </section>
+
+    <!-- ============ โซนที่ 3 : ประกาศด่วน + ข่าวสารล่าสุด ============ -->
+    <section class="content-section-card" aria-labelledby="news-title">
+      <div class="section-head green">
+        <h2 id="news-title" class="text-section-title">ข่าวสารล่าสุด</h2>
+        <a class="section-more" href="news.html">ดูทั้งหมด →</a>
+      </div>
+
+      <!-- ประกาศด่วน ( แถบเหลือง ) -->
+      <div id="urgent-list"></div>
+
+      <!-- รายการข่าว 3 รายการแรก -->
+      <div id="news-list"></div>
+    </section>
+
+    <!-- ============ กิจกรรมที่กำลังจะมาถึง ( badge วันที่แบบ KMITL ) ============ -->
+    <section class="content-section-card" aria-labelledby="activity-title">
+      <div class="section-head green">
+        <h2 id="activity-title" class="text-section-title">กิจกรรมที่กำลังจะมาถึง</h2>
+        <a class="section-more" href="schedule.html#calendar">ปฏิทิน →</a>
+      </div>
+      <div id="activity-list"></div>
+    </section>
+
+    <!-- ============ ไฮไลต์ข่าวกีฬา ( เข้าถึงหน้าที่ 3 ได้ใน 1 คลิก ) ============ -->
+    <section class="content-section-card" aria-labelledby="sports-title">
+      <div class="section-head gold">
+        <h2 id="sports-title" class="text-section-title">ไฮไลต์ข่าวกีฬา</h2>
+        <a class="section-more" href="sports-news.html">ดูทั้งหมด →</a>
+      </div>
+      <div id="sports-highlight-list"></div>
+      <a class="btn btn-primary" href="sports-news.html" style="margin-top: 0.5rem">
+        → ไปหน้าข่าวกีฬาและการแข่งขัน
+      </a>
+    </section>
+
+    <!-- ============ โซนที่ 4 : หลักสูตร/อาจารย์ + ทุน ( Mid-Page #1 ) ============ -->
+    <div class="two-col">
+      <section class="content-section-card" aria-labelledby="curriculum-title">
+        <div class="section-head green">
+          <h2 id="curriculum-title" class="text-section-title">หลักสูตรและอาจารย์</h2>
+          <a class="section-more" href="curriculum.html">ดูทั้งหมด →</a>
+        </div>
+        <div id="course-list"></div>
+        <div id="faculty-list"></div>
+      </section>
+
+      <section class="content-section-card" aria-labelledby="scholarship-title">
+        <div class="section-head gold">
+          <h2 id="scholarship-title" class="text-section-title">ประกาศทุนล่าสุด</h2>
+          <a class="section-more" href="scholarships.html">ดูทั้งหมด →</a>
+        </div>
+        <div id="scholarship-list"></div>
+      </section>
+    </div>
+
+    <!-- ============ โซนที่ 5 : ผลงาน + คลังสื่อ ( Mid-Page #2 ) ============ -->
+    <div class="two-col">
+      <section class="content-section-card" aria-labelledby="achievement-title">
+        <div class="section-head green">
+          <h2 id="achievement-title" class="text-section-title">ผลงานนิสิตและศิษย์เก่า</h2>
+          <a class="section-more" href="achievements.html">ดูทั้งหมด →</a>
+        </div>
+        <div id="achievement-list"></div>
+      </section>
+
+      <section class="content-section-card" aria-labelledby="media-title">
+        <div class="section-head gold">
+          <h2 id="media-title" class="text-section-title">คลังภาพและวิดีโอ</h2>
+          <a class="section-more" href="gallery.html">ดูทั้งหมด →</a>
+        </div>
+        <div id="media-list" class="gallery-grid"></div>
+      </section>
+    </div>
+
+    <!-- ============ แถบพันธมิตร ( Partners แบบ KMITL ) ============ -->
+    <section class="content-section-card" aria-labelledby="partners-title">
+      <div class="section-head gold">
+        <h2 id="partners-title" class="text-section-title">หน่วยงานที่เกี่ยวข้อง</h2>
+      </div>
+      <div id="partners-strip" class="partners-strip"></div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       ส่วนท้ายเว็บ ( สร้างอัตโนมัติโดย js/layout.js )
+       ===================================================================== -->
+  <div id="site-footer"></div>
+
+  <!-- คลัง supabase-js จาก CDN ( ใช้เมื่อเชื่อมฐานข้อมูลแล้ว ) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- สคริปต์ JavaScript: config ( คีย์ ) → layout ( Header/Footer ) → data ( ข้อมูล ) → app ( ตรรกะ ) -->
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="js/layout.js?v=1"></script>
+  <script src="js/sample-data.js?v=1"></script>
+  <script src="js/data.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+
+</body>
+</html>

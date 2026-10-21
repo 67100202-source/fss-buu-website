@@ -1,0 +1,1554 @@
+/* =====================================================================
+   ไฟล์: css/style.css
+   คู่มือการออกแบบรวม (Design System) ของเว็บไซต์ BUU | FSS
+   ตาม docs/style_guide.md — เขียนแบบ Mobile-First (มือถือก่อน จอใหญ่ทีหลัง)
+   กติกาสำคัญ: ตัวอักษร >= 16px, ปุ่ม >= 44px, ห้ามเลื่อนแนวนอนที่ 375px
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1) ตัวแปรสี (Color Tokens) — เอาจาก style_guide.md หัวข้อที่ 1
+   --------------------------------------------------------------------- */
+:root {
+  --color-yellow: #D9A404;        /* สีเหลืองทอง ม.บูรพา */
+  --color-yellow-soft: #FEF9E7;   /* เหลืองทองอ่อน (พื้นแจ้งเตือน) */
+  --color-green: #1B6B45;         /* สีเขียว คณะวิทย์กีฬา */
+  --color-green-soft: #ECFDF5;    /* เขียวอ่อน (พื้นตอนชี้/กด) */
+  --color-gray-dark: #1F2937;     /* เทาเข้ม = ตัวอักษรหลัก */
+  --color-gray-medium: #4B5563;   /* เทากลาง = ตัวอักษรรอง */
+  --color-gray-light: #E5E7EB;    /* เทาอ่อน = เส้นขอบ */
+  --color-gray-bg: #F9FAFB;       /* เทาพื้นหลังการ์ดย่อย */
+  --color-white: #FFFFFF;         /* ขาว = พื้นหลังหลัก */
+
+  --color-danger: #B91C1C;        /* สีแดงสำหรับข้อความเตือน/วันปิดรับใกล้หมด */
+
+  --header-height: 60px;          /* ความสูงแถบหัวเว็บแบบติดตรึง */
+  --page-max-width: 960px;        /* ความกว้างสูงสุดของเนื้อหาบนจอใหญ่ */
+}
+
+/* ---------------------------------------------------------------------
+   2) รีเซ็ตพื้นฐาน (Reset) — ป้องกันการเลื่อนแนวนอนและกล่องล้นขอบ
+   --------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;         /* ให้ padding ไม่ทำให้กล่องกว้างเกินจอ */
+}
+
+html {
+  -webkit-text-size-adjust: 100%; /* ป้องกัน iOS ซูมตัวอักษรเอง */
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1rem;                /* = 16px (ขั้นต่ำตามกติกา) */
+  line-height: 1.7;               /* กันสระ/วรรณยุกต์ภาษาไทยชนกัน */
+  color: var(--color-gray-dark);
+  background-color: var(--color-white);
+  overflow-x: hidden;             /* กันเลื่อนแนวนอน (ตัวสำรอง) */
+  overflow-wrap: break-word;      /* กันข้อความยาวทะลุกรอบ */
+}
+
+img {
+  max-width: 100%;                /* รูปห้ามกว้างเกินจอ */
+  height: auto;
+  display: block;
+}
+
+/* ลิงก์ทั้งหมดให้ตัดเส้นใต้สีเดียวกับข้อความ */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ซ่อน element ที่ใช้ toggle (เมนู/ช่องค้นหา) เมื่อปิด */
+[hidden] {
+  display: none !important;
+}
+
+/* ให้ element ที่聚焦 ตอนใช้คีย์บอร์ดเห็นขอบชัดเจน ( Accessibility ) */
+:focus-visible {
+  outline: 3px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* คลาส辅助: ซ่อนข้อความแต่ยังให้โปรแกรมอ่านจออ่านได้ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------
+   3) ระบบตัวอักษร (Typography) — หัวข้อที่ 2 ของ style_guide
+   --------------------------------------------------------------------- */
+.text-section-title {             /* หัวข้อหมวดหมู่ใหญ่ */
+  font-size: 1.05rem;             /* 16.8px */
+  font-weight: 700;
+  color: var(--color-gray-dark);
+  margin: 0 0 0.75rem;
+  line-height: 1.4;
+}
+
+.text-item-title {                /* หัวข้อรายการย่อย */
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.text-meta {                      /* ข้อความรอง/คำอธิบาย */
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-gray-medium);
+  margin: 0;
+}
+
+/* ป้ายกำกับ/เวลา (Tag / Badge) สีเขียว ตัวหนา */
+.badge {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-green);
+}
+
+/* ---------------------------------------------------------------------
+   4) ปุ่มกดและพื้นที่สัมผัส (Buttons & Touch Targets) — หัวข้อที่ 3
+   ทุกปุ่มสูงอย่างน้อย 44px
+   --------------------------------------------------------------------- */
+
+/* ปุ่มไอคอน (ค้นหา / ภาษา / เมนู) 44x44 */
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 1rem;                /* ขั้นต่ำ 16px ตามกติกา ( ค่า default ของ browser คือ 13.33px ) */
+  line-height: 1;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  color: var(--color-gray-dark);
+  cursor: pointer;
+  padding: 0;
+}
+.icon-btn:hover,
+.icon-btn[aria-expanded="true"] {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+/* ปุ่มกดหลัก (สีเขียว) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: center;
+}
+.btn-primary {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+.btn-primary:hover {
+  background-color: #14542f;
+}
+.btn-outline {
+  background-color: var(--color-white);
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+.btn-outline:hover {
+  background-color: var(--color-green-soft);
+}
+
+/* ---------------------------------------------------------------------
+   5) ส่วนหัวเว็บแบบติดตรึง (Sticky Header) — โซนที่ 1
+   --------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-light);
+}
+
+.header-inner {
+  height: 100%;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* โลโก้ BUU | FSS */
+.logo {
+  font-size: 1.125rem;            /* 18px */
+  font-weight: 700;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;               /* ให้กดได้เต็มที่ */
+}
+.logo .logo-buu { color: var(--color-yellow); }
+.logo .logo-sep { color: var(--color-gray-light); margin: 0 0.25rem; }
+.logo .logo-fss { color: var(--color-green); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ปุ่มสลับภาษา TH/EN แบบข้อความ */
+.lang-btn {
+  height: 44px;
+  min-width: 44px;
+  padding: 0 0.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-green);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.lang-btn:hover {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+}
+
+/* ---------------------------------------------------------------------
+   6) ช่องค้นหาภายในเว็บ (Search Drawer) — หัวข้อฟีเจอร์บังคับ 1
+   --------------------------------------------------------------------- */
+.search-drawer {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 90;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-light);
+  padding: 0.75rem;
+}
+
+.search-drawer-inner {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;                  /* กันล้น flex */
+  height: 44px;
+  padding: 0 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-gray-dark);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 8px;
+}
+.search-input:focus {
+  border-color: var(--color-green);
+  outline: none;
+}
+
+.search-results {
+  margin-top: 0.75rem;
+}
+.search-result-item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-gray-light);
+}
+.search-result-item .badge {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.search-empty {
+  color: var(--color-gray-medium);
+  padding: 0.6rem 0;
+}
+
+/* ---------------------------------------------------------------------
+   7) เมนูนำทาง (Nav Drawer แบบเลื่อนจากด้านข้าง) — 7 เมนูหลัก
+   --------------------------------------------------------------------- */
+/* ม่านดำโปร่งใสถ้าเปิดเมนู (ใช้ซ้ำกับ search ได้) */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(31, 41, 55, 0.5);
+  z-index: 110;
+}
+
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 82%;
+  max-width: 320px;
+  background-color: var(--color-white);
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-gray-light);
+}
+
+.nav-list {
+  padding: 0.75rem;
+  overflow-y: auto;              /* ให้เลื่อนแนวตั้งได้ถ้าเมนูเยอะ */
+}
+
+/* ปุ่มเมนูหลักแนวตั้ง กว้างเต็ม สูง >= 48px แถบเขียวซ้าย 4px */
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 0.75rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  background-color: var(--color-gray-bg);
+  border-left: 4px solid var(--color-green);
+  border-radius: 8px;
+}
+.nav-link:hover,
+.nav-link.is-active {
+  background-color: var(--color-green-soft);
+}
+.nav-link.is-active {
+  border-left-color: var(--color-yellow);
+}
+.nav-link .arrow { color: var(--color-gray-medium); }
+
+/* เมนูย่อย ( submenu ) */
+.nav-submenu {
+  margin: -0.25rem 0 0.5rem 1rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--color-gray-light);
+}
+.nav-submenu a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.5rem;
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+}
+.nav-submenu a:hover { color: var(--color-green); }
+
+/* ---------------------------------------------------------------------
+   8) เคย์หลักและโซนเนื้อหา (Main Layout)
+   --------------------------------------------------------------------- */
+.page-main {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0.75rem 0.75rem 2rem;
+}
+
+/* การ์ดหมวดหมู่หลัก ( .content-section-card ) */
+.content-section-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* หัวข้อหมวด + ป้ายสีด้านซ้าย ( Visual Icon Badge 4x18 ) */
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.section-head::before {
+  content: "";
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background-color: var(--color-gray-medium);
+  flex-shrink: 0;
+}
+.section-head.gold::before { background-color: var(--color-yellow); }
+.section-head.green::before { background-color: var(--color-green); }
+
+/* ป้าย "ดูทั้งหมด" */
+.section-more {
+  margin-left: auto;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-green);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---------------------------------------------------------------------
+   9) ปุ่มเลือกชั้นปี (Year Tabs ปี 1-4) — โซนที่ 2
+   --------------------------------------------------------------------- */
+.year-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.year-tab {
+  flex: 1;
+  min-width: 44px;
+  min-height: 44px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.year-tab:hover { background-color: var(--color-yellow-soft); }
+.year-tab.is-active {
+  background-color: var(--color-yellow);
+  border-color: var(--color-yellow);
+  font-weight: 700;
+  color: var(--color-gray-dark);
+}
+
+/* ---------------------------------------------------------------------
+   10) การ์ดรายการต่าง ๆ (Schedule / News / Info)
+   ใช้แถบสีซ้าย 4px แบ่งตามประเภทเนื้อหา
+   --------------------------------------------------------------------- */
+
+/* การ์ดตารางเรียน/กิจกรรม */
+.schedule-card,
+.news-card,
+.info-item {
+  background-color: var(--color-gray-bg);
+  border: 1px solid var(--color-gray-light);
+  border-left: 4px solid var(--color-green);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+.schedule-card { border-left-color: var(--color-yellow); }
+.info-item { border-left-color: var(--color-gray-medium); }
+
+.schedule-card .row-top,
+.news-card .row-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+.schedule-card .time {
+  font-weight: 700;
+  color: var(--color-green);
+  font-size: 1rem;
+}
+.schedule-card .subject { margin-bottom: 0.15rem; }
+.schedule-card .room,
+.news-card .meta {
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+}
+
+/* การ์ดข่าว ( แตะเปิดอ่านได้ ) */
+.news-card {
+  display: block;
+  background-color: var(--color-white);
+  min-height: 44px;
+}
+.news-card:hover {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+}
+/* สีแถบซ้ายแยกตามหมวดข่าว */
+.news-card.sports { border-left-color: var(--color-yellow); }
+.news-card.scholarship { border-left-color: var(--color-yellow); }
+.news-card.activity { border-left-color: var(--color-green); }
+.news-card.admission { border-left-color: var(--color-green); }
+.news-card.research { border-left-color: var(--color-gray-medium); }
+.news-card.urgent { border-left-color: var(--color-danger); }
+
+/* ประกาศด่วน ( แถบเหลืองอ่อน ) */
+.urgent-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: var(--color-yellow-soft);
+  border: 1px solid var(--color-yellow);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.6rem;
+  min-height: 44px;
+}
+.urgent-banner .badge { color: var(--color-danger); }
+
+/* ---------------------------------------------------------------------
+   11) คลังภาพแบบตาราง (Gallery Grid)
+   --------------------------------------------------------------------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* มือถือ = 2 คอลัมน์ */
+  gap: 0.5rem;
+}
+.gallery-item {
+  aspect-ratio: 4 / 3;            /* สัดส่วนรูป */
+  border-radius: 8px;
+  border: 1px solid var(--color-gray-light);
+  background-color: var(--color-gray-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-medium);
+  font-size: 1rem;
+  text-align: center;
+  padding: 0.5rem;
+  overflow: hidden;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------------------------------------------------------------------
+   12) ปุ่มเลื่อนสไลด์กิจกรรม (Activity strip) — แสดงแนวนอนบนมือถือ
+   --------------------------------------------------------------------- */
+.strip-scroll {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;              /* เลื่อนแนวนอนในกล่องนี้เท่านั้น */
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+.strip-scroll > * {
+  flex: 0 0 78%;                 /* การ์ดละ ~78% ให้เห็นใบถัดไปครึ่งใบ */
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------------------
+   13) ส่วนท้ายเว็บ (Footer) — โซนที่ 6
+   --------------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--color-gray-bg);
+  border-top: 1px solid var(--color-gray-light);
+  padding: 1.25rem 0.75rem 2rem;
+}
+.footer-inner {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+}
+.footer-group { margin-bottom: 1.25rem; }
+.footer-group h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+  color: var(--color-gray-dark);
+}
+.footer-group p,
+.footer-group a {
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+}
+.footer-group a:hover { color: var(--color-green); }
+
+/* ปุ่มโซเชียลมีเดีย 44x44 */
+.social-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+.social-btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid var(--color-gray-light);
+  background-color: var(--color-white);
+  color: var(--color-gray-medium);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.social-btn:hover {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+/* แถบเตือนว่าเป็นข้อมูลตัวอย่าง */
+.sample-notice {
+  background-color: var(--color-yellow-soft);
+  border: 1px dashed var(--color-yellow);
+  border-radius: 8px;
+  color: var(--color-gray-medium);
+  font-size: 1rem;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------------------------------------------------------------------
+   14) ปรับ layout เมื่อจอใหญ่ขึ้น ( Tablet >= 640px / Desktop >= 900px )
+   --------------------------------------------------------------------- */
+@media (min-width: 640px) {
+  /* คอลัมน์คู่สำหรับโซนการ์ด */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .two-col > * { margin-bottom: 0; }
+
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .strip-scroll > * { flex: 0 0 46%; }
+}
+
+@media (min-width: 900px) {
+  /* บนจอใหญ่ แสดงแถบเมนูหลักเป็นแนวนอน ไม่ต้องใช้ hamburger */
+  .menu-toggle { display: none; }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+  .desktop-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-gray-dark);
+    border-radius: 8px;
+  }
+  .desktop-nav a:hover { background-color: var(--color-green-soft); }
+  .desktop-nav a.is-active { color: var(--color-green); }
+
+  .page-main { padding-top: 1.25rem; }
+  .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+  .strip-scroll > * { flex: 0 0 30%; }
+}
+
+/* ซ่อนแถบเมนูเดสก์ท็อปไว้ก่อนบนมือถือ */
+.desktop-nav { display: none; }
+
+/* =====================================================================
+   15) คอมโพเนนต์สไตล์ใหม่ ( อ้างอิงแพทเทิร์นเว็บ KMITL )
+   คงชุดสีเดิมของโปรเจกต์ไว้ทั้งหมด
+   ===================================================================== */
+
+/* ---- 15.1 Hero Banner Slider ( แถบสไลด์ด้านบนสุด ) ---- */
+.hero-slider {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-gray-light);
+}
+
+.hero-track {
+  display: flex;
+  /* ให้สไลด์เลื่อนแบบลื่น ๆ */
+  transition: transform 0.5s ease;
+  /* อนุญาตให้ลาก/ปัดแนวนอนได้ ( แต่ยังเลื่อนหน้าแนวตั้งได้ตามปกติ ) */
+  touch-action: pan-y;
+  cursor: grab;
+}
+.hero-track.is-dragging {
+  transition: none;      /* ตอนกำลังปัด ไม่ต้องมี animation */
+  cursor: grabbing;
+}
+
+.hero-slide {
+  flex: 0 0 100%;               /* แต่ละสไลด์กว้างเต็มช่อง */
+  min-width: 0;
+  min-height: 200px;            /* ความสูงขั้นต่ำของสไลด์ */
+  padding: 1.25rem;
+  padding-bottom: 3rem;          /* เว้นที่ให้แถบควบคุมด้านล่างไม่ทับปุ่ม CTA */
+  display: flex;
+  flex-direction: column;
+  /* ยึดกลุ่มข้อความ + ปุ่ม CTA ชิดด้านล่าง เพื่อให้ปุ่มอยู่ตรงกับบล็อกข้อความ
+     และไม่ลอยขึ้นไปกลางสไลด์ */
+  justify-content: flex-end;
+  gap: 0.5rem;
+  color: var(--color-white);
+}
+
+/* พื้นหลังสไลด์ตาม theme ( เขียว / เหลือง / เทาเข้ม ) */
+.hero-slide.theme-green { background: linear-gradient(135deg, var(--color-green), #14542f); }
+.hero-slide.theme-gold { background: linear-gradient(135deg, var(--color-yellow), #b38603); }
+.hero-slide.theme-dark { background: linear-gradient(135deg, var(--color-gray-dark), #000000); }
+
+.hero-tag {
+  display: inline-block;
+  align-self: flex-start;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  padding: 0.1rem 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.hero-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+}
+.hero-subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.95;
+}
+.hero-cta {
+  margin-top: 0.4rem;
+  align-self: flex-start;
+  /* ใช้ inline-flex + จัดกึ่งกลาง เพื่อให้ข้อความในปุ่มอยู่กลางแนวตั้งพอดี
+     ไม่ถูกดันขึ้นบนจาก min-height */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  color: var(--color-gray-dark);
+  border: none;
+  border-radius: 8px;
+  padding: 0 1rem;
+  min-height: 44px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.7;
+  cursor: pointer;
+}
+.hero-cta:hover { background-color: var(--color-yellow-soft); }
+
+/* แถบควบคุมด้านล่างของสไลด์ ( จุด + คำใบ้ปัดสไลด์ )
+   ย้ายมาไว้มุมล่างเพื่อไม่บังตัวหนังสือและรูปภาพ */
+.hero-controls {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.6rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* คำใบ้ "ปัดเพื่อเลื่อนสไลด์" — จะหายไปเองใน 4 วินาที */
+.hero-hint {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 0.15rem 0.7rem;
+  transition: opacity 0.4s ease;
+}
+.hero-hint.is-hidden { opacity: 0; }
+
+/* จุดบอกสไลด์ ( dots )
+   ปุ่มมีขนาด 44x44 จริง ( โปร่งใส ) เพื่อให้กดง่ายบนมือถือ
+   แล้ววาดจุดกลมขนาด 10px ทับอีกทีด้วย ::before */
+.hero-dots {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.hero-dot {
+  position: relative;
+  width: 44px;    /* พื้นที่กดขั้นต่ำ 44x44 ตามกติกา style guide */
+  height: 44px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.hero-dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;    /* ขนาดจุดที่มองเห็น */
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.hero-dot.is-active::before { background-color: var(--color-white); }
+
+/* ---- 15.2 การ์ดทางลัดตามกลุ่มผู้ใช้ ( Top resources ) ---- */
+.quicklinks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* มือถือ = 2 คอลัมน์ */
+  gap: 0.6rem;
+}
+.quicklink-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  min-height: 88px;
+  padding: 0.75rem;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-left: 4px solid var(--color-green);
+  border-radius: 10px;
+}
+.quicklink-card:nth-child(odd) { border-left-color: var(--color-yellow); }
+.quicklink-card:hover {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+}
+.quicklink-card .ql-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-gray-dark);
+}
+.quicklink-card .ql-desc {
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+}
+
+/* ---- 15.3 badge วันที่กิจกรรม ( แบบเดือน/วัน/ปี ของ KMITL ) ---- */
+.event-card {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  background-color: var(--color-gray-bg);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  padding: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+.event-date {
+  flex-shrink: 0;
+  width: 64px;
+  text-align: center;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-top: 4px solid var(--color-yellow);
+  border-radius: 8px;
+  padding: 0.35rem 0;
+}
+.event-date .ev-month {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-green);
+  text-transform: uppercase;
+}
+.event-date .ev-day {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-gray-dark);
+}
+.event-date .ev-year {
+  display: block;
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+}
+.event-info .ev-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  margin: 0 0 0.15rem;
+}
+.event-info .ev-place {
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+  margin: 0;
+}
+
+/* ---- 15.4 ตารางไอคอนทางลัด ( แบบ Life in KMITL ) ---- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* มือถือ = 3 คอลัมน์ */
+  gap: 0.6rem;
+}
+.service-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 96px;
+  padding: 0.6rem;
+  text-align: center;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+}
+.service-tile:hover {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+}
+.service-icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-yellow-soft);
+  color: var(--color-green);
+}
+.service-tile .svc-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+}
+
+/* ---- 15.5 แถบพันธมิตร ( Partners ) ---- */
+.partners-strip {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+.partner-item {
+  flex: 0 0 auto;
+  min-width: 140px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 0.6rem;
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 8px;
+}
+
+/* ---- 15.6 ปรับ responsive ของคอมโพเนนต์ใหม่ ---- */
+@media (min-width: 640px) {
+  .hero-slide { min-height: 260px; padding: 2rem; padding-bottom: 3.25rem; }
+  .hero-title { font-size: 1.6rem; }
+  .quicklinks-grid { grid-template-columns: repeat(4, 1fr); }
+  .services-grid { grid-template-columns: repeat(6, 1fr); }
+}
+@media (min-width: 900px) {
+  .hero-slide { min-height: 320px; padding: 2.5rem; padding-bottom: 3.5rem; }
+  .hero-title { font-size: 2rem; }
+}
+
+/* =====================================================================
+   16) หน้าตารางเรียนและปฏิทิน ( Schedule & Calendar )
+   ===================================================================== */
+
+/* ---- 16.1 แถบหัวปฏิทิน ( เดือน + ปุ่มเลื่อนเดือน ) ---- */
+.cal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.cal-month-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-gray-dark);
+  text-align: center;
+  flex: 1;
+}
+.cal-nav-btn {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  color: var(--color-gray-dark);
+  cursor: pointer;
+}
+.cal-nav-btn:hover {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+.cal-nav-btn svg { width: 18px; height: 18px; }
+
+/* ---- 16.2 ตารางปฏิทิน ( 7 คอลัมน์ อา.-ส. ) ---- */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  background-color: var(--color-gray-light);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* หัวตาราง ชื่อวัน */
+.cal-head {
+  background-color: var(--color-gray-bg);
+  padding: 0.4rem 0.2rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-gray-dark);
+}
+.cal-head.is-weekend { color: var(--color-danger); }
+
+/* ช่องวันที่ */
+.cal-cell {
+  background-color: var(--color-white);
+  min-height: 56px;
+  padding: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding-top: 0.3rem;
+}
+.cal-cell.is-empty {
+  background-color: var(--color-gray-bg);
+  cursor: default;
+}
+.cal-cell.is-other-month .cal-daynum { color: var(--color-gray-light); }
+.cal-cell.is-weekend .cal-daynum { color: var(--color-danger); }
+.cal-cell.is-today .cal-daynum {
+  background-color: var(--color-green);
+  color: var(--color-white);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.cal-cell.is-selected {
+  background-color: var(--color-green-soft);
+  box-shadow: inset 0 0 0 2px var(--color-green);
+}
+.cal-daynum {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* จุดบอกว่าวันนั้นมีกิจกรรม */
+.cal-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-yellow);
+}
+.cal-cell.has-event { background-color: var(--color-yellow-soft); }
+.cal-cell.has-event.is-selected { background-color: var(--color-green-soft); }
+
+/* ---- 16.3 รายละเอียดกิจกรรมที่เลือก ---- */
+.cal-detail {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background-color: var(--color-gray-bg);
+  border: 1px solid var(--color-gray-light);
+  border-left: 4px solid var(--color-yellow);
+  border-radius: 8px;
+}
+.cal-detail-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-gray-dark);
+  margin: 0 0 0.4rem;
+}
+.cal-detail-row {
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+  margin: 0 0 0.15rem;
+}
+
+/* ---- 16.4 ปุ่มเพิ่มลงใน Google Calendar ( ฟีเจอร์เสริม: แจ้งเตือนกิจกรรม ) ---- */
+.btn-calendar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding: 0 0.9rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-green);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-green);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+.btn-calendar:hover { background-color: var(--color-green-soft); }
+.btn-calendar svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* ---- 16.5 ตารางเรียนแบบตาราง ( Table ) ---- */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;              /* ให้ตารางเลื่อนแนวนอนได้ในตัวเอง ไม่ทำให้ทั้งหน้าเลื่อน */
+  -webkit-overflow-scrolling: touch;
+}
+.schedule-table {
+  width: 100%;
+  min-width: 480px;              /* บังคับความกว้างขั้นต่ำ ให้เลื่อนดูได้ */
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+.schedule-table th,
+.schedule-table td {
+  padding: 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-gray-light);
+  vertical-align: top;
+}
+.schedule-table th {
+  background-color: var(--color-gray-bg);
+  font-weight: 700;
+  color: var(--color-gray-dark);
+  white-space: nowrap;
+}
+.schedule-table td { color: var(--color-gray-medium); }
+.schedule-table .time { font-weight: 700; color: var(--color-green); white-space: nowrap; }
+
+/* ---- 16.6 รายการกิจกรรมทั้งหมดในเดือน ---- */
+.activity-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-left: 4px solid var(--color-green);
+  border-radius: 8px;
+  padding: 0.7rem;
+  margin-bottom: 0.6rem;
+}
+.activity-item .act-body { flex: 1; min-width: 0; }
+.activity-item .act-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  margin: 0 0 0.2rem;
+}
+.activity-item .act-meta {
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+  margin: 0;
+}
+
+/* =====================================================================
+   17) หน้าข่าวสารและกิจกรรม ( News )
+   ===================================================================== */
+
+/* ---- 17.1 ปุ่มกรองหมวดหมู่ข่าว ---- */
+.news-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.filter-chip {
+  min-height: 44px;
+  padding: 0 0.85rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 22px;
+  cursor: pointer;
+}
+.filter-chip:hover {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+}
+.filter-chip.is-active {
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: var(--color-white);
+}
+
+/* ---- 17.2 การ์ดข่าวแบบมีภาพประกอบ ---- */
+.news-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+.news-item {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 44px;
+}
+.news-item:hover {
+  border-color: var(--color-green);
+  box-shadow: 0 2px 8px rgba(27, 107, 69, 0.12);
+}
+
+/* ภาพประกอบ ( ใช้ placeholder สีตามหมวด เพราะยังไม่มีรูปจริง ) */
+.news-thumb {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-green), #14542f);
+  position: relative;
+}
+.news-thumb.theme-gold { background: linear-gradient(135deg, var(--color-yellow), #b38603); }
+.news-thumb.theme-dark { background: linear-gradient(135deg, var(--color-gray-dark), #000000); }
+.news-thumb .thumb-tag {
+  background-color: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 6px;
+  padding: 0.15rem 0.6rem;
+}
+
+.news-item-body { padding: 0.75rem; }
+.news-item .ni-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.3rem;
+}
+.news-item .ni-cat {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-green);
+}
+.news-item .ni-date {
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+}
+.news-item .ni-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  margin: 0 0 0.3rem;
+  line-height: 1.5;
+}
+.news-item .ni-excerpt {
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+  margin: 0;
+}
+.news-item .ni-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-gray-light);
+}
+.news-item .ni-author { font-size: 1rem; color: var(--color-gray-medium); }
+.news-item .ni-readtime { font-size: 1rem; color: var(--color-gray-medium); }
+
+/* ---- 17.3 ปุ่มแชร์ไปโซเชียลมีเดีย ( ฟีเจอร์บังคับ ) ---- */
+.share-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.share-label { font-size: 1rem; color: var(--color-gray-medium); }
+.share-btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  color: var(--color-gray-medium);
+  cursor: pointer;
+}
+.share-btn:hover {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+.share-btn svg { width: 18px; height: 18px; }
+
+/* ปุ่มคัดลอกลิงก์ */
+.share-btn.is-copied {
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: var(--color-white);
+}
+
+/* ---- 17.4 เลขหน้า ( Pagination ) ---- */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+.page-btn {
+  min-width: 44px;
+  height: 44px;
+  padding: 0 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.page-btn:hover:not(:disabled) {
+  background-color: var(--color-green-soft);
+  border-color: var(--color-green);
+}
+.page-btn.is-active {
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: var(--color-white);
+}
+.page-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ---- 17.5 หน้าอ่านข่าว ( News Detail ) ---- */
+.article-head {
+  border-bottom: 1px solid var(--color-gray-light);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+.article-cat {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-green);
+  background-color: var(--color-green-soft);
+  border-radius: 6px;
+  padding: 0.1rem 0.6rem;
+  margin-bottom: 0.5rem;
+}
+.article-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--color-gray-dark);
+  margin: 0 0 0.5rem;
+}
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  color: var(--color-gray-medium);
+}
+.article-hero {
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--color-green), #14542f);
+}
+.article-hero.theme-gold { background: linear-gradient(135deg, var(--color-yellow), #b38603); }
+.article-hero.theme-dark { background: linear-gradient(135deg, var(--color-gray-dark), #000000); }
+
+/* เนื้อหาข่าว : แต่ละย่อหน้าเป็น <p> */
+.article-body p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-gray-dark);
+  margin: 0 0 0.9rem;
+}
+.article-body p:first-child {
+  font-weight: 500;
+  color: var(--color-gray-dark);
+}
+
+/* กล่องแชร์ใต้เนื้อหาข่าว */
+.article-share-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background-color: var(--color-gray-bg);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin: 1rem 0;
+}
+
+/* ---- 17.6 ตารางผลการแข่งขัน ---- */
+.result-badge {
+  display: inline-block;
+  min-width: 52px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 0.1rem 0.5rem;
+}
+.result-badge.win { background-color: var(--color-green-soft); color: var(--color-green); }
+.result-badge.draw { background-color: var(--color-yellow-soft); color: #8a6800; }
+.result-badge.loss { background-color: #FEE2E2; color: var(--color-danger); }
+
+/* ---- 17.7 การ์ดนักกีฬา ---- */
+.athlete-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+}
+.athlete-card {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  padding: 0.6rem;
+}
+.athlete-avatar {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-yellow-soft);
+  color: var(--color-green);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.athlete-info { min-width: 0; }
+.athlete-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  margin: 0;
+}
+.athlete-sport { font-size: 1rem; color: var(--color-gray-medium); margin: 0; }
+
+/* ---- 17.8 แท็บสลับหน้าใน ( Tabs ) ---- */
+.tab-nav {
+  display: flex;
+  gap: 0.3rem;
+  border-bottom: 2px solid var(--color-gray-light);
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.tab-btn {
+  min-height: 44px;
+  padding: 0 0.8rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-medium);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--color-green); }
+.tab-btn.is-active {
+  color: var(--color-green);
+  border-bottom-color: var(--color-green);
+}
+.tab-panel { display: none; }
+.tab-panel.is-active { display: block; }
+
+/* ---- 17.9 ปรับ responsive ของหน้าข่าว ---- */
+@media (min-width: 640px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+  .athlete-grid { grid-template-columns: repeat(3, 1fr); }
+  .article-title { font-size: 1.5rem; }
+}
+@media (min-width: 900px) {
+  .news-grid { grid-template-columns: repeat(3, 1fr); }
+  .athlete-grid { grid-template-columns: repeat(6, 1fr); }
+  .article-title { font-size: 1.75rem; }
+}

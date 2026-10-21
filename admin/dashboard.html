@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — BUU | FSS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .admin-header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-gray-dark);
+      margin: 0;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .stat-card.green { border-top: 4px solid var(--color-green); }
+    .stat-card.gold { border-top: 4px solid var(--color-yellow); }
+    .stat-number {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--color-gray-dark);
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--color-gray-medium);
+      display: block;
+    }
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      height: 56px;
+      padding: 0 1rem;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-gray-dark);
+      cursor: pointer;
+      text-align: left;
+      text-decoration: none;
+    }
+    .action-btn:hover { background: var(--color-green-soft); border-color: var(--color-green); color: var(--color-green); }
+    .action-btn.primary { background: var(--color-green); color: var(--color-white); border-color: var(--color-green); }
+    .action-btn.primary:hover { background: #14542f; }
+    .recent-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+    .recent-table th, .recent-table td {
+      padding: 0.6rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+    .recent-table th { background: var(--color-gray-bg); font-weight: 700; color: var(--color-gray-dark); white-space: nowrap; }
+    .badge-draft { background: #FEE2E2; color: #B91C1C; padding: 0.1rem 0.5rem; border-radius: 6px; font-size: 0.85rem; font-weight: 700; }
+    .badge-pub { background: var(--color-green-soft); color: var(--color-green); padding: 0.1rem 0.5rem; border-radius: 6px; font-size: 0.85rem; font-weight: 700; }
+    @media (min-width: 640px) {
+      .stat-grid { grid-template-columns: repeat(4, 1fr); }
+      .quick-actions { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body data-page="admin-dashboard">
+  <div id="site-header"></div>
+  <main class="page-main">
+    <div class="admin-header">
+      <h1>ภาพรวมระบบผู้ดูแล</h1>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span id="adminUser" class="text-meta"></span>
+        <a href="login.html" class="btn btn-outline" style="height:44px;">ออกจากระบบ</a>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card green">
+        <div>
+          <span class="stat-number" id="statNews">-</span>
+          <span class="stat-label">ข่าวสารทั้งหมด</span>
+        </div>
+      </div>
+      <div class="stat-card green">
+        <div>
+          <span class="stat-number" id="statEvents">-</span>
+          <span class="stat-label">กิจกรรมทั้งหมด</span>
+        </div>
+      </div>
+      <div class="stat-card gold">
+        <div>
+          <span class="stat-number" id="statScholarships">-</span>
+          <span class="stat-label">ประกาศทุนทั้งหมด</span>
+        </div>
+      </div>
+      <div class="stat-card gold">
+        <div>
+          <span class="stat-number" id="statSubmissions">-</span>
+          <span class="stat-label">ข้อความใหม่จากฟอร์ม</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <a href="news.html" class="action-btn primary">จัดการข่าวสาร</a>
+      <a href="activities.html" class="action-btn">จัดการกิจกรรม</a>
+      <a href="scholarships.html" class="action-btn">จัดการทุนการศึกษา</a>
+      <a href="media.html" class="action-btn">จัดการคลังสื่อ</a>
+      <a href="submissions.html" class="action-btn">ดูข้อความติดต่อ</a>
+    </div>
+
+    <section class="content-section-card">
+      <div class="section-head green">
+        <h2 class="text-section-title">ข่าวสารล่าสุด</h2>
+      </div>
+      <table class="recent-table">
+        <thead>
+          <tr>
+            <th>หัวข้อข่าว</th>
+            <th>หมวดหมู่</th>
+            <th>สถานะ</th>
+            <th>วันที่</th>
+            <th>จัดการ</th>
+          </tr>
+        </thead>
+        <tbody id="recentNewsBody">
+          <tr><td colspan="5" class="text-meta">กำลังโหลด...</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/layout.js?v=1"></script>
+  <script>
+    // ตรวจสอบการล็อกอิน
+    const token = localStorage.getItem("sb-access-token");
+    const user = localStorage.getItem("sb-admin-user");
+    if (!token || !user) {
+      window.location.href = "login.html";
+    }
+    document.getElementById("adminUser").textContent = "เข้าสู่ระบบในฐานะ: " + (JSON.parse(user).email || "");
+
+    async function loadDashboard() {
+      try {
+        const sb = window.getSupabase();
+        if (!sb) throw new Error("ยังไม่ได้ตั้งค่า Supabase");
+
+        const [news, events, scholarships, submissions] = await Promise.all([
+          sb.from("news_articles").select("*"),
+          sb.from("calendar_events").select("*"),
+          sb.from("scholarships").select("*"),
+          sb.from("form_submissions").select("*").eq("is_new", true).order("created_at", { ascending: false }),
+        ]);
+
+        document.getElementById("statNews").textContent = (news.data || []).length;
+        document.getElementById("statEvents").textContent = (events.data || []).length;
+        document.getElementById("statScholarships").textContent = (scholarships.data || []).length;
+        document.getElementById("statSubmissions").textContent = (submissions.data || []).length;
+
+        const tbody = document.getElementById("recentNewsBody");
+        tbody.innerHTML = "";
+        (news.data || []).slice(0, 5).forEach((n) => {
+          const isPub = n.status === "published";
+          const badge = isPub
+            ? '<span class="badge-pub">เผยแพร่</span>'
+            : '<span class="badge-draft">ฉบับร่าง</span>';
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${n.title || "-"}</td>
+            <td>${n.category || "-"}</td>
+            <td>${badge}</td>
+            <td>${n.published_date || n.created_at || "-"}</td>
+            <td><a href="news.html?id=${n.id}" class="btn btn-outline" style="font-size:0.9rem;padding:0 0.5rem;">แก้ไข</a></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error(err);
+        document.getElementById("recentNewsBody").innerHTML =
+          '<tr><td colspan="5" class="text-meta" style="color:var(--color-danger);">โหลดข้อมูลไม่สำเร็จ</td></tr>';
+      }
+    }
+    loadDashboard();
+  </script>
+</body>
+</html>

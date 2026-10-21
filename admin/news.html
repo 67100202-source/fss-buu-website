@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>จัดการข่าวสาร — BUU | FSS Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .admin-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .admin-table-wrap { overflow-x: auto; }
+    .admin-table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+    .admin-table th, .admin-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      vertical-align: top;
+    }
+    .admin-table th { background: var(--color-gray-bg); font-weight: 700; color: var(--color-gray-dark); white-space: nowrap; }
+    .status-select {
+      height: 44px;
+      padding: 0 0.6rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      background: var(--color-white);
+      cursor: pointer;
+    }
+    .btn-delete {
+      color: var(--color-danger);
+      background: #FEE2E2;
+      border: 1px solid var(--color-danger);
+      height: 44px;
+      padding: 0 0.75rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-delete:hover { background: var(--color-danger); color: var(--color-white); }
+    .empty-state { text-align: center; padding: 2rem; color: var(--color-gray-medium); }
+    .modal {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.4); display: none;
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal.is-open { display: flex; }
+    .modal-card {
+      background: var(--color-white);
+      border-radius: 10px;
+      width: 100%; max-width: 600px;
+      padding: 1.5rem; max-height: 90vh; overflow-y: auto;
+    }
+    .modal h3 { margin-top: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-gray-dark); margin-bottom: 1rem; }
+    .form-row { margin-bottom: 1rem; }
+    .form-row label { display: block; font-weight: 600; color: var(--color-gray-medium); margin-bottom: 0.4rem; font-size: 1rem; }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; height: 44px; padding: 0 0.75rem;
+      font-family: inherit; font-size: 1rem;
+      border: 1px solid var(--color-gray-light); border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .form-row textarea { height: auto; min-height: 100px; padding: 0.75rem; resize: vertical; }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+      border-color: var(--color-green); outline: none;
+    }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; }
+    .help-text { font-size: 0.85rem; color: var(--color-gray-medium); margin-top: 0.25rem; }
+  </style>
+</head>
+<body data-page="admin-news">
+  <div id="site-header"></div>
+  <main class="page-main">
+    <div class="admin-toolbar">
+      <div>
+        <h1 style="font-size:1.25rem;font-weight:700;color:var(--color-gray-dark);margin:0;">จัดการข่าวสารและกิจกรรม</h1>
+      </div>
+      <button class="btn btn-primary" onclick="openModal()" style="height:44px;">+ เพิ่มข่าวใหม่</button>
+    </div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th style="width:40px;">#</th>
+            <th>หัวข้อข่าว</th>
+            <th>หมวดหมู่</th>
+            <th style="width:120px;">สถานะ</th>
+            <th style="width:120px;">วันที่เผยแพร่</th>
+            <th style="width:140px;">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody id="newsTableBody">
+          <tr><td colspan="6" class="text-meta">กำลังโหลดข้อมูล...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p id="noData" class="empty-state" style="display:none;">ยังไม่มีข่าวสารในระบบ</p>
+  </main>
+  <div id="site-footer"></div>
+
+  <div id="newsModal" class="modal">
+    <div class="modal-card">
+      <h3 id="modalTitle">เพิ่มข่าวใหม่</h3>
+      <form id="newsForm">
+        <input type="hidden" id="newsId" />
+        <div class="form-row">
+          <label>หัวข้อข่าว <span style="color:var(--color-danger);">*</span></label>
+          <input type="text" id="fTitle" required placeholder="เช่น เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569" />
+        </div>
+        <div class="form-row">
+          <label>หมวดหมู่</label>
+          <select id="fCategory">
+            <option value="ข่าวสารและกิจกรรมคณะ">ข่าวสารและกิจกรรมคณะ</option>
+            <option value="ข่าวกีฬาและการแข่งขัน">ข่าวกีฬาและการแข่งขัน</option>
+            <option value="ความร่วมมือและงานวิจัย">ความร่วมมือและงานวิจัย</option>
+            <option value="ประกาศด่วน">ประกาศด่วน</option>
+            <option value="ทุน">ทุน</option>
+            <option value="กิจกรรม">กิจกรรม</option>
+            <option value="รับสมัคร">รับสมัคร</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>สาระสั้น (Summary)</label>
+          <textarea id="fSummary" required placeholder="เขียนสรุปข่าวสั้น ๆ"></textarea>
+          <div class="help-text">ใช้แสดงในรายการข่าวและหน้าแรก</div>
+        </div>
+        <div class="form-row">
+          <label>เนื้อหาเต็ม (Content)</label>
+          <textarea id="fContent" required placeholder="เขียนเนื้อหาข่าวแบบละเอียด"></textarea>
+        </div>
+        <div class="form-row">
+          <label>สถานะ</label>
+          <select id="fStatus">
+            <option value="published">เผยแพร่ (Published)</option>
+            <option value="draft">ฉบับร่าง (Draft)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>วันที่เผยแพร่</label>
+          <input type="date" id="fDate" required />
+        </div>
+        <div class="form-row">
+          <label>ผู้เขียน</label>
+          <input type="text" id="fAuthor" value="งานประชาสัมพันธ์คณะ" />
+        </div>
+        <div class="form-row">
+          <label>ลิงก์แหล่งที่มา (ตัวเลือก)</label>
+          <input type="url" id="fSourceUrl" placeholder="https://..." />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/layout.js?v=1"></script>
+  <script>
+    // ตรวจสอบการล็อกอิน
+    const token = localStorage.getItem("sb-access-token");
+    const user = localStorage.getItem("sb-admin-user");
+    if (!token || !user) {
+      window.location.href = "login.html";
+    }
+
+    const modal = document.getElementById("newsModal");
+    const form = document.getElementById("newsForm");
+    const tbody = document.getElementById("newsTableBody");
+    const noData = document.getElementById("noData");
+
+    window.openModal = function(editingId = null) {
+      document.getElementById("modalTitle").textContent = editingId ? "แก้ไขข่าว" : "เพิ่มข่าวใหม่";
+      form.reset();
+      document.getElementById("newsId").value = "";
+      document.getElementById("fStatus").value = "published";
+      document.getElementById("fDate").value = new Date().toISOString().split("T")[0];
+      if (editingId) loadNewsForEdit(editingId);
+      modal.classList.add("is-open");
+    };
+
+    window.closeModal = function() {
+      modal.classList.remove("is-open");
+    };
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    async function loadNews() {
+      try {
+        const sb = window.getSupabase();
+        const { data } = await sb.from("news_articles").select("*").order("published_date", { ascending: false });
+        renderNewsTable(data || []);
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = '<tr><td colspan="6" class="text-meta" style="color:var(--color-danger);">โหลดข้อมูลไม่สำเร็จ</td></tr>';
+      }
+    }
+
+    function renderNewsTable(rows) {
+      tbody.innerHTML = "";
+      if (!rows || rows.length === 0) {
+        noData.style.display = "block";
+        return;
+      }
+      noData.style.display = "none";
+      rows.forEach((n) => {
+        const isPub = n.status === "published";
+        const statusHtml = isPub
+          ? '<span class="badge-pub">เผยแพร่</span>'
+          : '<span class="badge-draft">ฉบับร่าง</span>';
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${n.id}</td>
+          <td><strong>${n.title || "-"}</strong></td>
+          <td>${n.category || "-"}</td>
+          <td>${statusHtml}</td>
+          <td>${n.published_date || n.created_at || "-"}</td>
+          <td>
+            <button class="btn btn-outline" onclick="openModal(${n.id})" style="font-size:0.9rem;padding:0 0.6rem;height:auto;">แก้ไข</button>
+            <button class="btn-delete" onclick="deleteNews(${n.id})" style="font-size:0.9rem;padding:0 0.6rem;height:auto;">ลบ</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function loadNewsForEdit(id) {
+      try {
+        const sb = window.getSupabase();
+        const { data } = await sb.from("news_articles").select("*").eq("id", id).single();
+        if (!data) return;
+        document.getElementById("newsId").value = data.id;
+        document.getElementById("fTitle").value = data.title || "";
+        document.getElementById("fCategory").value = data.category || "";
+        document.getElementById("fSummary").value = data.summary || "";
+        document.getElementById("fContent").value = data.content || "";
+        document.getElementById("fStatus").value = data.status || "published";
+        document.getElementById("fDate").value = data.published_date ? data.published_date.split("T")[0] : "";
+        document.getElementById("fAuthor").value = data.author || "";
+        document.getElementById("fSourceUrl").value = data.source_url || "";
+      } catch (err) {
+        console.error(err);
+        alert("โหลดข้อมูลข่าวไม่สำเร็จ");
+      }
+    }
+
+    async function deleteNews(id) {
+      if (!confirm("ยืนยันการลบข่าวนี้หรือไม่?")) return;
+      try {
+        const sb = window.getSupabase();
+        const { error } = await sb.from("news_articles").delete().eq("id", id);
+        if (error) throw error;
+        loadNews();
+      } catch (err) {
+        console.error(err);
+        alert("ลบข้อมูลไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("newsId").value;
+      const row = {
+        title: document.getElementById("fTitle").value.trim(),
+        category: document.getElementById("fCategory").value,
+        summary: document.getElementById("fSummary").value.trim(),
+        content: document.getElementById("fContent").value.trim(),
+        status: document.getElementById("fStatus").value,
+        published_date: document.getElementById("fDate").value,
+        author: document.getElementById("fAuthor").value.trim() || "งานประชาสัมพันธ์คณะ",
+        source_url: document.getElementById("fSourceUrl").value.trim(),
+      };
+      try {
+        const sb = window.getSupabase();
+        if (id) {
+          await sb.from("news_articles").update(row).eq("id", parseInt(id));
+        } else {
+          await sb.from("news_articles").insert([row]);
+        }
+        closeModal();
+        loadNews();
+      } catch (err) {
+        console.error(err);
+        alert("บันทึกข้อมูลไม่สำเร็จ: " + err.message);
+      }
+    });
+
+    loadNews();
+  </script>
+</body>
+</html>

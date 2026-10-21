@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>จัดการกิจกรรม — BUU | FSS Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .admin-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .admin-table-wrap { overflow-x: auto; }
+    .admin-table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+    .admin-table th, .admin-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-gray-light);
+      vertical-align: top;
+    }
+    .admin-table th { background: var(--color-gray-bg); font-weight: 700; color: var(--color-gray-dark); white-space: nowrap; }
+    .status-select {
+      height: 44px;
+      padding: 0 0.6rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      background: var(--color-white);
+      cursor: pointer;
+    }
+    .btn-delete {
+      color: var(--color-danger);
+      background: #FEE2E2;
+      border: 1px solid var(--color-danger);
+      height: 44px;
+      padding: 0 0.75rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-delete:hover { background: var(--color-danger); color: var(--color-white); }
+    .empty-state { text-align: center; padding: 2rem; color: var(--color-gray-medium); }
+    .modal {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.4); display: none;
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal.is-open { display: flex; }
+    .modal-card {
+      background: var(--color-white);
+      border-radius: 10px;
+      width: 100%; max-width: 600px;
+      padding: 1.5rem; max-height: 90vh; overflow-y: auto;
+    }
+    .modal h3 { margin-top: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-gray-dark); margin-bottom: 1rem; }
+    .form-row { margin-bottom: 1rem; }
+    .form-row label { display: block; font-weight: 600; color: var(--color-gray-medium); margin-bottom: 0.4rem; font-size: 1rem; }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; height: 44px; padding: 0 0.75rem;
+      font-family: inherit; font-size: 1rem;
+      border: 1px solid var(--color-gray-light); border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .form-row textarea { height: auto; min-height: 100px; padding: 0.75rem; resize: vertical; }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+      border-color: var(--color-green); outline: none;
+    }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; }
+    .help-text { font-size: 0.85rem; color: var(--color-gray-medium); margin-top: 0.25rem; }
+  </style>
+</head>
+<body data-page="admin-activities">
+  <div id="site-header"></div>
+  <main class="page-main">
+    <div class="admin-toolbar">
+      <div>
+        <h1 style="font-size:1.25rem;font-weight:700;color:var(--color-gray-dark);margin:0;">จัดการกิจกรรมในปฏิทิน</h1>
+      </div>
+      <button class="btn btn-primary" onclick="openModal()" style="height:44px;">+ เพิ่มกิจกรรมใหม่</button>
+    </div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th style="width:40px;">#</th>
+            <th>ชื่อกิจกรรม</th>
+            <th>ประเภทกิจกรรม</th>
+            <th style="width:140px;">วันที่เริ่ม</th>
+            <th style="width:140px;">วันที่สิ้นสุด</th>
+            <th style="width:140px;">สถานที่</th>
+            <th style="width:100px;">สถานะ</th>
+            <th style="width:120px;">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody id="activityTableBody">
+          <tr><td colspan="8" class="text-meta">กำลังโหลดข้อมูล...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p id="noData" class="empty-state" style="display:none;">ยังไม่มีกิจกรรมในระบบ</p>
+  </main>
+  <div id="site-footer"></div>
+
+  <div id="activityModal" class="modal">
+    <div class="modal-card">
+      <h3 id="modalTitle">เพิ่มกิจกรรมใหม่</h3>
+      <form id="activityForm">
+        <input type="hidden" id="activityId" />
+        <div class="form-row">
+          <label>ชื่อกิจกรรม <span style="color:var(--color-danger);">*</span></label>
+          <input type="text" id="fTitle" required placeholder="เช่น การแข่งขันกีฬาภายในคณะ" />
+        </div>
+        <div class="form-row">
+          <label>ประเภทกิจกรรม</label>
+          <select id="fEventType">
+            <option value="กิจกรรมคณะ">กิจกรรมคณะ</option>
+            <option value="ปฏิทินการศึกษา/รับสมัคร">ปฏิทินการศึกษา/รับสมัคร</option>
+            <option value="กิจกรรมจิตอาสา">กิจกรรมจิตอาสา</option>
+            <option value="ตารางเรียนตัวอย่าง">ตารางเรียนตัวอย่าง</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>คำอธิบาย</label>
+          <textarea id="fDescription" placeholder="เขียนรายละเอียดกิจกรรม"></textarea>
+        </div>
+        <div class="form-row">
+          <label>วันที่เริ่ม <span style="color:var(--color-danger);">*</span></label>
+          <input type="date" id="fStartDate" required />
+        </div>
+        <div class="form-row">
+          <label>วันที่สิ้นสุด <span style="color:var(--color-danger);">*</span></label>
+          <input type="date" id="fEndDate" required />
+        </div>
+        <div class="form-row">
+          <label>ช่วงเวลา (เช่น 08:00-17:00)</label>
+          <input type="text" id="fTimeRange" placeholder="08:00-17:00" />
+        </div>
+        <div class="form-row">
+          <label>สถานที่</label>
+          <input type="text" id="fLocation" placeholder="สนามกีฬาและอาคารคณะ" />
+        </div>
+        <div class="form-row">
+          <label>กลุ่มเป้าหมาย</label>
+          <input type="text" id="fTargetYear" placeholder="ทุกชั้นปี (ปี 1 - ปี 4)" />
+        </div>
+        <div class="form-row">
+          <label>สถานะ</label>
+          <select id="fStatus">
+            <option value="published">เผยแพร่</option>
+            <option value="draft">ฉบับร่าง</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>ลิงก์ตารางเรียน (ตัวเลือก)</label>
+          <input type="url" id="fScheduleLink" placeholder="https://..." />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/layout.js?v=1"></script>
+  <script>
+    const token = localStorage.getItem("sb-access-token");
+    const user = localStorage.getItem("sb-admin-user");
+    if (!token || !user) {
+      window.location.href = "login.html";
+    }
+
+    const modal = document.getElementById("activityModal");
+    const form = document.getElementById("activityForm");
+    const tbody = document.getElementById("activityTableBody");
+    const noData = document.getElementById("noData");
+
+    window.openModal = function(editingId = null) {
+      document.getElementById("modalTitle").textContent = editingId ? "แก้ไขกิจกรรม" : "เพิ่มกิจกรรมใหม่";
+      form.reset();
+      document.getElementById("activityId").value = "";
+      document.getElementById("fStatus").value = "published";
+      if (editingId) loadActivityForEdit(editingId);
+      modal.classList.add("is-open");
+    };
+
+    window.closeModal = function() {
+      modal.classList.remove("is-open");
+    };
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    async function loadActivities() {
+      try {
+        const sb = window.getSupabase();
+        const { data } = await sb.from("calendar_events").select("*").order("start_date", { ascending: false });
+        renderActivitiesTable(data || []);
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = '<tr><td colspan="8" class="text-meta" style="color:var(--color-danger);">โหลดข้อมูลไม่สำเร็จ</td></tr>';
+      }
+    }
+
+    function renderActivitiesTable(rows) {
+      tbody.innerHTML = "";
+      if (!rows || rows.length === 0) {
+        noData.style.display = "block";
+        return;
+      }
+      noData.style.display = "none";
+      rows.forEach((a) => {
+        const isPub = a.status === "published";
+        const statusHtml = isPub
+          ? '<span style="background:var(--color-green-soft);color:var(--color-green);padding:0.1rem 0.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">เผยแพร่</span>'
+          : '<span style="background:#FEE2E2;color:var(--color-danger);padding:0.1rem 0.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">ฉบับร่าง</span>';
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${a.id}</td>
+          <td><strong>${a.title || "-"}</strong></td>
+          <td>${a.event_type || "-"}</td>
+          <td>${a.start_date || "-"}</td>
+          <td>${a.end_date || "-"}</td>
+          <td>${a.location || "-"}</td>
+          <td>${statusHtml}</td>
+          <td>
+            <button class="btn btn-outline" onclick="openModal(${a.id})" style="font-size:0.9rem;padding:0 0.6rem;height:auto;">แก้ไข</button>
+            <button class="btn-delete" onclick="deleteActivity(${a.id})" style="font-size:0.9rem;padding:0 0.6rem;height:auto;">ลบ</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function loadActivityForEdit(id) {
+      try {
+        const sb = window.getSupabase();
+        const { data } = await sb.from("calendar_events").select("*").eq("id", id).single();
+        if (!data) return;
+        document.getElementById("activityId").value = data.id;
+        document.getElementById("fTitle").value = data.title || "";
+        document.getElementById("fEventType").value = data.event_type || "";
+        document.getElementById("fDescription").value = data.description || "";
+        document.getElementById("fStartDate").value = data.start_date ? data.start_date.split("T")[0] : "";
+        document.getElementById("fEndDate").value = data.end_date ? data.end_date.split("T")[0] : "";
+        document.getElementById("fTimeRange").value = data.time_range || "";
+        document.getElementById("fLocation").value = data.location || "";
+        document.getElementById("fTargetYear").value = data.target_year || "";
+        document.getElementById("fStatus").value = data.status || "published";
+        document.getElementById("fScheduleLink").value = data.schedule_link || "";
+      } catch (err) {
+        console.error(err);
+        alert("โหลดข้อมูลกิจกรรมไม่สำเร็จ");
+      }
+    }
+
+    async function deleteActivity(id) {
+      if (!confirm("ยืนยันการลบกิจกรรมนี้หรือไม่?")) return;
+      try {
+        const sb = window.getSupabase();
+        const { error } = await sb.from("calendar_events").delete().eq("id", id);
+        if (error) throw error;
+        loadActivities();
+      } catch (err) {
+        console.error(err);
+        alert("ลบข้อมูลไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("activityId").value;
+      const row = {
+        event_type: document.getElementById("fEventType").value,
+        title: document.getElementById("fTitle").value.trim(),
+        description: document.getElementById("fDescription").value.trim(),
+        start_date: document.getElementById("fStartDate").value,
+        end_date: document.getElementById("fEndDate").value,
+        time_range: document.getElementById("fTimeRange").value.trim(),
+        location: document.getElementById("fLocation").value.trim(),
+        target_year: document.getElementById("fTargetYear").value.trim(),
+        status: document.getElementById("fStatus").value,
+        schedule_link: document.getElementById("fScheduleLink").value.trim(),
+      };
+      try {
+        const sb = window.getSupabase();
+        if (id) {
+          await sb.from("calendar_events").update(row).eq("id", parseInt(id));
+        } else {
+          await sb.from("calendar_events").insert([row]);
+        }
+        closeModal();
+        loadActivities();
+      } catch (err) {
+        console.error(err);
+        alert("บันทึกข้อมูลไม่สำเร็จ: " + err.message);
+      }
+    });
+
+    loadActivities();
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ข่าวสารและกิจกรรมคณะ — BUU | FSS คณะวิทยาศาสตร์การกีฬา</title>
+  <meta name="description" content="ข่าวสารและกิจกรรมของคณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา พร้อมหมวดหมู่ข่าวและข่าวกีฬาล่าสุด" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body data-page="news">
+
+  <!-- ส่วนหัวเว็บ ( สร้างอัตโนมัติโดย js/layout.js ) -->
+  <div id="site-header"></div>
+
+  <main class="page-main">
+
+    <p class="sample-notice">
+      ⚠️ หน้านี้กำลังแสดง<strong>ข้อมูลตัวอย่าง</strong>เพื่อการพัฒนา —
+      เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน
+    </p>
+
+    <!-- ============ หัวข้อหน้า ============ -->
+    <section class="content-section-card" aria-labelledby="page-title">
+      <div class="section-head green">
+        <h1 id="page-title" class="text-section-title">ข่าวสารและกิจกรรมคณะ</h1>
+        <span id="news-count" class="section-more"></span>
+      </div>
+      <p class="text-meta">
+        ติดตามข่าวสาร กิจกรรม และประกาศต่าง ๆ ของคณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา
+      </p>
+    </section>
+
+    <!-- ============ ปุ่มกรองหมวดหมู่ข่าว ============ -->
+    <nav id="news-filter" class="news-filter" aria-label="กรองตามหมวดหมู่ข่าว"></nav>
+
+    <!-- ============ รายการข่าว ============ -->
+    <section aria-label="รายการข่าว">
+      <div id="news-list-page" class="news-grid"></div>
+    </section>
+
+    <!-- ============ เลขหน้า ============ -->
+    <nav id="news-pagination" class="pagination" aria-label="เลขหน้า"></nav>
+
+    <!-- ============ ทางลัดไปหน้าข่าวกีฬา ============ -->
+    <section class="content-section-card" style="margin-top: 1rem">
+      <div class="section-head gold">
+        <h2 class="text-section-title">สนใจข่าวกีฬา?</h2>
+      </div>
+      <p class="text-meta">
+        ดูผลการแข่งขัน ตารางการแข่งขัน และข้อมูลนักกีฬาของคณะได้ที่หน้าข่าวกีฬาและการแข่งขัน
+      </p>
+      <a class="btn btn-primary" href="sports-news.html" style="margin-top: 0.5rem">
+        → ไปหน้าข่าวกีฬาและการแข่งขัน
+      </a>
+    </section>
+
+  </main>
+
+  <!-- ส่วนท้ายเว็บ -->
+  <div id="site-footer"></div>
+
+  <!-- คลัง supabase-js จาก CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="js/layout.js?v=1"></script>
+  <script src="js/sample-data.js?v=1"></script>
+  <script src="js/data.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+  <script src="js/news.js?v=1"></script>
+
+</body>
+</html>

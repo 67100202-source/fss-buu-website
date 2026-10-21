@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ติดต่อและสมัครเรียน — BUU | FSS คณะวิทยาศาสตร์การกีฬา</title>
+  <meta name="description" content="ข้อมูลติดต่อคณะ แผนที่ เบอร์โทรศัพท์ โซเชียลมีเดีย แบบฟอร์มติดต่อ และลิงก์รับสมัครเรียน คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .contact-info-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .contact-info-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-gray-dark);
+      margin: 0 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .contact-info-card p {
+      font-size: 1rem;
+      color: var(--color-gray-medium);
+      margin: 0 0 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .contact-info-card a {
+      color: var(--color-green);
+      text-decoration: underline;
+    }
+    .map-placeholder {
+      aspect-ratio: 16 / 9;
+      background: var(--color-gray-bg);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-gray-medium);
+      font-size: 1rem;
+    }
+    .form-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .form-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-gray-dark);
+      margin: 0 0 1rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-gray-medium);
+      margin-bottom: 0.4rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      height: 44px;
+      padding: 0 0.75rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border: 1px solid var(--color-gray-light);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--color-green);
+      outline: none;
+    }
+    .form-group textarea {
+      height: auto;
+      min-height: 120px;
+      padding: 0.75rem;
+      resize: vertical;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    .form-message {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      display: none;
+    }
+    .form-message.success {
+      background: var(--color-green-soft);
+      color: var(--color-green);
+      border: 1px solid var(--color-green);
+    }
+    .form-message.error {
+      background: #FEE2E2;
+      color: var(--color-danger);
+      border: 1px solid var(--color-danger);
+    }
+    .social-links {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      border: 1px solid var(--color-gray-light);
+      background-color: var(--color-white);
+      color: var(--color-gray-medium);
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+    .social-btn:hover {
+      background-color: var(--color-green-soft);
+      border-color: var(--color-green);
+      color: var(--color-green);
+    }
+    .admission-link {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .admission-link:hover {
+      background-color: #14542f;
+    }
+    @media (min-width: 640px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body data-page="contact">
+
+  <!-- ส่วนหัวเว็บ ( สร้างอัตโนมัติโดย js/layout.js ) -->
+  <div id="site-header"></div>
+
+  <main class="page-main">
+
+    <!-- แถบเตือนข้อมูลตัวอย่าง -->
+    <p class="sample-notice">
+      ⚠️ หน้านี้กำลังแสดง<strong>ข้อมูลตัวอย่าง</strong>เพื่อการพัฒนา —
+      เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน
+    </p>
+
+    <div class="contact-grid">
+
+      <!-- ============ ข้อมูลติดต่อคณะ ============ -->
+      <section class="content-section-card">
+        <div class="section-head green">
+          <h1 class="text-section-title">ข้อมูลติดต่อคณะ</h1>
+        </div>
+        <div class="contact-info-card" id="contact-info">
+          <p class="text-meta">กำลังโหลดข้อมูลติดต่อ...</p>
+        </div>
+
+        <div class="social-links">
+          <a href="#" class="social-btn" aria-label="Facebook">f</a>
+          <a href="#" class="social-btn" aria-label="YouTube">▶</a>
+          <a href="#" class="social-btn" aria-label="TikTok">♪</a>
+        </div>
+      </section>
+
+      <!-- ============ แผนที่คณะ ============ -->
+      <section class="content-section-card">
+        <div class="section-head green">
+          <h2 class="text-section-title">แผนที่คณะ</h2>
+        </div>
+        <div class="map-placeholder">
+          📍 แผนที่คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา<br>
+          169 ถ.แสนสุข ต.แสนสุข อ.เมือง จ.ชลบุรี 20131
+        </div>
+        <p class="text-meta" style="margin-top:0.5rem;">
+          คณะตั้งอยู่ในเขตบางแสน จังหวัดชลบุรี ใกล้ชายหาดบางแสน
+        </p>
+      </section>
+
+      <!-- ============ แบบฟอร์มติดต่อ / สมัครกิจกรรม ============ -->
+      <section class="content-section-card">
+        <div class="section-head green">
+          <h2 class="text-section-title">แบบฟอร์มติดต่อ / สมัครกิจกรรม</h2>
+        </div>
+        <div class="form-card">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cfName">ชื่อ-นามสกุล <span style="color:var(--color-danger);">*</span></label>
+                <input type="text" id="cfName" required placeholder="เช่น สมชาย ใจดี" />
+              </div>
+              <div class="form-group">
+                <label for="cfEmail">อีเมล <span style="color:var(--color-danger);">*</span></label>
+                <input type="email" id="cfEmail" required placeholder="example@email.com" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cfPhone">เบอร์โทรศัพท์</label>
+              <input type="tel" id="cfPhone" placeholder="081-234-5678" />
+            </div>
+            <div class="form-group">
+              <label for="cfType">ประเภท <span style="color:var(--color-danger);">*</span></label>
+              <select id="cfType" required>
+                <option value="">-- เลือกประเภท --</option>
+                <option value="contact">ติดต่อสอบถามทั่วไป</option>
+                <option value="activity_register">สมัครเข้าร่วมกิจกรรม</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cfSubject">หัวข้อหรือกิจกรรมที่สนใจ <span style="color:var(--color-danger);">*</span></label>
+              <input type="text" id="cfSubject" required placeholder="เช่น สอบถามเกณฑ์การรับสมัคร TCAS" />
+            </div>
+            <div class="form-group">
+              <label for="cfMessage">รายละเอียดหรือข้อความ <span style="color:var(--color-danger);">*</span></label>
+              <textarea id="cfMessage" required placeholder="เขียนข้อความที่ต้องการสอบถามหรือรายละเอียดการสมัครกิจกรรม"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="cfSubmitBtn">ส่งข้อความ</button>
+          </form>
+          <div id="cfMessageBox" class="form-message"></div>
+        </div>
+
+        <!-- ลิงก์รับสมัครเรียนต่อ -->
+        <div style="margin-top: 1rem;">
+          <a href="https://e-admission.buu.ac.th" target="_blank" rel="noopener" class="admission-link">
+            → ลิงก์รับสมัครเรียนต่อ (ระบบ TCAS)
+          </a>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- ส่วนท้ายเว็บ -->
+  <div id="site-footer"></div>
+
+  <!-- คลัง supabase-js จาก CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="js/layout.js?v=1"></script>
+  <script src="js/sample-data.js?v=1"></script>
+  <script src="js/data.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+  <script src="js/contact.js?v=1"></script>
+
+</body>
+</html>
