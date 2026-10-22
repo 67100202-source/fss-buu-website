@@ -157,8 +157,14 @@
           <div class="help-text">วางลิงก์วิดีโอจาก YouTube เพื่อให้ผู้ใช้สามารถดูได้จากหน้าแกลเลอรี</div>
         </div>
         <div class="form-row">
+          <label>ไฟล์ภาพ (อัปโหลดจากเครื่อง)</label>
+          <input type="file" id="fImageFile" accept="image/*" />
+          <div class="help-text">เลือกไฟล์ภาพจากเครื่อง ระบบจะอัปโหลดไปยัง Supabase Storage อัตโนมัติ</div>
+        </div>
+        <div class="form-row">
           <label>ลิงก์ภาพขนาดย่อ (thumbnail) (ตัวเลือก)</label>
           <input type="url" id="fThumbnailUrl" placeholder="https://..." />
+          <div class="help-text">หรือวางลิงก์ภาพโดยตรง ถ้าไม่ได้อัปโหลดไฟล์</div>
         </div>
         <div class="form-row">
           <label>สถานะ</label>
@@ -286,6 +292,35 @@
         alert("ลบข้อมูลไม่สำเร็จ: " + err.message);
       }
     }
+
+    // อัปโหลดไฟล์ภาพเข้า Supabase Storage เมื่อเลือกไฟล์
+    document.getElementById("fImageFile").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      try {
+        const sb = window.getSupabase();
+        if (!sb) {
+          alert("ยังไม่ได้เชื่อมต่อ Supabase กรุณาล็อกอินใหม่");
+          return;
+        }
+
+        // ตั้งชื่อไฟล์ให้ไม่ซ้ำ: media/เวลา_ชื่อไฟล์.jpg
+        const fileName = `media/${Date.now()}_${file.name.replace(/\s+/g, "_")}`;
+
+        const { error } = await sb.storage.from("fss-media").upload(fileName, file);
+        if (error) throw error;
+
+        // ดึง public URL ของไฟล์ที่อัปโหลด
+        const { data } = sb.storage.from("fss-media").getPublicUrl(fileName);
+        document.getElementById("fThumbnailUrl").value = data.publicUrl;
+
+        alert("อัปโหลดรูปภาพสำเร็จแล้ว");
+      } catch (err) {
+        console.error(err);
+        alert("อัปโหลดรูปภาพไม่สำเร็จ: " + err.message);
+      }
+    });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
