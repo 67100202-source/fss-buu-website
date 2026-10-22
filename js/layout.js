@@ -77,11 +77,9 @@ function buildHeaderHTML() {
   <header class="site-header">
     <div class="header-inner">
 
-      <!-- โลโก้ BUU | FSS ( ใส่ URL รูปภาพจริงใน src ด้านล่าง หรืออัปโหลดผ่านหน้าแอดมิน แล้วนำลิงก์มาใส่แทนค่าว่าง ) -->
+      <!-- โลโก้ BUU | FSS (รูปตรามหาวิทยาลัยและคณะในภาพเดียวจาก Supabase Storage) -->
       <a class="logo" href="index.html" aria-label="กลับหน้าแรก">
-        <img class="logo-img logo-buu" src="" alt="ตรามหาวิทยาลัยบูรพา" />
-        <span class="logo-sep">|</span>
-        <img class="logo-img logo-fss" src="" alt="ตราคณะวิทยาศาสตร์การกีฬา" />
+        <img class="logo-img" src="https://wssrecnfyljacgyejpfj.supabase.co/storage/v1/object/public/fss-media/media/1792700715348_Logo.jpg" alt="ตรามหาวิทยาลัยบูรพาและตราคณะวิทยาศาสตร์การกีฬา" />
       </a>
 
       <!-- แถบเมนูแนวนอน ( แสดงเมื่อจอ >= 900px ) -->
