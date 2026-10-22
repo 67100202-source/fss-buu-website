@@ -79,7 +79,7 @@ function buildHeaderHTML() {
 
       <!-- โลโก้ BUU | FSS (รูปตรามหาวิทยาลัยและคณะในภาพเดียวจาก Supabase Storage) -->
       <a class="logo" href="index.html" aria-label="กลับหน้าแรก">
-        <img class="logo-img" src="https://wssrecnfyljacgyejpfj.supabase.co/storage/v1/object/public/fss-media/media/1792700715348_Logo.jpg" alt="ตรามหาวิทยาลัยบูรพาและตราคณะวิทยาศาสตร์การกีฬา" />
+        <img class="logo-img" src="https://wssrecnfyljacgyejpfj.supabase.co/storage/v1/object/public/fss-media/media/1792702527883_Logo2.jpg" alt="ตรามหาวิทยาลัยบูรพาและตราคณะวิทยาศาสตร์การกีฬา" />
       </a>
 
       <!-- แถบเมนูแนวนอน ( แสดงเมื่อจอ >= 900px ) -->
