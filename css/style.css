@@ -221,9 +221,12 @@ ol {
   min-height: 44px;               /* ให้กดได้เต็มที่ */
 }
 .logo .logo-img {
-  height: 32px;                   /* ความสูงโลโก้ ปรับได้ตามรูปจริง */
+  height: 48px;                   /* ความสูงโลโก้ ปรับได้ตามรูปจริง */
   width: auto;
   display: block;
+}
+.logo {
+  gap: 0.75rem;                   /* เว้นระยะระหว่างไอคอน/ข้อความในโลโก้มากขึ้น */
 }
 .logo .logo-sep {
   color: var(--color-gray-light);
