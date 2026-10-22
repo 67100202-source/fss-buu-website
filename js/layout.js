@@ -77,11 +77,11 @@ function buildHeaderHTML() {
   <header class="site-header">
     <div class="header-inner">
 
-      <!-- โลโก้ BUU | FSS -->
+      <!-- โลโก้ BUU | FSS ( ใส่ URL รูปภาพจริงใน src ด้านล่าง หรืออัปโหลดผ่านหน้าแอดมิน แล้วนำลิงก์มาใส่แทนค่าว่าง ) -->
       <a class="logo" href="index.html" aria-label="กลับหน้าแรก">
-        <span class="logo-buu">BUU</span>
+        <img class="logo-img logo-buu" src="" alt="ตรามหาวิทยาลัยบูรพา" />
         <span class="logo-sep">|</span>
-        <span class="logo-fss">FSS</span>
+        <img class="logo-img logo-fss" src="" alt="ตราคณะวิทยาศาสตร์การกีฬา" />
       </a>
 
       <!-- แถบเมนูแนวนอน ( แสดงเมื่อจอ >= 900px ) -->

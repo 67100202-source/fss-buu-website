@@ -210,18 +210,25 @@ ol {
   gap: 0.5rem;
 }
 
-/* โลโก้ BUU | FSS */
+/* โลโก้ BUU | FSS ( รองรับทั้งรูปภาพและข้อความสำรอง ) */
 .logo {
   font-size: 1.125rem;            /* 18px */
   font-weight: 700;
   line-height: 1.2;
   display: inline-flex;
   align-items: center;
+  gap: 0.5rem;
   min-height: 44px;               /* ให้กดได้เต็มที่ */
 }
-.logo .logo-buu { color: var(--color-yellow); }
-.logo .logo-sep { color: var(--color-gray-light); margin: 0 0.25rem; }
-.logo .logo-fss { color: var(--color-green); }
+.logo .logo-img {
+  height: 32px;                   /* ความสูงโลโก้ ปรับได้ตามรูปจริง */
+  width: auto;
+  display: block;
+}
+.logo .logo-sep {
+  color: var(--color-gray-light);
+  font-weight: 700;
+}
 
 .header-actions {
   display: flex;
