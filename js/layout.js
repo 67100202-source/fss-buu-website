@@ -87,10 +87,10 @@ function buildHeaderHTML() {
         ${desktopLinks}
       </nav>
 
-      <!-- ปุ่มกดด้านขวา -->
+      <!-- ปุ่มกดด้านขวา (Utility Bar 44x44px ทุกปุ่ม) -->
       <div class="header-actions">
         <button id="search-toggle" class="icon-btn" aria-expanded="false"
-                aria-controls="search-drawer" aria-label="ค้นหาข้อมูล" title="ค้นหา">
+                aria-controls="search-drawer" aria-label="ค้นหาข้อมูลในเว็บไซต์" title="ค้นหา">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
@@ -98,10 +98,29 @@ function buildHeaderHTML() {
           </svg>
         </button>
 
-        <button id="lang-toggle" class="lang-btn" aria-label="เปลี่ยนภาษา">TH</button>
+        <button id="lang-toggle" class="lang-btn" aria-label="สลับภาษา TH / EN">TH | EN</button>
+
+        <button id="member-toggle" class="icon-btn" aria-expanded="false"
+                aria-label="ระบบสมาชิกนิสิต" title="ระบบสมาชิกนิสิต">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </button>
+
+        <button id="admin-toggle" class="icon-btn" aria-label="เข้าสู่ระบบผู้ดูแล (Admin)" title="Admin Login">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </button>
 
         <button id="menu-toggle" class="icon-btn menu-toggle" aria-expanded="false"
-                aria-controls="nav-drawer" aria-label="เปิดเมนู" title="เมนู">
+                aria-controls="nav-drawer" aria-label="เปิดเมนูหลัก" title="เมนู">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -219,4 +238,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (footerBox) {
     footerBox.innerHTML = buildFooterHTML();
   }
+
+  // ---- เพิ่ม SVG icon ให้หัวข้อหมวดหมู่ทุกหัว (ตามกติกา UX/UI ส่วนที่ 1) ----
+  document.querySelectorAll(".section-head").forEach((section) => {
+    if (section.querySelector(".section-icon")) return;
+    const icon = document.createElement("span");
+    icon.className = "section-icon";
+    icon.setAttribute("aria-hidden", "true");
+    // ไอคอนสัญลักษณ์หมวดหมู่ (สามารถเปลี่ยนสีได้ผ่าน currentColor ใน CSS)
+    icon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+      <path d="M2 17l10 5 10-5"/>
+    </svg>`;
+    section.insertBefore(icon, section.firstChild);
+  });
 });
