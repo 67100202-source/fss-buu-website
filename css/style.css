@@ -213,44 +213,16 @@ ol {
   gap: 0.5rem;
 }
 
-/* โลโก้ BUU | FSS ( รองรับทั้งรูปภาพและข้อความสำรอง ) */
+/* โลโก้ BUU | FSS (รูปภาพฝั่งซ้าย คลิกกลับหน้าแรก) */
 .logo {
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
   min-height: 44px;
-  color: var(--color-gray-dark);
 }
 .logo .logo-img {
-  height: 40px;                   /* ความสูงโลโก้พอดีกับแถบหัวเว็บ */
+  height: 36px;                   /* ความสูงโลโก้พอดีกับแถบหัวเว็บ */
   width: auto;
   display: block;
-}
-
-/* ข้อความชื่อคณะในโลโก้ */
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.05rem;
-  line-height: 1.15;
-}
-.logo-main {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--color-gray-dark);
-  letter-spacing: 0.05em;
-}
-.logo-main .logo-buu { color: var(--color-yellow); }
-.logo-main .logo-fss { color: var(--color-green); }
-.logo-sub {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--color-gray-medium);
-  white-space: nowrap;
-  opacity: 0.9;
 }
 
 .header-actions {
@@ -1378,20 +1350,17 @@ ol {
   gap: 0.5rem;
 }
 
-/* โลโก้: ข้อความสีเหลืองทอง + เขียว ตามอัตลักษณ์ */
+/* โลโก้ BUU | FSS (รูปภาพฝั่งซ้าย คลิกกลับหน้าแรก) */
 .logo {
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1.2;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
   min-height: 44px;
-  color: var(--color-gray-dark);
 }
-.logo .logo-text-buu { color: var(--color-yellow); }
-.logo .logo-text-fss { color: var(--color-green); }
-.logo .logo-sep { color: var(--color-gray-light); font-weight: 700; }
+.logo .logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+}
 
 /* Utility bar: ปุ่มทุกตัว 44x44px ตามกติกา */
 .header-actions {

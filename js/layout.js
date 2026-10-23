@@ -61,13 +61,9 @@ function buildHeaderHTML() {
   <header class="site-header">
     <div class="header-inner">
 
-      <!-- โลโก้ BUU | FSS พร้อมชื่อคณะ (คลิกกลับหน้าแรก) -->
+      <!-- โลโก้ BUU | FSS (รูปภาพฝั่งซ้าย คลิกกลับหน้าแรก) -->
       <a class="logo" href="index.html" aria-label="กลับหน้าแรก">
-        <img class="logo-img" src="https://wssrecnfyljacgyejpfj.supabase.co/storage/v1/object/public/fss-media/media/1792702527883_Logo2.jpg" alt="ตรามหาวิทยาลัยบูรพาและตราคณะวิทยาศาสตร์การกีฬา" />
-        <span class="logo-text">
-          <span class="logo-main"><span class="logo-buu">BUU</span> | <span class="logo-fss">FSS</span></span>
-          <span class="logo-sub">คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา</span>
-        </span>
+        <img class="logo-img" src="https://wssrecnfyljacgyejpfj.supabase.co/storage/v1/object/public/fss-media/media/1792702527883_Logo2.jpg" alt="โลโก้คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา" />
       </a>
 
       <!-- แถบเมนูแนวนอน ( แสดงเมื่อจอ >= 900px ) -->
