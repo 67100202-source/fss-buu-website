@@ -193,12 +193,12 @@ ol {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   height: var(--header-height);
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid var(--color-gray-light);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
@@ -215,25 +215,42 @@ ol {
 
 /* โลโก้ BUU | FSS ( รองรับทั้งรูปภาพและข้อความสำรอง ) */
 .logo {
-  font-size: 1.125rem;            /* 18px */
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1.2;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  min-height: 44px;               /* ให้กดได้เต็มที่ */
+  min-height: 44px;
+  color: var(--color-gray-dark);
 }
 .logo .logo-img {
-  height: 52px;                   /* ความสูงโลโก้ ปรับได้ตามรูปจริง */
+  height: 40px;                   /* ความสูงโลโก้พอดีกับแถบหัวเว็บ */
   width: auto;
   display: block;
 }
-.logo {
-  gap: 0.75rem;                   /* เว้นระยะระหว่างไอคอน/ข้อความในโลโก้มากขึ้น */
+
+/* ข้อความชื่อคณะในโลโก้ */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  line-height: 1.15;
 }
-.logo .logo-sep {
-  color: var(--color-gray-light);
-  font-weight: 700;
+.logo-main {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-gray-dark);
+  letter-spacing: 0.05em;
+}
+.logo-main .logo-buu { color: var(--color-yellow); }
+.logo-main .logo-fss { color: var(--color-green); }
+.logo-sub {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-gray-medium);
+  white-space: nowrap;
+  opacity: 0.9;
 }
 
 .header-actions {

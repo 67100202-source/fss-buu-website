@@ -18,26 +18,11 @@
    --------------------------------------------------------------------- */
 const MENU_ITEMS = [
   { label: "หน้าแรก", url: "index.html", key: "home" },
-  {
-    label: "ข่าวสารและกิจกรรม",
-    url: "news.html",
-    key: "news",
-    sub: [
-      { label: "ข่าวสารและกิจกรรมคณะ", url: "news.html" },
-      { label: "ข่าวกีฬาและการแข่งขัน", url: "sports-news.html" },
-    ],
-  },
+  { label: "ปฏิทินกิจกรรม", url: "index.html#activities", key: "calendar" },
+  { label: "ข่าวสารและกีฬา", url: "news.html", key: "news" },
   { label: "หลักสูตรและอาจารย์", url: "curriculum.html", key: "curriculum" },
   { label: "ทุนการศึกษาและวิจัย", url: "scholarships.html", key: "scholarships" },
-  {
-    label: "ผลงานและคลังสื่อ",
-    url: "achievements.html",
-    key: "achievements",
-    sub: [
-      { label: "ผลงานนิสิตและศิษย์เก่า", url: "achievements.html" },
-      { label: "คลังภาพและวิดีโอ", url: "gallery.html" },
-    ],
-  },
+  { label: "ผลงานและคลังสื่อ", url: "achievements.html", key: "achievements" },
   { label: "ติดต่อและสมัครเรียน", url: "contact.html", key: "contact" },
 ];
 
@@ -76,9 +61,13 @@ function buildHeaderHTML() {
   <header class="site-header">
     <div class="header-inner">
 
-      <!-- โลโก้ BUU | FSS (รูปตรามหาวิทยาลัยและคณะในภาพเดียวจาก Supabase Storage) -->
+      <!-- โลโก้ BUU | FSS พร้อมชื่อคณะ (คลิกกลับหน้าแรก) -->
       <a class="logo" href="index.html" aria-label="กลับหน้าแรก">
         <img class="logo-img" src="https://wssrecnfyljacgyejpfj.supabase.co/storage/v1/object/public/fss-media/media/1792702527883_Logo2.jpg" alt="ตรามหาวิทยาลัยบูรพาและตราคณะวิทยาศาสตร์การกีฬา" />
+        <span class="logo-text">
+          <span class="logo-main"><span class="logo-buu">BUU</span> | <span class="logo-fss">FSS</span></span>
+          <span class="logo-sub">คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา</span>
+        </span>
       </a>
 
       <!-- แถบเมนูแนวนอน ( แสดงเมื่อจอ >= 900px ) -->
