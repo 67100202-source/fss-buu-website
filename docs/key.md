@@ -26,6 +26,6 @@
 - docs/setup-supabase.md วิธีติดตั้งและเชื่อมฐานข้อมูล Supabase
 
 ## สถานะปัจจุบัน
-- หน้าที่สร้างแล้ว: index, schedule, news, news-detail, sports-news, sports-news-detail
+- หน้าที่สร้างแล้ว: index, news, news-detail, sports-news, sports-news-detail
 - ข้อมูล: มีฐานข้อมูลจริงแล้วที่ supabase/ (schema.sql + seed.sql) และสำเนาใน js/sample-data.js
 - ยังไม่ได้ทำ: หน้าหลักสูตร/อาจารย์, หน้าทุน, หน้าผลงาน/คลังสื่อ, หน้าติดต่อ, ระบบ Admin ทั้งหมด

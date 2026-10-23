@@ -18,7 +18,6 @@
    --------------------------------------------------------------------- */
 const MENU_ITEMS = [
   { label: "หน้าแรก", url: "index.html", key: "home" },
-  { label: "กิจกรรมและปฏิทิน", url: "schedule.html", key: "schedule" },
   {
     label: "ข่าวสารและกิจกรรม",
     url: "news.html",
@@ -137,7 +136,7 @@ function buildHeaderHTML() {
     <div class="search-drawer-inner">
       <div class="search-box">
         <input id="search-input" class="search-input" type="search"
-               placeholder="ค้นหาข่าว ทุน อาจารย์ ตารางเรียน..."
+               placeholder="ค้นหาข่าว ทุน อาจารย์ หลักสูตร..."
                aria-label="พิมพ์คำค้นหา" />
         <button id="search-clear" class="icon-btn" aria-label="ล้างคำค้น">✕</button>
         <button id="search-close" class="icon-btn" aria-label="ปิดการค้นหา">ปิด</button>
@@ -188,7 +187,6 @@ function buildFooterHTML() {
         <h3>ลิงก์ด่วน</h3>
         <p><a href="contact.html">สมัครเรียนต่อ</a></p>
         <p><a href="scholarships.html">ทุนการศึกษา</a></p>
-        <p><a href="schedule.html">ตารางเรียน</a></p>
       </div>
 
       <div class="footer-group">

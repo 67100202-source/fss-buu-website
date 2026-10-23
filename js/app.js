@@ -135,7 +135,7 @@ function initSearch() {
   }
 }
 
-/** แสดงผลการค้นหาจากคำค้น ( ค้นข่าว ทุน อาจารย์ หลักสูตร และตารางเรียน ) */
+/** แสดงผลการค้นหาจากคำค้น ( ค้นข่าว ทุน อาจารย์ และหลักสูตร ) */
 async function renderSearchResults(query) {
   const box = document.getElementById("search-results");
   if (!box) return;
@@ -148,12 +148,11 @@ async function renderSearchResults(query) {
   const results = [];
 
   // โหลดข้อมูลจริงจากฐานข้อมูล ( ถ้ายังไม่ได้ตั้งค่าจะใช้ข้อมูลตัวอย่างแทน )
-  const [news, scholarships, faculty, courses, schedules] = await Promise.all([
+  const [news, scholarships, faculty, courses] = await Promise.all([
     fetchNews(),
     fetchScholarships(),
     fetchFaculty(),
     fetchCourses(),
-    fetchSchedules(1),
   ]);
 
   // ค้นในข่าว
@@ -199,17 +198,6 @@ async function renderSearchResults(query) {
       (c.detail || "").toLowerCase().includes(q)
     ) {
       results.push({ type: "หลักสูตร", text: c.name, url: "curriculum.html" });
-    }
-  });
-
-  // ค้นในตารางเรียน
-  schedules.forEach((sc) => {
-    if (sc.subject.toLowerCase().includes(q)) {
-      results.push({
-        type: `ตารางเรียน ปี ${sc.year_level}`,
-        text: sc.subject,
-        url: "schedule.html",
-      });
     }
   });
 

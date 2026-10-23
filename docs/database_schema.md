@@ -12,7 +12,7 @@
 | 4 | `news_articles` | 10 ข่าว | **หน้าที่ 1, 2, 3:** ข่าวล่าสุด, ข่าวสารและกิจกรรมคณะ (5 ข่าว) และข่าวกีฬาและการแข่งขัน (5 ข่าว) + **Admin CRUD** | [หน้าแรก (`fss.buu.ac.th`)](https://fss.buu.ac.th/) และ [หน้าเอกสารโครงการ (`document/frontend/index`)](https://fss.buu.ac.th/document/frontend/index) |
 | 5 | `scholarships` | 3 ทุน | **หน้าที่ 7:** ทุนการศึกษา/ทุนวิจัย พร้อมกำหนดปิดรับและชื่อไฟล์แนบ + **Admin CRUD** | [ข่าวทุนวิจัยดุษฎีนิพนธ์](https://fss.buu.ac.th/news/frontend/detail/MTZ8fFl6WUd8Qmtz) และ [หน้าแรก (`fss.buu.ac.th`)](https://fss.buu.ac.th/) |
 | 6 | `achievements` | 4 รายการ | **หน้าที่ 6:** ผลงานนิสิต บุคลากร และศิษย์เก่าที่ได้รับรางวัลระดับชาติและนานาชาติ | [หน้าแรก (`fss.buu.ac.th`)](https://fss.buu.ac.th/) |
-| 7 | `calendar_events` | 4 กิจกรรม | **หน้าที่ 4:** ปฏิทินการศึกษา/กิจกรรมรายเดือน และตารางเรียนตัวอย่าง (วิชา `85111059`) | [หน้าเอกสารเผยแพร่ (`document/frontend/index`)](https://fss.buu.ac.th/document/frontend/index) |
+| 7 | `calendar_events` | 4 กิจกรรม | **หน้าที่ 4:** ปฏิทินการศึกษา/กิจกรรมรายเดือน | [หน้าเอกสารเผยแพร่ (`document/frontend/index`)](https://fss.buu.ac.th/document/frontend/index) |
 | 8 | `media_gallery` | 3 รายการ | **หน้าที่ 8:** คลังภาพและวิดีโอกิจกรรม (พร้อมลิงก์ฝัง YouTube จริงของคณะ) + **Admin CRUD** | [หน้าแรก (`fss.buu.ac.th`)](https://fss.buu.ac.th/) และ [หน้าประวัติคณะ (`history/frontend/index`)](https://fss.buu.ac.th/history/frontend/index) |
 | 9 | `form_submissions` | 2 รายการ | **หน้าที่ 9 & Admin:** เก็บข้อความจากแบบฟอร์มติดต่อและรายชื่อผู้สมัครกิจกรรม | โครงสร้างตามข้อกำหนดโจทย์ |
 | 10 | `admin_users` | 2 บัญชี | **ระบบ Admin:** บัญชีผู้ดูแลระบบสำหรับทดสอบล็อกอินและจัดการข้อมูล CRUD | อ้างอิงรายชื่อบุคลากรจริงจาก [หน้าบุคลากร](https://fss.buu.ac.th/personnel/frontend/index) |

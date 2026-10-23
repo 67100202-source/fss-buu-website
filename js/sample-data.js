@@ -213,24 +213,6 @@ const sampleSportsNews = sampleNews.filter((n) =>
 const sampleUrgent = sampleNews.filter((n) => n.is_urgent);
 
 /* ---------------------------------------------------------------------
-   ตารางเรียนรายชั้นปี ( ตาราง: schedules )
-   --------------------------------------------------------------------- */
-const sampleSchedules = [
-  { id: 1, year_level: 1, day: "จันทร์", time: "09:00-11:00", subject: "การออกกำลังกายเพื่อคุณภาพชีวิต (85111059)", room: "ห้องปฏิบัติการออกกำลังกาย" },
-  { id: 2, year_level: 1, day: "จันทร์", time: "13:00-15:00", subject: "แอนาโตมีของมนุษย์", room: "ห้อง 101" },
-  { id: 3, year_level: 1, day: "อังคาร", time: "09:00-11:00", subject: "ภาษาอังกฤษเพื่อการกีฬา", room: "ห้อง 103" },
-  { id: 4, year_level: 1, day: "พุธ", time: "10:00-12:00", subject: "พละศึกษา", room: "สนามกีฬา" },
-  { id: 5, year_level: 2, day: "จันทร์", time: "09:00-11:00", subject: "สรีรวิทยาการออกกำลังกาย", room: "ห้อง 201" },
-  { id: 6, year_level: 2, day: "อังคาร", time: "13:00-15:00", subject: "โภชนาการกีฬา", room: "ห้อง 202" },
-  { id: 7, year_level: 2, day: "พฤหัสบดี", time: "09:00-11:00", subject: "จิตวิทยาการกีฬา", room: "ห้อง 203" },
-  { id: 8, year_level: 3, day: "จันทร์", time: "09:00-12:00", subject: "การทดสอบสมรรถภาพทางกาย", room: "ห้องปฏิบัติการ" },
-  { id: 9, year_level: 3, day: "พุธ", time: "13:00-15:00", subject: "เทคนิคการฝึกสอนนักกีฬา", room: "ห้อง 301" },
-  { id: 10, year_level: 3, day: "ศุกร์", time: "09:00-11:00", subject: "การจัดการกีฬา", room: "ห้อง 302" },
-  { id: 11, year_level: 4, day: "อังคาร", time: "09:00-12:00", subject: "สหกิจศึกษา", room: "สถานที่ฝึกงาน" },
-  { id: 12, year_level: 4, day: "พฤหัสบดี", time: "13:00-16:00", subject: "โครงการนิพนธ์", room: "ห้องอาจารย์ที่ปรึกษา" },
-];
-
-/* ---------------------------------------------------------------------
    กิจกรรม ( ตาราง: calendar_events )
    --------------------------------------------------------------------- */
 const sampleActivities = [
@@ -278,7 +260,7 @@ const sampleActivities = [
     time: "09:00",
     end_time: "11:00",
     location: "ห้องปฏิบัติการออกกำลังกาย อาคารคณะวิทยาศาสตร์การกีฬา",
-    category: "ตารางเรียนตัวอย่าง (85111059)",
+    category: "กิจกรรมตัวอย่าง (85111059)",
     target_year: "ปี 1 - ปี 2",
     source_url: "https://fss.buu.ac.th/document/frontend/index",
   },
@@ -490,12 +472,12 @@ const contactInfo = {
    --------------------------------------------------------------------- */
 const sampleBanners = [
   { id: 1, tag: "รับสมัคร", title: "เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569", subtitle: "หลักสูตรศิลปศาสตรบัณฑิต สาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา", cta: "สมัครเรียน", url: "contact.html", theme: "green" },
-  { id: 2, tag: "กิจกรรม", title: "FSS Fun Run 2026 — วิ่งการกุศล", subtitle: "รายได้สนับสนุนทุนการศึกษานิสิตคณะวิทยาศาสตร์การกีฬา", cta: "ดูกิจกรรม", url: "schedule.html#calendar", theme: "gold" },
+  { id: 2, tag: "กิจกรรม", title: "FSS Fun Run 2026 — วิ่งการกุศล", subtitle: "รายได้สนับสนุนทุนการศึกษานิสิตคณะวิทยาศาสตร์การกีฬา", cta: "ดูกิจกรรม", url: "news.html", theme: "gold" },
   { id: 3, tag: "ข่าวเด่น", title: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์แข่งรถทางเรียบระดับโลก", subtitle: "สร้างชื่อเสียงให้คณะด้วยรางวัลระดับนานาชาติ", cta: "อ่านข่าว", url: "news.html", theme: "dark" },
 ];
 
 const sampleQuickLinks = [
-  { id: 1, label: "นิสิตปัจจุบัน", desc: "ตารางเรียน ปฏิทิน กิจกรรม", url: "schedule.html", icon: "student" },
+  { id: 1, label: "นิสิตปัจจุบัน", desc: "ข่าวคณะ กิจกรรม รับสมัคร", url: "news.html", icon: "student" },
   { id: 2, label: "ผู้สนใจสมัครเรียน", desc: "หลักสูตร คุณสมบัติ รับสมัคร", url: "curriculum.html", icon: "apply" },
   { id: 3, label: "ศิษย์เก่า", desc: "ผลงาน เรื่องเล่าความสำเร็จ", url: "achievements.html", icon: "alumni" },
   { id: 4, label: "อาจารย์/บุคลากร", desc: "ข่าวคณะ ติดต่อสอบถาม", url: "contact.html", icon: "staff" },
@@ -505,9 +487,8 @@ const sampleServices = [
   { id: 1, label: "หลักสูตร", url: "curriculum.html", icon: "book" },
   { id: 2, label: "ทำเนียบอาจารย์", url: "curriculum.html#faculty", icon: "users" },
   { id: 3, label: "ทุนการศึกษา", url: "scholarships.html", icon: "award" },
-  { id: 4, label: "ตารางเรียน", url: "schedule.html", icon: "calendar" },
-  { id: 5, label: "คลังภาพและวิดีโอ", url: "gallery.html", icon: "image" },
-  { id: 6, label: "ติดต่อคณะ", url: "contact.html", icon: "phone" },
+  { id: 4, label: "คลังภาพและวิดีโอ", url: "gallery.html", icon: "image" },
+  { id: 5, label: "ติดต่อคณะ", url: "contact.html", icon: "phone" },
 ];
 
 const samplePartners = [
@@ -516,3 +497,4 @@ const samplePartners = [
   { id: 3, name: "ศูนย์วิสาหกิจกีฬา ม.บูรพา", url: "https://fss.buu.ac.th/" },
   { id: 4, name: "บัณฑิตวิทยาลัย ม.บูรพา", url: "https://www.buu.ac.th/" },
 ];
+
