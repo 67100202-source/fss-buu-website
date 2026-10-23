@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initLangToggle();
 
   // ส่วนที่เฉพาะหน้าแรก
-  initYearTabs();
   loadHomepage();
 });
 
@@ -240,66 +239,6 @@ async function renderSearchResults(query) {
 }
 
 /* ---------------------------------------------------------------------
-   3) ปุ่มเลือกชั้นปี ( ปี 1 - ปี 4 )
-   --------------------------------------------------------------------- */
-function initYearTabs() {
-  // ทำงานเฉพาะหน้าที่มีกล่อง #schedule-list เท่านั้น
-  // ( หน้าปฏิทินใช้ปุ่มชั้นปีของตัวเองใน calendar.js )
-  if (!document.getElementById("schedule-list")) return;
-
-  const tabs = document.querySelectorAll(".year-tab");
-  if (tabs.length === 0) return;
-
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", async () => {
-      // เปลี่ยนสถานะปุ่ม active
-      tabs.forEach((t) => t.classList.remove("is-active"));
-      tab.classList.add("is-active");
-
-      const year = parseInt(tab.dataset.year, 10);
-      const list = await fetchSchedules(year);
-      renderSchedule(list);
-    });
-  });
-}
-
-/** แสดงรายการตารางเรียน */
-function renderSchedule(items) {
-  const box = document.getElementById("schedule-list");
-  if (!box) return;
-  box.innerHTML = "";
-
-  if (!items || items.length === 0) {
-    box.innerHTML = '<p class="text-meta">ยังไม่มีตารางเรียนสำหรับชั้นปีนี้</p>';
-    return;
-  }
-
-  items.forEach((s) => {
-    const card = document.createElement("div");
-    card.className = "schedule-card";
-
-    const rowTop = document.createElement("div");
-    rowTop.className = "row-top";
-    const subject = document.createElement("p");
-    subject.className = "text-item-title subject";
-    subject.textContent = s.subject;
-    const time = document.createElement("span");
-    time.className = "time";
-    time.textContent = s.time;
-    rowTop.appendChild(subject);
-    rowTop.appendChild(time);
-
-    const room = document.createElement("p");
-    room.className = "room";
-    room.textContent = `${s.day} • ${s.room}`;
-
-    card.appendChild(rowTop);
-    card.appendChild(room);
-    box.appendChild(card);
-  });
-}
-
-/* ---------------------------------------------------------------------
    4) โหลดข้อมูลทั้งหมดของหน้าแรก
    --------------------------------------------------------------------- */
 async function loadHomepage() {
@@ -317,10 +256,6 @@ async function loadHomepage() {
 
   // แถบพันธมิตร
   renderPartners(await fetchPartners());
-
-  // ตารางเรียน ( เริ่มต้นที่ปี 1 )
-  const schedules = await fetchSchedules(1);
-  renderSchedule(schedules);
 
   // ประกาศด่วน
   renderUrgent(await fetchUrgent());

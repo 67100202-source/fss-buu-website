@@ -17,8 +17,8 @@
 /* ---------------------------------------------------------------------
    ค่าการตั้งค่อ ( ใส่ค่าจริงของคุณตรงนี้ )
    --------------------------------------------------------------------- */
-const SUPABASE_URL = "https://wssrecnfyljacgyejpfj.supabase.co";      // Project URL ของคุณ (ห้ามมี /rest/v1/ ต่อท้าย)
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indzc3JlY25meWxqYWNneWVqcGZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1Nzg0NDUsImV4cCI6MjEwODE1NDQ0NX0.AfqynoY0jWdcLnlsBlXIuTz2XQN4ugwX1tRV4J5Poaw";  // anon public key ของคุณ
+const SUPABASE_URL = "https://wssrecnfyljacgyejpfj.supabase.co";      // Project URL ของคุณ
+const SUPABASE_ANON_KEY = "sb_publishable_OTCjdXao3rbDUnMla7WWGA_1Ks8eB0C";  // anon public key ของคุณ
 
 /* ---------------------------------------------------------------------
    ตรวจสอบว่าตั้งค่าครบหรือยัง

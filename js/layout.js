@@ -18,7 +18,7 @@
    --------------------------------------------------------------------- */
 const MENU_ITEMS = [
   { label: "หน้าแรก", url: "index.html", key: "home" },
-  { label: "ตารางเรียนและปฏิทิน", url: "schedule.html", key: "schedule" },
+  { label: "กิจกรรมและปฏิทิน", url: "schedule.html", key: "schedule" },
   {
     label: "ข่าวสารและกิจกรรม",
     url: "news.html",

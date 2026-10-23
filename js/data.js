@@ -207,16 +207,6 @@ async function fetchUrgent() {
 }
 
 /**
- * ดึงตารางเรียนตามชั้นปี
- * หมายเหตุ: ไม่มีตาราง schedules ใน SQL ใหม่ → ใช้ข้อมูลตัวอย่างไปก่อน
- * @param {number} yearLevel ชั้นปี (1-4)
- */
-async function fetchSchedules(yearLevel) {
-  // ไม่มีตาราง schedules ใน supabase_setup.sql → ใช้ข้อมูลตัวอย่าง
-  return sampleSchedules.filter((s) => s.year_level === yearLevel);
-}
-
-/**
  * ดึงกิจกรรม ( จากตาราง calendar_events )
  */
 async function fetchActivities() {

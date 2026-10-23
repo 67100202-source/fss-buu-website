@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!document.getElementById("cal-grid")) return;
 
   initCalendar();
-  initTimetableTabs();
 });
 
 /* ---------------------------------------------------------------------
@@ -351,86 +350,4 @@ function buildCalendarButton(act) {
   return btn;
 }
 
-/* ---------------------------------------------------------------------
-   5) ตารางเรียนรายชั้นปี ( ปี 1 - ปี 4 )
-   --------------------------------------------------------------------- */
-async function initTimetableTabs() {
-  // ทำงานเฉพาะหน้าที่มีตารางเรียนเท่านั้น
-  if (!document.getElementById("timetable-body")) return;
 
-  const tabs = document.querySelectorAll(".year-tab");
-  if (tabs.length === 0) return;
-
-  // แสดงตารางเรียนปี 1 เป็นค่าเริ่มต้น
-  renderTimetable(await fetchSchedules(1));
-
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", async () => {
-      // เปลี่ยนปุ่มที่ถูกเลือก
-      tabs.forEach((t) => {
-        t.classList.remove("is-active");
-        t.setAttribute("aria-selected", "false");
-      });
-      tab.classList.add("is-active");
-      tab.setAttribute("aria-selected", "true");
-
-      const year = parseInt(tab.dataset.year, 10);
-      const schedules = await fetchSchedules(year);
-      renderTimetable(schedules);
-    });
-  });
-}
-
-/** วาดตารางเรียนลงในตาราง */
-function renderTimetable(items) {
-  const body = document.getElementById("timetable-body");
-  if (!body) return;
-  body.innerHTML = "";
-
-  if (!items || items.length === 0) {
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
-    td.colSpan = 4;
-    td.className = "text-meta";
-    td.textContent = "ยังไม่มีตารางเรียนสำหรับชั้นปีนี้";
-    tr.appendChild(td);
-    body.appendChild(tr);
-    return;
-  }
-
-  // จัดกลุ่มตามวัน
-  const byDay = {};
-  items.forEach((s) => {
-    if (!byDay[s.day]) byDay[s.day] = [];
-    byDay[s.day].push(s);
-  });
-
-  // ลำดับวันมาตรฐาน
-  const dayOrder = ["จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์", "อาทิตย์"];
-
-  dayOrder.forEach((day) => {
-    if (!byDay[day]) return;
-    byDay[day].forEach((s) => {
-      const tr = document.createElement("tr");
-
-      const tdDay = document.createElement("td");
-      tdDay.textContent = day;
-
-      const tdTime = document.createElement("td");
-      tdTime.className = "time";
-      tdTime.textContent = s.time;
-
-      const tdSubject = document.createElement("td");
-      tdSubject.textContent = s.subject;
-
-      const tdRoom = document.createElement("td");
-      tdRoom.textContent = s.room;
-
-      tr.appendChild(tdDay);
-      tr.appendChild(tdTime);
-      tr.appendChild(tdSubject);
-      tr.appendChild(tdRoom);
-      body.appendChild(tr);
-    });
-  });
-}
