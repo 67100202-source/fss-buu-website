@@ -10,6 +10,7 @@ node_modules/
 .env
 .env.local
 .env.*.local
+js/supabase-config.js
 
 # IDE และเครื่องมือพัฒนา
 .vscode/
