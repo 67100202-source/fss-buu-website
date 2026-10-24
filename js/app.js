@@ -236,8 +236,7 @@ async function loadHomepage() {
   // Hero slider ( สไลด์ Banner ด้านบนสุด )
   initHeroSlider(await fetchBanners());
 
-  // ทางลัดตามกลุ่มผู้ใช้
-  renderQuickLinks(await fetchQuickLinks());
+
 
   // ตารางไอคอนบริการ
   renderServices(await fetchServices());

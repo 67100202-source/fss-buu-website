@@ -1520,3 +1520,67 @@ ol {
 .page-main .two-col {
   margin-bottom: 1.25rem;
 }
+
+/* =====================================================================
+   แถบการ์ดทางลัดด่วน 4 กล่อง (Quick Action Cards)
+   ===================================================================== */
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);   /* มือถือ = 2 คอลัมน์ */
+  gap: 0.75rem;
+}
+.quick-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0.75rem;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-gray-dark);
+  transition: all 0.25s ease;
+}
+.quick-action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-green);
+}
+.quick-action-card .qa-icon {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-green-soft);
+  border-radius: 12px;
+  color: var(--color-green);
+}
+.quick-action-card .qa-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.quick-action-card .qa-label {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+}
+.quick-action-card .qa-arrow {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-yellow);
+}
+@media (min-width: 640px) {
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  .quick-actions-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
