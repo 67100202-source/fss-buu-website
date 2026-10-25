@@ -14,6 +14,21 @@
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
+   ช่วยเลือก path ให้ถูกตามว่าอยู่ในโฟลเดอร์ admin/ หรือไม่
+   --------------------------------------------------------------------- */
+function pathPrefix() {
+  return window.location.pathname.indexOf("/admin/") !== -1 ? "../" : "";
+}
+function resolveUrl(url) {
+  if (!url) return url;
+  // ลิงก์ภายใน admin/ ( เช่น login.html ) อยู่โฟลเดอร์เดียวกัน
+  if (url.indexOf("admin/") === 0) {
+    return pathPrefix() + url.replace("admin/", "");
+  }
+  return pathPrefix() + url;
+}
+
+/* ---------------------------------------------------------------------
    รายการเมนูหลัก 7 รายการ ( ตาม docs/sitemap.md )
    --------------------------------------------------------------------- */
 const MENU_ITEMS = [
@@ -138,13 +153,13 @@ function buildHeaderHTML() {
   // --- เมนูแนวนอนสำหรับจอใหญ่ ---
   const desktopLinks = MENU_ITEMS.map((m) => {
     const active = m.key === currentPage ? ' class="is-active"' : "";
-    return `<a href="${m.url}"${active} data-i18n="${m.i18n}">${m.label}</a>`;
+    return `<a href="${resolveUrl(m.url)}"${active} data-i18n="${m.i18n}">${m.label}</a>`;
   }).join("\n        ");
 
   // --- เมนูแนวตั้งสำหรับมือถือ ( ใน Drawer ) ---
   const mobileLinks = MENU_ITEMS.map((m) => {
     const active = m.key === currentPage ? " is-active" : "";
-    let html = `<a class="nav-link${active}" href="${m.url}" data-i18n="${m.i18n}">${m.label}</a>`;
+    let html = `<a class="nav-link${active}" href="${resolveUrl(m.url)}" data-i18n="${m.i18n}">${m.label}</a>`;
     // ถ้ามีเมนูย่อย ให้เพิ่มรายการย่อยต่อท้าย
     if (m.sub) {
       const subs = m.sub
@@ -163,7 +178,7 @@ function buildHeaderHTML() {
     <div class="header-inner">
 
       <!-- โลโก้ BUU | FSS (รูปภาพฝั่งซ้าย คลิกกลับหน้าแรก) -->
-      <a class="logo" href="index.html" aria-label="กลับหน้าแรก">
+      <a class="logo" href="${resolveUrl("index.html")}" aria-label="กลับหน้าแรก">
         <img class="logo-img" src="https://wssrecnfyljacgyejpfj.supabase.co/storage/v1/object/public/fss-media/media/1792702527883_Logo2.jpg" alt="โลโก้คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา" />
       </a>
 
@@ -263,13 +278,13 @@ function buildFooterHTML() {
 
       <div class="footer-group">
         <h3 data-i18n="footer.quicklinks">ลิงก์ด่วน</h3>
-        <p><a href="contact.html" data-i18n="footer.apply">สมัครเรียนต่อ</a></p>
-        <p><a href="scholarships.html" data-i18n="footer.scholarship">ทุนการศึกษา</a></p>
+        <p><a href="${resolveUrl("contact.html")}" data-i18n="footer.apply">สมัครเรียนต่อ</a></p>
+        <p><a href="${resolveUrl("scholarships.html")}" data-i18n="footer.scholarship">ทุนการศึกษา</a></p>
       </div>
 
       <div class="footer-group">
         <h3 data-i18n="footer.staff">สำหรับเจ้าหน้าที่</h3>
-        <p><a href="admin/login.html" data-i18n="footer.admin">เข้าสู่ระบบผู้ดูแล (Admin)</a></p>
+        <p><a href="${resolveUrl("admin/login.html")}" data-i18n="footer.admin">เข้าสู่ระบบผู้ดูแล (Admin)</a></p>
       </div>
 
     </div>
