@@ -527,10 +527,7 @@ async function initSportsPage() {
   // --- ตารางการแข่งขัน ---
   renderMatchFixtures(await fetchMatchFixtures());
 
-  // --- นักกีฬาคณะ ---
-  renderAthletes(await fetchAthletes());
-
-  // --- แท็บสลับ ( ข่าวกีฬา / ผลการแข่งขัน / ตาราง / นักกีฬา ) ---
+  // --- แท็บสลับ ( ข่าวกีฬา / ผลการแข่งขัน / ตาราง ) ---
   initTabs();
 
   // เมื่อเปลี่ยนภาษา ให้ re-render รายการข่าวกีฬาทันที
@@ -644,43 +641,6 @@ function renderMatchFixtures(items) {
     item.appendChild(dateBox);
     item.appendChild(body);
     box.appendChild(item);
-  });
-}
-
-/** แสดงการ์ดนักกีฬาคณะ */
-function renderAthletes(items) {
-  const box = document.getElementById("athlete-list");
-  if (!box) return;
-  box.innerHTML = "";
-
-  (items || []).forEach((a) => {
-    const card = document.createElement("div");
-    card.className = "athlete-card";
-
-    // รูปประจำตัว ( placeholder เป็นตัวอักษรแรก )
-    const avatar = document.createElement("span");
-    avatar.className = "athlete-avatar";
-    avatar.textContent = a.name.charAt(0);
-
-    // ข้อมูล
-    const info = document.createElement("div");
-    info.className = "athlete-info";
-    const name = document.createElement("p");
-    name.className = "athlete-name";
-    name.textContent = a.name;
-    const sport = document.createElement("p");
-    sport.className = "athlete-sport";
-    sport.textContent = `${a.sport} • ปี ${a.year_level}`;
-    const ach = document.createElement("p");
-    ach.className = "athlete-sport";
-    ach.textContent = a.achievement;
-    info.appendChild(name);
-    info.appendChild(sport);
-    info.appendChild(ach);
-
-    card.appendChild(avatar);
-    card.appendChild(info);
-    box.appendChild(card);
   });
 }
 

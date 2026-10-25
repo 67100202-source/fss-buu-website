@@ -462,8 +462,9 @@ async function fetchMatchFixtures() {
  * ดึงข้อมูลนักกีฬาคณะ
  * หมายเหตุ: ไม่มีตาราง athletes ใน SQL ใหม่ → ใช้ข้อมูลตัวอย่าง
  */
+// นักกีฬาคณะถูกลบออก (ไม่จำเป็น) — คืนค่าว่าง
 async function fetchAthletes() {
-  return sampleAthletes;
+  return [];
 }
 
 /**
