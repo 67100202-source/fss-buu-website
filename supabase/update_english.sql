@@ -84,6 +84,5 @@ ALTER TABLE public.calendar_events ADD COLUMN IF NOT EXISTS location_en TEXT;
 UPDATE public.calendar_events SET title_en = 'TCAS Admission 2026 (BUU TCAS)', event_type_en = 'Academic Calendar', location_en = 'Online (e-admission.buu.ac.th)' WHERE id = 1;
 UPDATE public.calendar_events SET title_en = 'Sport Science Games (Internal Sports Competition)', event_type_en = 'Faculty Activity', location_en = 'FSS sports field and building' WHERE id = 2;
 UPDATE public.calendar_events SET title_en = 'BUU Sport Science Volunteer Camp', event_type_en = 'Volunteer Activity', location_en = 'Communities in Chonburi and Eastern region' WHERE id = 3;
-UPDATE public.calendar_events SET title_en = 'Exercise for Quality of Life (85111059)', event_type_en = 'Course Activity', location_en = 'Exercise laboratory, FSS building' WHERE id = 4;
 
 SELECT 'English fields updated' AS result;
