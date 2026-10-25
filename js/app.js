@@ -501,15 +501,16 @@ function renderScholarships(items) {
   (items || []).forEach((s) => {
     const item = document.createElement("div");
     item.className = "info-item";
+    const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
     const title = document.createElement("p");
     title.className = "text-item-title";
-    title.textContent = s.title;
+    title.textContent = (isEn && s.title_en) ? s.title_en : s.title;
     const deadline = document.createElement("p");
     deadline.className = "badge";
-    deadline.textContent = `ปิดรับสมัคร ${formatDateTH(s.deadline)}`;
+    deadline.textContent = `${isEn ? "Deadline" : "ปิดรับสมัคร"} ${formatDateTH(s.deadline)}`;
     const detail = document.createElement("p");
     detail.className = "text-meta";
-    detail.textContent = s.detail || "";
+    detail.textContent = (isEn && s.detail_en) ? s.detail_en : (s.detail || "");
     item.appendChild(title);
     item.appendChild(deadline);
     item.appendChild(detail);
@@ -525,12 +526,13 @@ function renderAchievements(items) {
   (items || []).forEach((a) => {
     const item = document.createElement("div");
     item.className = "info-item";
+    const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
     const title = document.createElement("p");
     title.className = "text-item-title";
-    title.textContent = a.title;
+    title.textContent = (isEn && a.title_en) ? a.title_en : a.title;
     const person = document.createElement("p");
     person.className = "text-meta";
-    person.textContent = a.person;
+    person.textContent = (isEn && a.person_en) ? a.person_en : a.person;
     item.appendChild(title);
     item.appendChild(person);
     box.appendChild(item);
@@ -583,10 +585,11 @@ function renderMedia(items) {
   const box = document.getElementById("media-list");
   if (!box) return;
   box.innerHTML = "";
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   (items || []).forEach((m) => {
     const cell = document.createElement("div");
     cell.className = "gallery-item";
-    cell.textContent = m.title;
+    cell.textContent = (isEn && m.title_en) ? m.title_en : m.title;
     box.appendChild(cell);
   });
 }

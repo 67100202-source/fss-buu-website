@@ -39,6 +39,11 @@ async function initCalendarPage() {
   const nextBtn = document.getElementById("cal-next");
   if (prevBtn) prevBtn.addEventListener("click", () => changeMonth(-1));
   if (nextBtn) nextBtn.addEventListener("click", () => changeMonth(1));
+
+  // re-render เมื่อเปลี่ยนภาษา
+  window.addEventListener("languagechange", () => {
+    renderCalendar();
+  });
 }
 
 /** ดึงกิจกรรมทั้งหมด (ไม่กรองวันที่) — fallback ข้อมูลตัวอย่าง */
@@ -55,12 +60,16 @@ async function fetchCalendarEvents() {
         return data.map((r) => ({
           id: r.id,
           title: r.title,
+          title_en: r.title_en || "",
           date: r.start_date,
           end_date: r.end_date,
           time: r.time_range || "",
           location: r.location || "",
+          location_en: r.location_en || "",
           category: r.event_type,
+          category_en: r.event_type_en || "",
           detail: r.description || "",
+          detail_en: r.description_en || "",
           source_url: r.source_url || "",
         }));
       }
@@ -141,14 +150,16 @@ function renderCalendar() {
     num.textContent = day;
     cell.appendChild(num);
 
+    const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
     const evs = eventsOnDate(iso);
     evs.slice(0, 2).forEach((ev) => {
+      const title = (isEn && ev.title_en) ? ev.title_en : ev.title;
       const badge = document.createElement("span");
       badge.className = "ev-badge";
       // ตัดชื่อกิจกรรมให้สั้น เพื่อไม่ให้ล้นขอบเซลล์
-      const short = ev.title.length > 14 ? ev.title.slice(0, 14) + "…" : ev.title;
+      const short = title.length > 14 ? title.slice(0, 14) + "…" : title;
       badge.textContent = short;
-      badge.title = ev.title; // tooltip แสดงชื่อเต็มเมื่อ hover
+      badge.title = title; // tooltip แสดงชื่อเต็มเมื่อ hover
       cell.appendChild(badge);
     });
     if (evs.length > 2) {
@@ -211,11 +222,12 @@ function openEventModal(isoDate) {
   h.textContent = formatDateTH(isoDate);
   body.appendChild(h);
 
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   const evs = eventsOnDate(isoDate);
   if (evs.length === 0) {
     const p = document.createElement("p");
     p.className = "empty-state";
-    p.textContent = "ไม่มีกิจกรรมในวันนี้";
+    p.textContent = isEn ? "No activities on this day" : "ไม่มีกิจกรรมในวันนี้";
     body.appendChild(p);
     eventModalEl.style.display = "flex";
     return;
@@ -225,27 +237,33 @@ function openEventModal(isoDate) {
     const item = document.createElement("div");
     item.style.cssText = "background:var(--color-gray-bg,#f5f5f5);border:1px solid var(--color-gray-light,#e0e0e0);border-radius:8px;padding:0.75rem;margin-bottom:0.6rem;";
 
+    const titleText = (isEn && ev.title_en) ? ev.title_en : ev.title;
     const title = document.createElement("p");
     title.style.cssText = "font-weight:600;margin:0 0 0.25rem;";
-    title.textContent = ev.title;
+    title.textContent = titleText;
 
     const meta = document.createElement("p");
     meta.style.cssText = "font-size:0.9rem;color:var(--color-gray-medium,#666);margin:0 0 0.4rem;";
     const parts = [];
     if (ev.time) parts.push(`⏰ ${ev.time}`);
-    if (ev.location) parts.push(`📍 ${ev.location}`);
-    if (ev.category) parts.push(`🏷 ${ev.category}`);
+    const loc = (isEn && ev.location_en) ? ev.location_en : ev.location;
+    if (loc) parts.push(`📍 ${loc}`);
+    const cat = (isEn && ev.category_en) ? ev.category_en : ev.category;
+    if (cat) parts.push(`🏷 ${cat}`);
     meta.textContent = parts.join(" • ") || "—";
+
+    const detailText = (isEn && ev.detail_en) ? ev.detail_en : ev.detail;
+    if (detailText) {
+      const detail = document.createElement("p");
+      detail.style.cssText = "font-size:0.9rem;margin:0 0 0.5rem;";
+      detail.textContent = detailText;
+      item.appendChild(detail);
+    }
 
     item.appendChild(title);
     item.appendChild(meta);
 
-    if (ev.detail) {
-      const detail = document.createElement("p");
-      detail.style.cssText = "font-size:0.9rem;margin:0 0 0.5rem;";
-      detail.textContent = ev.detail;
-      item.appendChild(detail);
-    }
+
 
     // ปุ่มเพิ่มลง Google Calendar
     if (typeof buildGoogleCalendarLink === "function") {

@@ -441,8 +441,9 @@ const sampleScholarships = [
   {
     id: 1,
     title: "ทุนสนับสนุนการทำวิจัยดุษฎีนิพนธ์ บัณฑิตวิทยาลัย มหาวิทยาลัยบูรพา",
-    title_en: "ทุนสนับสนุนการทำวิจัยดุษฎีนิพนธ์ บัณฑิตวิทยาลัย มหาวิทยาลัยบูรพา",
+    title_en: "Scholarship for Doctoral Thesis Research, Graduate School, Burapha University",
     type: "ทุนวิจัยระดับบัณฑิตศึกษา",
+    type_en: "ทุนวิจัยระดับบัณฑิตศึกษา",
     amount: 10000,
     deadline: "2026-10-31",
     detail: "นิสิตระดับปริญญาโท-เอก สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา ที่ได้รับอนุมัติหัวข้อวิทยานิพนธ์/ดุษฎีนิพนธ์",
@@ -452,8 +453,9 @@ const sampleScholarships = [
   {
     id: 2,
     title: "ทุนโครงการผู้มีความสามารถพิเศษทางกีฬา (โครงการช้างเผือก) ปีการศึกษา 2569",
-    title_en: "ทุนโครงการผู้มีความสามารถพิเศษทางกีฬา (โครงการช้างเผือก) ปีการศึกษา 2569",
+    title_en: "Special Talent in Sports Program (Chang Suek Project) Academic Year 2026",
     type: "ทุนรับสมัครนิสิตใหม่ความสามารถพิเศษทางกีฬา",
+    type_en: "ทุนรับสมัครนิสิตใหม่ความสามารถพิเศษทางกีฬา",
     amount: null,
     deadline: "2026-10-30",
     detail: "ผู้สมัครเข้าศึกษาระดับปริญญาตรีที่มีประวัติและผลงานการแข่งขันกีฬาระดับชาติ เยาวชนแห่งชาติ หรือตัวแทนจังหวัด",
@@ -463,8 +465,9 @@ const sampleScholarships = [
   {
     id: 3,
     title: "ทุนส่งเสริมการศึกษาสำหรับนิสิตผู้มีศักยภาพและนิสิตจิตอาสา คณะวิทยาศาสตร์การกีฬา",
-    title_en: "ทุนส่งเสริมการศึกษาสำหรับนิสิตผู้มีศักยภาพและนิสิตจิตอาสา คณะวิทยาศาสตร์การกีฬา",
+    title_en: "Scholarship for Potential and Volunteer Students, Faculty of Sport Science",
     type: "ทุนการศึกษาระดับปริญญาตรี",
+    type_en: "ทุนการศึกษาระดับปริญญาตรี",
     amount: 5000,
     deadline: "2026-11-15",
     detail: "นิสิตปัจจุบันระดับปริญญาตรี ชั้นปีที่ 1–4 ที่มีความประพฤติดี ขาดแคลนทุนทรัพย์ หรือมีผลงานจิตอาสาช่วยเหลือกิจกรรมคณะ",
@@ -478,11 +481,11 @@ const sampleScholarships = [
    --------------------------------------------------------------------- */
 const sampleAchievements = [
   { id: 1, title: "ได้รับการพิจารณาอนุมัติทุนสนับสนุนการทำวิจัยดุษฎีนิพนธ์ (10,000 บาท) จากบัณฑิตวิทยาลัย มหาวิทยาลัยบูรพา",
-    title_en: "ได้รับการพิจารณาอนุมัติทุนสนับสนุนการทำวิจัยดุษฎีนิพนธ์ (10,000 บาท) จากบัณฑิตวิทยาลัย มหาวิทยาลัยบูรพา", person: "นายภาคภูมิ พิลึก", role: "นิสิตระดับปริญญาเอก หลักสูตรปรัชญาดุษฎีบัณฑิต สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา", category: "ผลงานวิชาการและวิจัย", year: "2569", source_url: "https://fss.buu.ac.th/news/frontend/detail/MTZ8fFl6WUd8Qmtz" },
+    title_en: "Thesis Research Support Scholarship, Graduate School, Burapha University (10,000 THB)", person: "นายภาคภูมิ พิลึก", role: "นิสิตระดับปริญญาเอก หลักสูตรปรัชญาดุษฎีบัณฑิต สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา", category: "ผลงานวิชาการและวิจัย", year: "2569", source_url: "https://fss.buu.ac.th/news/frontend/detail/MTZ8fFl6WUd8Qmtz" },
   { id: 2, title: "รางวัลชนะเลิศ รายการ Suzuka 4 Hours Endurance Japan รุ่น ST 600 ณ ประเทศญี่ปุ่น",
     title_en: "Kiattisak Singharphong wins Suzuka 4 Hours Endurance ST600", person: "นายเกียรติศักดิ์ สิงหพงษ์", role: "นิสิตชั้นปีที่ 1 สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา (นักกีฬารถจักรยานยนต์ทางเรียบ)", category: "ผลงานกีฬาสร้างชื่อเสียงระดับนานาชาติ", year: "2567", source_url: "https://fss.buu.ac.th/" },
   { id: 3, title: "ตีพิมพ์ผลงานวิจัยเรื่อง 'Follow-Up Weekly Training Distribution and Accumulated Internal Load Effects on Young Football Players' ในวารสารวิชาการนานาชาติ Sports",
-    title_en: "ตีพิมพ์ผลงานวิจัยเรื่อง 'Follow-Up Weekly Training Distribution and Accumulated Internal Load Effects on Young Football Players' ในวารสารวิชาการนานาชาติ Sports", person: "ผศ.ดร.พรพจน์ ไชยนอก และคณะ", role: "คณาจารย์คณะวิทยาศาสตร์การกีฬา", category: "ผลงานวิจัยระดับนานาชาติ", year: "2567", source_url: "https://fss.buu.ac.th/" },
+    title_en: "Follow-Up Weekly Training Distribution and Accumulated Internal Load Effects on Young Football Players (Sports Science Journal)", person: "ผศ.ดร.พรพจน์ ไชยนอก และคณะ", role: "คณาจารย์คณะวิทยาศาสตร์การกีฬา", category: "ผลงานวิจัยระดับนานาชาติ", year: "2567", source_url: "https://fss.buu.ac.th/" },
   { id: 4, title: "คว้าเหรียญรางวัลจากการแข่งขันกีฬามหาวิทยาลัยแห่งประเทศไทย ครั้งที่ 48 รอบมหกรรม 'ดอกจานบ้านเชียงเกมส์'",
     title_en: "BUU athletes win medals at 48th University Games", person: "ทัพนักกีฬานิสิตคณะวิทยาศาสตร์การกีฬา ม.บูรพา", role: "นิสิตปัจจุบันตัวแทนมหาวิทยาลัยบูรพา", category: "ผลงานการแข่งขันกีฬาระดับชาติ", year: "2566", source_url: "https://fss.buu.ac.th/" },
 ];
@@ -492,11 +495,14 @@ const sampleAchievements = [
    --------------------------------------------------------------------- */
 const sampleMedia = [
   { id: 1, title: "วีดิทัศน์แนะนำคณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา",
-    title_en: "วีดิทัศน์แนะนำคณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา", type: "video", image_url: "https://fss.buu.ac.th/public/backend/upload/fss.buu.ac.th/slide/original/slide153985357075708200.jpg", youtube_url: "https://www.youtube.com/watch?v=_lxIy2d78Lg", date: "2023-06-14", source_url: "https://fss.buu.ac.th/" },
+    title_en: "Faculty introduction video", type: "video",
+    type_en: "video", image_url: "https://fss.buu.ac.th/public/backend/upload/fss.buu.ac.th/slide/original/slide153985357075708200.jpg", youtube_url: "https://www.youtube.com/watch?v=_lxIy2d78Lg", date: "2023-06-14", source_url: "https://fss.buu.ac.th/" },
   { id: 2, title: "การดำเนินโครงการยกระดับเศรษฐกิจและสังคมรายตำบลแบบบูรณาการ (1 ตำบล 1 มหาวิทยาลัย - U2T)",
-    title_en: "การดำเนินโครงการยกระดับเศรษฐกิจและสังคมรายตำบลแบบบูรณาการ (1 ตำบล 1 มหาวิทยาลัย - U2T)", type: "video", image_url: "https://fss.buu.ac.th/public/backend/upload/fss.buu.ac.th/slide/original/slide153985357075708200.jpg", youtube_url: "https://www.youtube.com/watch?v=_lxIy2d78Lg", date: "2021-10-20", source_url: "https://fss.buu.ac.th/" },
+    title_en: "U2T project: 1 Tambon 1 University", type: "video",
+    type_en: "video", image_url: "https://fss.buu.ac.th/public/backend/upload/fss.buu.ac.th/slide/original/slide153985357075708200.jpg", youtube_url: "https://www.youtube.com/watch?v=_lxIy2d78Lg", date: "2021-10-20", source_url: "https://fss.buu.ac.th/" },
   { id: 3, title: "อัลบั้มภาพบรรยากาศพื้นที่การเรียนรู้ FSS Co-Working Space และห้องปฏิบัติการวิทยาศาสตร์การกีฬา",
-    title_en: "อัลบั้มภาพบรรยากาศพื้นที่การเรียนรู้ FSS Co-Working Space และห้องปฏิบัติการวิทยาศาสตร์การกีฬา", type: "image", image_url: "http://fss.buu.ac.th/public/backend/upload/fss.buu.ac.th/summernote/b3e3e393c77e35a4a3f3cbd1e429b5dc.jpg", youtube_url: "", date: "2026-09-15", source_url: "https://fss.buu.ac.th/history/frontend/index" },
+    title_en: "FSS Co-Working Space and laboratories album", type: "image",
+    type_en: "image", image_url: "http://fss.buu.ac.th/public/backend/upload/fss.buu.ac.th/summernote/b3e3e393c77e35a4a3f3cbd1e429b5dc.jpg", youtube_url: "", date: "2026-09-15", source_url: "https://fss.buu.ac.th/history/frontend/index" },
 ];
 
 /* ---------------------------------------------------------------------

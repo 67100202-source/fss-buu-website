@@ -130,10 +130,13 @@ function mapScholarshipRow(r) {
   return {
     id: r.id,
     title: r.title,
+    title_en: r.title_en || "",
     type: r.scholarship_type,
+    type_en: r.scholarship_type_en || "",
     amount: r.amount_baht,
     deadline: r.deadline,
     detail: r.eligibility || "",
+    detail_en: r.eligibility_en || "",
     file_name: r.attachment_name || "",
     source_url: r.source_url || "",
   };
@@ -144,9 +147,13 @@ function mapAchievementRow(r) {
   return {
     id: r.id,
     title: r.award_title,
+    title_en: r.award_title_en || "",
     person: r.person_name,
+    person_en: r.person_name_en || "",
     role: r.person_role || "",
+    role_en: r.person_role_en || "",
     category: r.category || "",
+    category_en: r.category_en || "",
     year: r.award_year || "",
     source_url: r.source_url || "",
   };
@@ -159,14 +166,18 @@ function mapEventRow(r) {
   return {
     id: r.id,
     title: r.title,
+    title_en: r.title_en || "",
     date: r.start_date,
     end_date: r.end_date,
     time: r.time_range || "",
     end_time: "",
     location: r.location || "",
+    location_en: r.location_en || "",
     category: r.event_type,
+    category_en: r.event_type_en || "",
     target_year: r.target_year || "",
     detail: r.description || "",
+    detail_en: r.description_en || "",
     source_url: r.source_url || "",
   };
 }
@@ -176,6 +187,7 @@ function mapMediaRow(r) {
   return {
     id: r.id,
     title: r.title,
+    title_en: r.title_en || "",
     type: r.media_type === "video" ? "video" : "image",
     image_url: r.thumbnail_url || "",
     youtube_url: r.youtube_url || "",

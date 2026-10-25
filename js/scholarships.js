@@ -8,6 +8,8 @@
      3) แสดงรายการทุนพร้อมไฟล์เอกสารแนบ
    ===================================================================== */
 
+let scholarshipsCache = null;
+
 document.addEventListener("DOMContentLoaded", () => {
   if (!document.getElementById("scholarship-list")) return;
   initScholarshipsPage();
@@ -15,7 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function initScholarshipsPage() {
   const scholarships = await fetchScholarships();
+  scholarshipsCache = scholarships;
   renderScholarships(scholarships);
+
+  window.addEventListener("languagechange", () => {
+    if (scholarshipsCache) renderScholarships(scholarshipsCache);
+  });
 }
 
 function renderScholarships(items) {
@@ -34,6 +41,7 @@ function renderScholarships(items) {
   }
   if (empty) empty.style.display = "none";
 
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   items.forEach((s) => {
     const card = document.createElement("div");
     card.className = "scholarship-card";
@@ -41,27 +49,31 @@ function renderScholarships(items) {
     const deadlineDate = s.deadline ? new Date(s.deadline) : null;
     const isOpen = deadlineDate ? deadlineDate >= today : false;
 
+    const title = (isEn && s.title_en) ? s.title_en : s.title;
+    const type = (isEn && s.type_en) ? s.type_en : (s.type || "-");
+    const detail = (isEn && s.detail_en) ? s.detail_en : (s.detail || "-");
+
     const statusBadge = isOpen
-      ? '<span class="badge-open">เปิดรับสมัคร</span>'
-      : '<span class="badge-closed">ปิดรับสมัครแล้ว</span>';
+      ? `<span class="badge-open">${isEn ? "Open" : "เปิดรับสมัคร"}</span>`
+      : `<span class="badge-closed">${isEn ? "Closed" : "ปิดรับสมัครแล้ว"}</span>`;
 
     const deadlineText = s.deadline
       ? formatDateTH(s.deadline)
       : "-";
 
     const fileHtml = s.file_name
-      ? `<p class="sch-file">📎 เอกสารแนบ: ${s.file_name}</p>`
+      ? `<p class="sch-file">📎 ${isEn ? "Attachment:" : "เอกสารแนบ:"} ${s.file_name}</p>`
       : "";
 
     card.innerHTML = `
-      <p class="sch-title">${s.title}</p>
-      <p class="sch-type">${s.type || "-"}</p>
+      <p class="sch-title">${title}</p>
+      <p class="sch-type">${type}</p>
       ${statusBadge}
-      <p class="sch-meta">📅 ปิดรับสมัคร ${deadlineText}</p>
-      <p class="sch-detail">${s.detail || "-"}</p>
+      <p class="sch-meta">📅 ${isEn ? "Deadline" : "ปิดรับสมัคร"} ${deadlineText}</p>
+      <p class="sch-detail">${detail}</p>
       ${fileHtml}
       <p class="sch-deadline ${isOpen ? "" : "expired"}">
-        ${isOpen ? "ยังเปิดรับสมัครอยู่ค่ะ" : "ปิดรับสมัครแล้วค่ะ"}
+        ${isOpen ? (isEn ? "Still open for applications" : "ยังเปิดรับสมัครอยู่ค่ะ") : (isEn ? "Applications closed" : "ปิดรับสมัครแล้วค่ะ")}
       </p>
     `;
 
