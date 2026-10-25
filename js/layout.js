@@ -35,7 +35,11 @@ const MENU_ITEMS = [
   { label: "หน้าแรก", url: "index.html", key: "home", i18n: "menu.home" },
   { label: "ปฏิทินกิจกรรม", url: "calendar.html", key: "calendar", i18n: "menu.calendar" },
   { label: "ข่าวสารและกีฬา", url: "news.html", key: "news", i18n: "menu.news" },
-  { label: "หลักสูตรที่เปิดสอน", url: "curriculum.html", key: "curriculum", i18n: "menu.curriculum" },
+  { label: "หลักสูตรที่เปิดสอน", url: "curriculum.html", key: "curriculum", i18n: "menu.curriculum",
+    sub: [
+      { label: "อาจารย์และเจ้าหน้าที่", url: "faculty.html", key: "faculty", i18n: "menu.faculty" },
+    ],
+  },
   { label: "ทุนการศึกษาและวิจัย", url: "scholarships.html", key: "scholarships", i18n: "menu.scholarships" },
   { label: "ผลงานและคลังสื่อ", url: "achievements.html", key: "achievements", i18n: "menu.achievements" },
   { label: "ติดต่อและสมัครเรียน", url: "contact.html", key: "contact", i18n: "menu.contact" },
@@ -50,6 +54,7 @@ const I18N = {
     "menu.calendar": "ปฏิทินกิจกรรม",
     "menu.news": "ข่าวสารและกีฬา",
     "menu.curriculum": "หลักสูตรที่เปิดสอน",
+    "menu.faculty": "อาจารย์และเจ้าหน้าที่",
     "menu.scholarships": "ทุนการศึกษาและวิจัย",
     "menu.achievements": "ผลงานและคลังสื่อ",
     "menu.contact": "ติดต่อและสมัครเรียน",
@@ -76,6 +81,7 @@ const I18N = {
     "menu.calendar": "Calendar & Events",
     "menu.news": "News & Sports",
     "menu.curriculum": "Programs",
+    "menu.faculty": "Faculty & Staff",
     "menu.scholarships": "Scholarships & Research",
     "menu.achievements": "Achievements & Media",
     "menu.contact": "Contact & Admission",
@@ -156,13 +162,30 @@ function buildHeaderHTML() {
 
   // --- เมนูแนวนอนสำหรับจอใหญ่ ---
   const desktopLinks = MENU_ITEMS.map((m) => {
-    const active = m.key === currentPage ? ' class="is-active"' : "";
+    const hasActiveSub = m.sub && m.sub.some((s) => s.key === currentPage);
+    const active = (m.key === currentPage || hasActiveSub) ? ' class="is-active"' : "";
+    if (m.sub && m.sub.length) {
+      const subLinks = m.sub
+        .map((s) => {
+          const subActive = s.key === currentPage ? ' class="is-active"' : "";
+          return `<a href="${resolveUrl(s.url)}"${subActive} data-i18n="${s.i18n}">${s.label}</a>`;
+        })
+        .join("\n          ");
+      return `
+      <div class="nav-dropdown">
+        <a href="${resolveUrl(m.url)}"${active} data-i18n="${m.i18n}">${m.label} ▾</a>
+        <div class="nav-dropdown-menu">
+          ${subLinks}
+        </div>
+      </div>`;
+    }
     return `<a href="${resolveUrl(m.url)}"${active} data-i18n="${m.i18n}">${m.label}</a>`;
   }).join("\n        ");
 
   // --- เมนูแนวตั้งสำหรับมือถือ ( ใน Drawer ) ---
   const mobileLinks = MENU_ITEMS.map((m) => {
-    const active = m.key === currentPage ? " is-active" : "";
+    const hasActiveSub = m.sub && m.sub.some((s) => s.key === currentPage);
+  const active = (m.key === currentPage || hasActiveSub) ? " is-active" : "";
     let html = `<a class="nav-link${active}" href="${resolveUrl(m.url)}" data-i18n="${m.i18n}">${m.label}</a>`;
     // ถ้ามีเมนูย่อย ให้เพิ่มรายการย่อยต่อท้าย
     if (m.sub) {

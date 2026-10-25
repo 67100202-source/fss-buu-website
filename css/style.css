@@ -1585,3 +1585,30 @@ ol {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* ---- nav dropdown (desktop) ---- */
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown > a { display: inline-block; }
+.nav-dropdown-menu {
+  position: absolute; top: 100%; left: 0;
+  background: var(--color-white, #fff);
+  border: 1px solid var(--color-gray-light, #e0e0e0);
+  border-radius: 8px;
+  min-width: 200px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: none;
+  flex-direction: column;
+  z-index: 1000;
+  padding: 0.25rem 0;
+}
+.nav-dropdown-menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+  min-height: 40px;
+  color: var(--color-gray-dark, #333);
+  text-decoration: none;
+  font-size: 1rem;
+}
+.nav-dropdown-menu a:hover { background: var(--color-green-soft, #e8f5e9); color: var(--color-green, #2e7d32); }
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu { display: flex; }
