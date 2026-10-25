@@ -307,6 +307,7 @@ async function fetchStaff() {
     id: r.id,
     name: r.name_th,
     position: r.position,
+    image_url: r.image_url || "",
     phone: r.phone || "",
     email: r.email || "",
     source_url: r.source_url || "",
