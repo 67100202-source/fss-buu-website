@@ -166,6 +166,13 @@
           <label>ลิงก์แหล่งที่มา (ตัวเลือก)</label>
           <input type="url" id="fSourceUrl" placeholder="https://..." />
         </div>
+        <div class="form-row">
+          <label>รูปภาพประกอบข่าว (ตัวเลือก)</label>
+          <input type="file" id="fImageFile" accept="image/*" />
+          <div class="help-text">รองรับไฟล์ JPG/PNG/WebP ขนาดไม่เกิน 5 MB — ระบบจะอัปโหลดเข้า Supabase Storage อัตโนมัติ</div>
+          <div id="fImagePreview" style="margin-top:0.5rem;"></div>
+          <input type="hidden" id="fImageUrl" />
+        </div>
         <div class="modal-actions">
           <button type="button" class="btn btn-outline" onclick="closeModal()">ยกเลิก</button>
           <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
@@ -197,6 +204,8 @@
       document.getElementById("newsId").value = "";
       document.getElementById("fStatus").value = "published";
       document.getElementById("fDate").value = new Date().toISOString().split("T")[0];
+      document.getElementById("fImageUrl").value = "";
+      document.getElementById("fImagePreview").innerHTML = "";
       if (editingId) loadNewsForEdit(editingId);
       modal.classList.add("is-open");
     };
@@ -208,6 +217,21 @@
     modal.addEventListener("click", (e) => {
       if (e.target === modal) closeModal();
     });
+
+    // แสดงตัวอย่างรูปเมื่อเลือกไฟล์
+    const imgFileInput = document.getElementById("fImageFile");
+    const imgPreview = document.getElementById("fImagePreview");
+    if (imgFileInput) {
+      imgFileInput.addEventListener("change", (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) { imgPreview.innerHTML = ""; return; }
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          imgPreview.innerHTML = '<img src="' + ev.target.result + '" alt="preview" style="max-width:100%;max-height:180px;border-radius:8px;border:1px solid var(--color-gray-light);" />';
+        };
+        reader.readAsDataURL(file);
+      });
+    }
 
     async function loadNews() {
       try {
@@ -262,6 +286,12 @@
         document.getElementById("fDate").value = data.published_date ? data.published_date.split("T")[0] : "";
         document.getElementById("fAuthor").value = data.author || "";
         document.getElementById("fSourceUrl").value = data.source_url || "";
+        document.getElementById("fImageUrl").value = data.image_url || "";
+        if (data.image_url) {
+          document.getElementById("fImagePreview").innerHTML = '<img src="' + data.image_url + '" alt="preview" style="max-width:100%;max-height:180px;border-radius:8px;border:1px solid var(--color-gray-light);" />';
+        } else {
+          document.getElementById("fImagePreview").innerHTML = "";
+        }
       } catch (err) {
         console.error(err);
         alert("โหลดข้อมูลข่าวไม่สำเร็จ");
@@ -296,6 +326,21 @@
       };
       try {
         const sb = window.getSupabase();
+        // อัปโหลดรูปภาพประกอบ (ถ้ามีไฟล์ใหม่)
+        const fileInput = document.getElementById("fImageFile");
+        const file = fileInput && fileInput.files && fileInput.files[0];
+        let imageUrl = document.getElementById("fImageUrl").value.trim();
+        if (file) {
+          const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+          const fileName = "news-" + Date.now() + "." + ext;
+          const { error: upErr } = await sb.storage.from("fss-media").upload(fileName, file, { upsert: true });
+          if (upErr) throw upErr;
+          const { data: pub } = sb.storage.from("fss-media").getPublicUrl(fileName);
+          imageUrl = pub.publicUrl;
+          document.getElementById("fImageUrl").value = imageUrl;
+        }
+        row.image_url = imageUrl || null;
+
         if (id) {
           await sb.from("news_articles").update(row).eq("id", parseInt(id));
         } else {
