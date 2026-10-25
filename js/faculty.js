@@ -27,10 +27,6 @@ async function initFacultyPage() {
   facultyCache = faculty;
   renderFacultyList(faculty);
 
-  const staff = await fetchStaff();
-  staffCache = staff;
-  renderStaffList(staff);
-
   // ระบบค้นหาอาจารย์ (ค้นสดทุกครั้งที่พิมพ์)
   const searchInput = document.getElementById("faculty-search");
   if (searchInput) {
@@ -49,7 +45,6 @@ async function initFacultyPage() {
   // re-render เมื่อเปลี่ยนภาษา
   window.addEventListener("languagechange", () => {
     renderFacultyList(facultyCache);
-    renderStaffList(staffCache);
   });
 }
 

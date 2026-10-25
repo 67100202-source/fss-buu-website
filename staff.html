@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เจ้าหน้าที่ — BUU | FSS คณะวิทยาศาสตร์การกีฬา</title>
+  <meta name="description" content="บุคลากรสำนักงานคณบดี คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="staff">
+
+  <div id="site-header"></div>
+
+  <main class="page-main">
+
+    <p class="sample-notice">
+      ⚠️ หน้านี้กำลังแสดง<strong>ข้อมูลตัวอย่าง</strong>เพื่อการพัฒนา —
+      เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน
+    </p>
+
+    <section class="content-section-card" aria-labelledby="staff-title">
+      <div class="section-head green">
+        <h1 id="staff-title" class="text-section-title" data-i18n="page.staff">บุคลากรสำนักงานคณบดี</h1>
+      </div>
+      <div id="staff-list"></div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="js/layout.js?v=1"></script>
+  <script src="js/sample-data.js?v=1"></script>
+  <script src="js/data.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+  <script src="js/staff.js?v=1"></script>
+
+  <script src="js/chatbot.js?v=3"></script>
+</body>
+</html>
