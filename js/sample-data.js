@@ -265,20 +265,7 @@ const sampleActivities = [
     target_year: "ทุกชั้นปี (ปี 1 - ปี 4)",
     source_url: "https://fss.buu.ac.th/document/frontend/index",
   },
-  {
-    id: 4,
-    title: "รายวิชา 85111059 การออกกำลังกายเพื่อคุณภาพชีวิต (Exercise for Quality of Life)",
-    title_en: "รายวิชา 85111059 การออกกำลังกายเพื่อคุณภาพชีวิต (Exercise for Quality of Life)",
-    date: "2026-10-21",
-    end_date: "2026-10-21",
-    time: "09:00",
-    end_time: "11:00",
-    location: "ห้องปฏิบัติการออกกำลังกาย อาคารคณะวิทยาศาสตร์การกีฬา",
-    category: "กิจกรรมตัวอย่าง (85111059)",
-    target_year: "ปี 1 - ปี 2",
-    source_url: "https://fss.buu.ac.th/document/frontend/index",
-  },
-];
+  ];
 
 /* ---------------------------------------------------------------------
    หลักสูตร ( ตาราง: programs )
