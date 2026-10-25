@@ -15,13 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
   initGalleryPage();
 });
 
+let galleryMediaCache = null;
+
 async function initGalleryPage() {
   const media = await fetchMedia();
+  galleryMediaCache = media;
   renderGallery(media);
   // สร้าง lightbox (modal) สำหรับดูภาพเต็ม — สร้างครั้งเดียว
   createLightbox();
   // สร้าง lightbox สำหรับดูวิดีโอ YouTube ในหน้า
   createVideoLightbox();
+
+  // re-render เมื่อเปลี่ยนภาษา
+  window.addEventListener("languagechange", () => {
+    if (galleryMediaCache) renderGallery(galleryMediaCache);
+  });
 }
 
 /* ---------------------------------------------------------------------
@@ -207,9 +215,12 @@ function renderGallery(items) {
     }
 
     // --- ส่วนข้อมูล ---
+    const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
+    const titleText = (isEn && m.title_en) ? m.title_en : m.title;
+
     const title = document.createElement("p");
     title.className = "media-title";
-    title.textContent = m.title;
+    title.textContent = titleText;
 
     const date = document.createElement("p");
     date.className = "media-date";
@@ -220,11 +231,14 @@ function renderGallery(items) {
     type.textContent = m.type === "video" ? "วิดีโอ" : "ภาพ";
 
     // คำใบ้สำหรับดูเต็ม (ภาพ/วิดีโอ)
+    const isEn2 = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
     const hint = document.createElement("p");
     hint.className = "media-date";
     hint.style.color = "var(--color-green)";
     hint.style.fontWeight = "600";
-    hint.textContent = m.type === "video" ? "▶ แตะเพื่อดูวิดีโอ" : "🔍 แตะเพื่อดูรูปเต็ม";
+    hint.textContent = m.type === "video"
+      ? (isEn2 ? "▶ Tap to watch video" : "▶ แตะเพื่อดูวิดีโอ")
+      : (isEn2 ? "🔍 Tap to view full image" : "🔍 แตะเพื่อดูรูปเต็ม");
     body.appendChild(hint);
 
     body.appendChild(title);

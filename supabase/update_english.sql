@@ -46,4 +46,44 @@ UPDATE public.sport_enterprise_services SET service_name_en = 'Physical Fitness 
 UPDATE public.sport_enterprise_services SET service_name_en = 'Exercise Leaders Service' WHERE id = 2;
 UPDATE public.sport_enterprise_services SET service_name_en = 'Sport Event Management, Recreation and BUU House Operation Center' WHERE id = 3;
 
+-- 6) ทุน (scholarships)
+ALTER TABLE public.scholarships ADD COLUMN IF NOT EXISTS title_en TEXT;
+ALTER TABLE public.scholarships ADD COLUMN IF NOT EXISTS scholarship_type_en TEXT;
+ALTER TABLE public.scholarships ADD COLUMN IF NOT EXISTS eligibility_en TEXT;
+
+UPDATE public.scholarships SET title_en = 'Scholarship for Doctoral Thesis Research, Graduate School, Burapha University', scholarship_type_en = 'Research Thesis Support Scholarship', eligibility_en = 'Doctoral students of Burapha University; thesis research support 10,000 THB.' WHERE id = 1;
+UPDATE public.scholarships SET title_en = 'Special Talent in Sports Program (Chang Suek Project) Academic Year 2026', scholarship_type_en = 'Sports Talent Scholarship', eligibility_en = 'New applicants with sports talent; apply via TCAS system.' WHERE id = 2;
+UPDATE public.scholarships SET title_en = 'Scholarship for Potential and Volunteer Students, Faculty of Sport Science', scholarship_type_en = 'Potential & Volunteer Scholarship', eligibility_en = 'Potential students and volunteer students of FSS, years 1-4.' WHERE id = 3;
+
+-- 7) ผลงาน (achievements)
+ALTER TABLE public.achievements ADD COLUMN IF NOT EXISTS person_name_en TEXT;
+ALTER TABLE public.achievements ADD COLUMN IF NOT EXISTS person_role_en TEXT;
+ALTER TABLE public.achievements ADD COLUMN IF NOT EXISTS award_title_en TEXT;
+ALTER TABLE public.achievements ADD COLUMN IF NOT EXISTS story_detail_en TEXT;
+ALTER TABLE public.achievements ADD COLUMN IF NOT EXISTS category_en TEXT;
+
+UPDATE public.achievements SET award_title_en = 'Thesis Research Support Scholarship, Graduate School, Burapha University (10,000 THB)', person_name_en = 'Phakphum Paluek', person_role_en = 'Doctoral student', category_en = 'Research Award' WHERE id = 1;
+UPDATE public.achievements SET award_title_en = 'Kiattisak Singharphong wins Suzuka 4 Hours Endurance ST600', person_name_en = 'Kiattisak Singharphong', person_role_en = '1st-year student', category_en = 'Sports Competition' WHERE id = 2;
+UPDATE public.achievements SET award_title_en = 'Follow-Up Weekly Training Distribution and Accumulated Internal Load Effects on Young Football Players (Sports Science Journal)', person_name_en = 'Research team', person_role_en = 'Faculty researchers', category_en = 'Research Publication' WHERE id = 3;
+UPDATE public.achievements SET award_title_en = 'BUU athletes win medals at 48th University Games', person_name_en = 'BUU athletes team', person_role_en = 'Student athletes', category_en = 'Sports Competition' WHERE id = 4;
+
+-- 8) คลังสื่อ (media_gallery)
+ALTER TABLE public.media_gallery ADD COLUMN IF NOT EXISTS title_en TEXT;
+ALTER TABLE public.media_gallery ADD COLUMN IF NOT EXISTS description_en TEXT;
+
+UPDATE public.media_gallery SET title_en = 'Faculty introduction video' WHERE id = 1;
+UPDATE public.media_gallery SET title_en = 'U2T project: 1 Tambon 1 University' WHERE id = 2;
+UPDATE public.media_gallery SET title_en = 'FSS Co-Working Space and laboratories album' WHERE id = 3;
+
+-- 9) ปฏิทินกิจกรรม (calendar_events)
+ALTER TABLE public.calendar_events ADD COLUMN IF NOT EXISTS title_en TEXT;
+ALTER TABLE public.calendar_events ADD COLUMN IF NOT EXISTS description_en TEXT;
+ALTER TABLE public.calendar_events ADD COLUMN IF NOT EXISTS event_type_en TEXT;
+ALTER TABLE public.calendar_events ADD COLUMN IF NOT EXISTS location_en TEXT;
+
+UPDATE public.calendar_events SET title_en = 'TCAS Admission 2026 (BUU TCAS)', event_type_en = 'Academic Calendar', location_en = 'Online (e-admission.buu.ac.th)' WHERE id = 1;
+UPDATE public.calendar_events SET title_en = 'Sport Science Games (Internal Sports Competition)', event_type_en = 'Faculty Activity', location_en = 'FSS sports field and building' WHERE id = 2;
+UPDATE public.calendar_events SET title_en = 'BUU Sport Science Volunteer Camp', event_type_en = 'Volunteer Activity', location_en = 'Communities in Chonburi and Eastern region' WHERE id = 3;
+UPDATE public.calendar_events SET title_en = 'Exercise for Quality of Life (85111059)', event_type_en = 'Course Activity', location_en = 'Exercise laboratory, FSS building' WHERE id = 4;
+
 SELECT 'English fields updated' AS result;
