@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>คู่มือการใช้งานระบบ Admin — BUU | FSS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body { background: #fff; }
+    .manual { max-width: 800px; margin: 0 auto; padding: 1.5rem; line-height: 1.8; }
+    .manual h1 { font-size: 1.5rem; color: #1b5e20; border-bottom: 2px solid #2e7d32; padding-bottom: 0.5rem; }
+    .manual h2 { font-size: 1.2rem; color: #1b5e20; margin-top: 1.5rem; }
+    .manual h3 { font-size: 1.05rem; color: #333; margin-top: 1rem; }
+    .manual ol, .manual ul { padding-left: 1.5rem; }
+    .manual li { margin-bottom: 0.4rem; }
+    .manual .step { background: #f5f5f5; border-left: 4px solid #2e7d32; padding: 0.6rem 1rem; margin: 0.5rem 0; border-radius: 4px; }
+    .manual .note { background: #fff8e1; border-left: 4px solid #f9a825; padding: 0.6rem 1rem; margin: 0.5rem 0; border-radius: 4px; font-size: 0.95rem; }
+    .manual table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; }
+    .manual th, .manual td { border: 1px solid #ddd; padding: 0.5rem; font-size: 0.95rem; }
+    .manual th { background: #e8f5e9; }
+    @media print { .no-print { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="manual">
+    <div class="no-print" style="text-align:right;margin-bottom:1rem;">
+      <button onclick="window.print()" style="padding:0.5rem 1rem;background:#2e7d32;color:#fff;border:none;border-radius:8px;cursor:pointer;">พิมพ์/บันทึกเป็น PDF</button>
+    </div>
+
+    <h1>คู่มือการใช้งานระบบผู้ดูแล (Admin) — BUU | FSS</h1>
+    <p>สำหรับเจ้าหน้าที่คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา ใช้จัดการเนื้อหาเว็บไซต์โดยไม่ต้องแก้โค้ด</p>
+
+    <h2>1. การเข้าสู่ระบบ</h2>
+    <ol>
+      <li>เปิดเบราว์เซอร์ไปที่ <strong>admin/login.html</strong></li>
+      <li>กรอก <strong>อีเมล</strong> และ <strong>รหัสผ่าน</strong> ที่ได้รับจากผู้ดูแลระบบ</li>
+      <li>กดปุ่ม "เข้าสู่ระบบ"</li>
+    </ol>
+    <div class="note">💡 หากล็อกอินไม่สำเร็จ ตรวจสอบอีเมล/รหัสผ่าน และว่าบัญชีได้ถูกสร้างใน Supabase Auth แล้ว (ดู setup-supabase.md ขั้นตอนที่ 4)</div>
+    <p>บัญชีที่มีอยู่:</p>
+    <table>
+      <tr><th>อีเมล</th><th>บทบาท</th></tr>
+      <tr><td>attaporns@go.buu.ac.th</td><td>superadmin</td></tr>
+      <tr><td>phanpaporn@go.buu.ac.th</td><td>editor</td></tr>
+      <tr><td>67100202@go.buu.ac.th</td><td>superadmin</td></tr>
+    </table>
+
+    <h2>2. หน้า Dashboard (ภาพรวม)</h2>
+    <p>แสดงจำนวนข่าวสาร, กิจกรรม, ทุนการศึกษา, และข้อความใหม่จากฟอร์ม พร้อมตารางข่าวล่าสุด 5 รายการ พร้อมปุ่มทางลัดไปหน้าจัดการแต่ละส่วน</p>
+    <div class="step">กด "ออกจากระบบ" มุมขวาบน เพื่อล็อกเอาท์ (ล้าง session ทั้งหมด)</div>
+
+    <h2>3. จัดการข่าวสาร (admin/news.html)</h2>
+    <ol>
+      <li>กด "+ เพิ่มข่าวใหม่"</li>
+      <li>กรอก หัวข้อ, หมวดหมู่, สาระสั้น, เนื้อหาเต็ม, สถานะ (เผยแพร่/ฉบับร่าง), วันที่เผยแพร่, ผู้เขียน, ลิงก์แหล่งที่มา</li>
+      <li>กด "บันทึกข้อมูล"</li>
+      <li>แก้ไข: กดปุ่ม "แก้ไข" ในการ์ดข่าว → แก้ไขฟอร์ม → บันทึก</li>
+      <li>ลบ: กดปุ่ม "ลบ" → ยืนยัน → ข่าวจะถูกลบ</li>
+    </ol>
+    <div class="note">💡 สถานะ "ฉบับร่าง (Draft)" จะไม่แสดงบนหน้าเว็บผู้ใช้ จนกว่าจะเปลี่ยนเป็น "เผยแพร่ (Published)"</div>
+
+    <h2>4. จัดการกิจกรรม (admin/activities.html)</h2>
+    <p>เช่นเดียวกับข่าวสาร แต่ฟิลด์เป็น ชื่อกิจกรรม, ประเภท, วันที่เริ่ม-สิ้นสุด, เวลา, สถานที่, รายละเอียด, กลุ่มเป้าหมาย</p>
+
+    <h2>5. จัดการทุนการศึกษา (admin/scholarships.html)</h2>
+    <p>กรอก ชื่อทุน, ประเภททุน, จำนวนเงิน, วันปิดรับสมัคร, คุณสมบัติ, ชื่อไฟล์แนบ, สถานะ</p>
+
+    <h2>6. จัดการคลังสื่อ (admin/media.html)</h2>
+    <ol>
+      <li>กด "+ เพิ่มสื่อใหม่"</li>
+      <li>เลือกประเภท (ภาพ/วิดีโอ), ชื่อ, คำอธิบาย, วันที่</li>
+      <li>สำหรับวิดีโอ: ใส่ลิงก์ YouTube</li>
+      <li>สำหรับภาพ: อัปโหลดไฟล์ (ระบบจะเก็บใน Supabase Storage bucket "fss-media" และได้ URL อัตโนมัติ)</li>
+      <li>กด "บันทึกข้อมูล"</li>
+    </ol>
+
+    <h2>7. ดูข้อความติดต่อ (admin/submissions.html)</h2>
+    <p>แสดงรายการข้อความจากแบบฟอร์มติดต่อและผู้สมัครกิจกรรม เรียงจากใหม่ไปเก่า พร้อมสถานะ "ใหม่" (สีแดง) และ "อ่านแล้ว" (สีเขียว) กด "ทำเครื่องหมายอ่านแล้ว" เพื่อเปลี่ยนสถานะ</p>
+
+    <h2>8. หมายเหตุสำคัญ</h2>
+    <ul>
+      <li>ห้ามแชร์รหัสผ่านให้ผู้อื่น</li>
+      <li>ข้อมูลที่ลบจะหายถาวร ควรตรวจสอบก่อนลบ</li>
+      <li>รูปภาพควรบีบอัดขนาดก่อนอัปโหลด (เพื่อความเร็วเว็บ)</li>
+      <li>ถ้าหน้าเว็บไม่แสดงข้อมูล ตรวจสอบการเชื่อมต่อ Supabase ใน <code>js/supabase-config.js</code></li>
+    </ul>
+
+    <p style="margin-top:2rem;font-size:0.85rem;color:#888;text-align:center;">
+      คู่มือเวอร์ชัน 1.0 — คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา
+    </p>
+  </div>
+</body>
+</html>

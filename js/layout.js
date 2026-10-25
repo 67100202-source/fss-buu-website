@@ -70,6 +70,7 @@ const I18N = {
     "footer.scholarship": "ทุนการศึกษา",
     "footer.faculty": "อาจารย์และเจ้าหน้าที่",
     "footer.admin": "เข้าสู่ระบบผู้ดูแล (Admin)",
+    "footer.manual": "คู่มือการใช้งาน Admin",
     "sample.notice": "หน้านี้กำลังแสดงข้อมูลตัวอย่างเพื่อการพัฒนา — เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน",
     "common.loading": "กำลังโหลด...",
     "page.curriculum": "หลักสูตร",
@@ -99,6 +100,7 @@ const I18N = {
     "footer.scholarship": "Scholarships",
     "footer.faculty": "Faculty & Staff",
     "footer.admin": "Admin Login",
+    "footer.manual": "Admin Manual",
     "sample.notice": "This page shows sample data for development — real data will be loaded once Supabase is connected.",
     "common.loading": "Loading...",
     "page.curriculum": "Curriculum",
@@ -319,6 +321,7 @@ function buildFooterHTML() {
       <div class="footer-group">
         <h3 data-i18n="footer.staff">สำหรับเจ้าหน้าที่</h3>
         <p><a href="${resolveUrl("admin/login.html")}" data-i18n="footer.admin">เข้าสู่ระบบผู้ดูแล (Admin)</a></p>
+        <p><a href="${resolveUrl("admin/manual.html")}" data-i18n="footer.manual">คู่มือการใช้งาน Admin</a></p>
       </div>
 
     </div>
