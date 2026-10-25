@@ -154,9 +154,17 @@ function buildNewsCard(n, detailUrl) {
   a.className = "news-item";
   a.href = `${detailUrl}?id=${n.id}`;
 
-  // ภาพประกอบ ( placeholder สีตามหมวด )
+  // ภาพประกอบ ( ถ้ามีรูปจาก DB ให้แสดงรูป ไม่งั้นใช้ placeholder สีตามหมวด )
   const thumb = document.createElement("div");
   thumb.className = `news-thumb theme-${n.theme || "green"}`;
+  if (n.image_url) {
+    const img = document.createElement("img");
+    img.src = n.image_url;
+    img.alt = n.title;
+    img.loading = "lazy";
+    img.style.cssText = "width:100%;height:100%;object-fit:cover;display:block;";
+    thumb.appendChild(img);
+  }
   const thumbTag = document.createElement("span");
   thumbTag.className = "thumb-tag";
   thumbTag.textContent = n.category;
