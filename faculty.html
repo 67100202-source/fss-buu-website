@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>อาจารย์และเจ้าหน้าที่ — BUU | FSS คณะวิทยาศาสตร์การกีฬา</title>
+  <meta name="description" content="ทำเนียบอาจารย์ประจำคณะและบุคลากรสำนักงานคณบดี คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="faculty">
+
+  <!-- ส่วนหัวเว็บ ( สร้างอัตโนมัติโดย js/layout.js ) -->
+  <div id="site-header"></div>
+
+  <main class="page-main">
+
+    <!-- แถบเตือนข้อมูลตัวอย่าง -->
+    <p class="sample-notice">
+      ⚠️ หน้านี้กำลังแสดง<strong>ข้อมูลตัวอย่าง</strong>เพื่อการพัฒนา —
+      เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน
+    </p>
+
+    <!-- ============ ทำเนียบอาจารย์ประจำคณะ ============ -->
+    <section class="content-section-card" aria-labelledby="faculty-title">
+      <div class="section-head green">
+        <h1 id="faculty-title" class="text-section-title" data-i18n="page.faculty">ทำเนียบอาจารย์ประจำคณะ</h1>
+      </div>
+
+      <!-- ช่องค้นหาอาจารย์ (ฟีเจอร์บังคับ: ค้นหาชื่ออาจารย์ด้วยภาษาไทยได้จริง) -->
+      <div class="search-box" style="margin-bottom: 1rem;">
+        <input
+          type="search"
+          id="faculty-search"
+          class="search-input"
+          placeholder="ค้นหาชื่ออาจารย์หรือสาขาวิชา..."
+          data-i18n-placeholder="search.faculty"
+          aria-label="ค้นหาชื่ออาจารย์"
+        />
+      </div>
+
+      <div id="faculty-list"></div>
+    </section>
+
+    <!-- ============ บุคลากรสำนักงานคณบดี ============ -->
+    <section class="content-section-card" aria-labelledby="staff-title">
+      <div class="section-head green">
+        <h2 id="staff-title" class="text-section-title" data-i18n="page.staff">บุคลากรสำนักงานคณบดี</h2>
+      </div>
+      <div id="staff-list"></div>
+    </section>
+
+  </main>
+
+  <!-- ส่วนท้ายเว็บ -->
+  <div id="site-footer"></div>
+
+  <!-- คลัง supabase-js จาก CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="js/layout.js?v=1"></script>
+  <script src="js/sample-data.js?v=1"></script>
+  <script src="js/data.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+  <script src="js/faculty.js?v=1"></script>
+
+  <script src="js/chatbot.js?v=3"></script>
+</body>
+</html>

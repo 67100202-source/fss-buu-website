@@ -35,7 +35,7 @@ const MENU_ITEMS = [
   { label: "หน้าแรก", url: "index.html", key: "home", i18n: "menu.home" },
   { label: "ปฏิทินกิจกรรม", url: "calendar.html", key: "calendar", i18n: "menu.calendar" },
   { label: "ข่าวสารและกีฬา", url: "news.html", key: "news", i18n: "menu.news" },
-  { label: "หลักสูตรและอาจารย์", url: "curriculum.html", key: "curriculum", i18n: "menu.curriculum" },
+  { label: "หลักสูตรที่เปิดสอน", url: "curriculum.html", key: "curriculum", i18n: "menu.curriculum" },
   { label: "ทุนการศึกษาและวิจัย", url: "scholarships.html", key: "scholarships", i18n: "menu.scholarships" },
   { label: "ผลงานและคลังสื่อ", url: "achievements.html", key: "achievements", i18n: "menu.achievements" },
   { label: "ติดต่อและสมัครเรียน", url: "contact.html", key: "contact", i18n: "menu.contact" },
@@ -49,7 +49,7 @@ const I18N = {
     "menu.home": "หน้าแรก",
     "menu.calendar": "ปฏิทินกิจกรรม",
     "menu.news": "ข่าวสารและกีฬา",
-    "menu.curriculum": "หลักสูตรและอาจารย์",
+    "menu.curriculum": "หลักสูตรที่เปิดสอน",
     "menu.scholarships": "ทุนการศึกษาและวิจัย",
     "menu.achievements": "ผลงานและคลังสื่อ",
     "menu.contact": "ติดต่อและสมัครเรียน",
@@ -59,11 +59,13 @@ const I18N = {
     "footer.staff": "สำหรับเจ้าหน้าที่",
     "footer.apply": "สมัครเรียนต่อ",
     "footer.scholarship": "ทุนการศึกษา",
+    "footer.faculty": "อาจารย์และเจ้าหน้าที่",
     "footer.admin": "เข้าสู่ระบบผู้ดูแล (Admin)",
     "sample.notice": "หน้านี้กำลังแสดงข้อมูลตัวอย่างเพื่อการพัฒนา — เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน",
     "common.loading": "กำลังโหลด...",
     "page.curriculum": "หลักสูตร",
-    "page.faculty": "อาจารย์",
+    "page.faculty": "อาจารย์และเจ้าหน้าที่",
+    "page.staff": "บุคลากรสำนักงานคณบดี",
     "page.contact": "ข้อมูลติดต่อคณะ",
     "page.map": "แผนที่คณะ",
     "page.contactform": "แบบฟอร์มติดต่อ / สมัครกิจกรรม",
@@ -73,7 +75,7 @@ const I18N = {
     "menu.home": "Home",
     "menu.calendar": "Calendar & Events",
     "menu.news": "News & Sports",
-    "menu.curriculum": "Curriculum & Faculty",
+    "menu.curriculum": "Programs",
     "menu.scholarships": "Scholarships & Research",
     "menu.achievements": "Achievements & Media",
     "menu.contact": "Contact & Admission",
@@ -83,11 +85,13 @@ const I18N = {
     "footer.staff": "For Staff",
     "footer.apply": "Apply for Admission",
     "footer.scholarship": "Scholarships",
+    "footer.faculty": "Faculty & Staff",
     "footer.admin": "Admin Login",
     "sample.notice": "This page shows sample data for development — real data will be loaded once Supabase is connected.",
     "common.loading": "Loading...",
     "page.curriculum": "Curriculum",
-    "page.faculty": "Faculty",
+    "page.faculty": "Faculty & Staff",
+    "page.staff": "Faculty Staff",
     "page.contact": "Contact Information",
     "page.map": "Faculty Map",
     "page.contactform": "Contact / Activity Registration Form",
@@ -280,6 +284,7 @@ function buildFooterHTML() {
         <h3 data-i18n="footer.quicklinks">ลิงก์ด่วน</h3>
         <p><a href="${resolveUrl("contact.html")}" data-i18n="footer.apply">สมัครเรียนต่อ</a></p>
         <p><a href="${resolveUrl("scholarships.html")}" data-i18n="footer.scholarship">ทุนการศึกษา</a></p>
+        <p><a href="${resolveUrl("faculty.html")}" data-i18n="footer.faculty">อาจารย์และเจ้าหน้าที่</a></p>
       </div>
 
       <div class="footer-group">

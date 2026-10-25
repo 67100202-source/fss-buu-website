@@ -279,9 +279,8 @@ async function loadHomepage() {
   // ไฮไลต์ข่าวกีฬา ( ข่าวกีฬา 2 ข่าวล่าสุด )
   renderSportsHighlight(data.sports);
 
-  // หลักสูตรและอาจารย์
+  // หลักสูตรที่เปิดสอน (อาจารย์แยกไปหน้า faculty.html)
   renderCourses(data.courses);
-  renderFaculty(data.faculty);
 
   // ทุนล่าสุด
   renderScholarships(data.scholarships);
@@ -324,7 +323,6 @@ function rerenderHomepage() {
   renderActivities(d.activities);
   renderSportsHighlight(d.sports);
   renderCourses(d.courses);
-  renderFaculty(d.faculty);
   renderScholarships(d.scholarships);
   renderAchievements(d.achievements);
   renderMedia(d.media);
