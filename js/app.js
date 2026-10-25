@@ -295,6 +295,30 @@ async function loadHomepage() {
 function rerenderHomepage() {
   if (!homeDataCache) return;
   const d = homeDataCache;
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
+
+  // Hero slider: อัปเดตข้อความในสไลด์ที่มีอยู่ (ไม่ต้อง re-init)
+  const track = document.getElementById("hero-track");
+  if (track && d.banners) {
+    const slides = track.querySelectorAll(".hero-slide");
+    slides.forEach((slide, i) => {
+      const b = d.banners[i];
+      if (!b) return;
+      const tag = (isEn && b.tag_en) ? b.tag_en : b.tag;
+      const title = (isEn && b.title_en) ? b.title_en : b.title;
+      const subtitle = (isEn && b.subtitle_en) ? b.subtitle_en : b.subtitle;
+      const cta = (isEn && b.cta_en) ? b.cta_en : b.cta;
+      const tagEl = slide.querySelector(".hero-tag");
+      const titleEl = slide.querySelector(".hero-title");
+      const subEl = slide.querySelector(".hero-subtitle");
+      const ctaEl = slide.querySelector(".hero-cta");
+      if (tagEl) tagEl.textContent = tag;
+      if (titleEl) titleEl.textContent = title;
+      if (subEl) subEl.textContent = subtitle;
+      if (ctaEl) ctaEl.textContent = cta;
+    });
+  }
+
   renderUrgent(d.urgent);
   renderNews(d.news.slice(0, 3));
   renderActivities(d.activities);
@@ -304,6 +328,9 @@ function rerenderHomepage() {
   renderScholarships(d.scholarships);
   renderAchievements(d.achievements);
   renderMedia(d.media);
+  renderServices(d.services);
+  renderPartners(d.partners);
+  renderQuickLinks(d.quicklinks || []);
 }
 
 /** แสดงประกาศด่วน */
@@ -311,15 +338,16 @@ function renderUrgent(items) {
   const box = document.getElementById("urgent-list");
   if (!box) return;
   box.innerHTML = "";
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   (items || []).forEach((u) => {
     const banner = document.createElement("div");
     banner.className = "urgent-banner";
     const badge = document.createElement("span");
     badge.className = "badge";
-    badge.textContent = "ประกาศด่วน";
+    badge.textContent = isEn ? "Urgent" : "ประกาศด่วน";
     const text = document.createElement("p");
     text.className = "text-item-title";
-    text.textContent = u.title;
+    text.textContent = (isEn && u.title_en) ? u.title_en : u.title;
     banner.appendChild(badge);
     banner.appendChild(text);
     box.appendChild(banner);
@@ -629,14 +657,19 @@ function initHeroSlider(banners) {
 
   // --- สร้างสไลด์ ---
   track.innerHTML = "";
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   banners.forEach((b) => {
+    const tag = (isEn && b.tag_en) ? b.tag_en : b.tag;
+    const title = (isEn && b.title_en) ? b.title_en : b.title;
+    const subtitle = (isEn && b.subtitle_en) ? b.subtitle_en : b.subtitle;
+    const cta = (isEn && b.cta_en) ? b.cta_en : b.cta;
     const slide = document.createElement("div");
     slide.className = `hero-slide theme-${b.theme || "green"}`;
     slide.innerHTML = `
-      <span class="hero-tag">${b.tag}</span>
-      <h2 class="hero-title">${b.title}</h2>
-      <p class="hero-subtitle">${b.subtitle}</p>
-      <a class="hero-cta" href="${b.url}">${b.cta}</a>
+      <span class="hero-tag">${tag}</span>
+      <h2 class="hero-title">${title}</h2>
+      <p class="hero-subtitle">${subtitle}</p>
+      <a class="hero-cta" href="${b.url}">${cta}</a>
     `;
     track.appendChild(slide);
   });
@@ -780,13 +813,16 @@ function renderQuickLinks(items) {
   const box = document.getElementById("quicklinks-grid");
   if (!box) return;
   box.innerHTML = "";
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   (items || []).forEach((q) => {
+    const label = (isEn && q.label_en) ? q.label_en : q.label;
+    const desc = (isEn && q.desc_en) ? q.desc_en : q.desc;
     const a = document.createElement("a");
     a.className = "quicklink-card";
     a.href = q.url;
     a.innerHTML = `
-      <span class="ql-label">${q.label}</span>
-      <span class="ql-desc">${q.desc}</span>
+      <span class="ql-label">${label}</span>
+      <span class="ql-desc">${desc}</span>
     `;
     box.appendChild(a);
   });
@@ -797,13 +833,15 @@ function renderServices(items) {
   const box = document.getElementById("services-grid");
   if (!box) return;
   box.innerHTML = "";
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   (items || []).forEach((s) => {
+    const label = (isEn && s.label_en) ? s.label_en : s.label;
     const a = document.createElement("a");
     a.className = "service-tile";
     a.href = s.url;
     a.innerHTML = `
       <span class="service-icon">${ICONS[s.icon] || ""}</span>
-      <span class="svc-label">${s.label}</span>
+      <span class="svc-label">${label}</span>
     `;
     box.appendChild(a);
   });
@@ -814,10 +852,11 @@ function renderPartners(items) {
   const box = document.getElementById("partners-strip");
   if (!box) return;
   box.innerHTML = "";
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   (items || []).forEach((p) => {
     const el = document.createElement("span");
     el.className = "partner-item";
-    el.textContent = p.name;
+    el.textContent = (isEn && p.name_en) ? p.name_en : p.name;
     box.appendChild(el);
   });
 }
