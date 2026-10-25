@@ -483,9 +483,8 @@ INSERT INTO public.board_and_executives (group_type, name_th, role_title) VALUES
 ('คณะกรรมการประจำคณะ', 'นางพรรณปพร เผ่าจินดา', 'นักวิชาการศึกษา (ผู้ช่วยเลขานุการ)');
 
 -- 3. บัญชีผู้ดูแลระบบ (Admin Users)
-INSERT INTO public.admin_users (username, password_plain_demo, full_name, role, email) VALUES
-('admin', 'fss2569', 'นายอัฐพร โสวัตร์ (ผู้ดูแลระบบหลัก)', 'superadmin', 'attaporns@go.buu.ac.th'),
-('pr_fss', 'fss2569', 'นางพรรณปพร เผ่าจินดา (งานประชาสัมพันธ์)', 'editor', 'phanpaporn@go.buu.ac.th');
+-- หมายเหตุ: ข้อมูล admin profile อยู่ใน supabase/seed.sql แล้ว (admin_fss, pr_staff)
+-- จึงไม่ insert ซ้ำที่นี่ เพื่อป้องกันบัญชีซ้ำซ้อน
 
 -- 4. หลักสูตรที่เปิดสอน (รองรับ 2 ภาษา ไทย/อังกฤษ)
 INSERT INTO public.programs (
