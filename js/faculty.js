@@ -59,7 +59,27 @@ function renderFacultyList(items) {
   }
 
   const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
+
+  // จัดกลุ่มอาจารย์ตามสาขาวิชาที่สอน
+  const groups = {};
+  const order = [];
   items.forEach((f) => {
+    const key = f.expertise || "-";
+    if (!groups[key]) {
+      groups[key] = [];
+      order.push(key);
+    }
+    groups[key].push(f);
+  });
+
+  order.forEach((key) => {
+    const groupItems = groups[key];
+    const head = document.createElement("h3");
+    head.className = "faculty-group-title";
+    head.textContent = (isEn && groupItems[0].expertise_en) ? groupItems[0].expertise_en : key;
+    box.appendChild(head);
+
+    groupItems.forEach((f) => {
     const name = (isEn && f.name_en) ? f.name_en : f.name;
     const expertise = (isEn && f.expertise_en) ? f.expertise_en : (f.expertise || "-");
     const card = document.createElement("div");
@@ -79,6 +99,7 @@ function renderFacultyList(items) {
       </div>
     `;
     box.appendChild(card);
+    });
   });
 }
 
