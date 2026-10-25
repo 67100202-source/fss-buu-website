@@ -114,10 +114,13 @@ function renderFacultyList(items) {
     const expertise = (isEn && f.expertise_en) ? f.expertise_en : (f.expertise || "-");
     const card = document.createElement("div");
     card.className = "info-item faculty-card";
-    // กรอบรูป: ถ้ามีรูปจากฐานข้อมูลจะแสดงรูป ถ้าไม่มีแสดงตัวอักษรแรกของชื่อแทน
+    // กรอบรูป: ใช้รูปจากฐานข้อมูล (image_url) ถ้ามี
+    // ถ้าไม่มี ลองใช้รูปจากโฟลเดอร์ image/อาจารย์/<ชื่ออาจารย์>.png
+    // ถ้าโหลดไม่สำเร็จ (ไม่มีไฟล์) จะ fallback เป็นตัวอักษรแรกของชื่อ
+    const fallbackInitial = (name || "?").charAt(0);
     const photo = f.image_url
-      ? `<img src="${f.image_url}" alt="${name}" loading="lazy" />`
-      : `<span class="faculty-photo-placeholder">${(name || "?").charAt(0)}</span>`;
+      ? `<img src="${encodeURI(f.image_url)}" alt="${name}" loading="lazy" onerror="this.outerHTML='<span class=\\'faculty-photo-placeholder\\'>${fallbackInitial}</span>'" />`
+      : `<img src="image/อาจารย์/${encodeURIComponent(name)}.png" alt="${name}" loading="lazy" onerror="this.outerHTML='<span class=\\'faculty-photo-placeholder\\'>${fallbackInitial}</span>'" />`;
     card.innerHTML = `
       <div class="faculty-photo">${photo}</div>
       <div class="faculty-info">
