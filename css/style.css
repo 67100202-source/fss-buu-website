@@ -1038,6 +1038,27 @@ ol {
 }
 
 /* ภาพประกอบ ( ใช้ placeholder สีตามหมวด เพราะยังไม่มีรูปจริง ) */
+.news-thumb-empty {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-medium, #666);
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--color-gray-bg, #f5f5f5);
+  border: 2px dashed var(--color-gray-light, #ccc);
+  border-radius: 8px;
+  position: relative;
+}
+.news-thumb-empty .thumb-tag {
+  background-color: rgba(0,0,0,0.05);
+  border: 1px solid var(--color-gray-light, #ccc);
+  border-radius: 6px;
+  padding: 0.15rem 0.6rem;
+  color: var(--color-gray-medium, #666);
+}
+
 .news-thumb {
   aspect-ratio: 16 / 9;
   display: flex;
