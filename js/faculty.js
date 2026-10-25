@@ -63,13 +63,20 @@ function renderFacultyList(items) {
     const name = (isEn && f.name_en) ? f.name_en : f.name;
     const expertise = (isEn && f.expertise_en) ? f.expertise_en : (f.expertise || "-");
     const card = document.createElement("div");
-    card.className = "info-item";
+    card.className = "info-item faculty-card";
+    // กรอบรูป: ถ้ามีรูปจากฐานข้อมูลจะแสดงรูป ถ้าไม่มีแสดงตัวอักษรแรกของชื่อแทน
+    const photo = f.image_url
+      ? `<img src="${f.image_url}" alt="${name}" loading="lazy" />`
+      : `<span class="faculty-photo-placeholder">${(name || "?").charAt(0)}</span>`;
     card.innerHTML = `
-      <p class="text-item-title">${name}</p>
-      <p class="text-meta"><strong>${isEn ? "Position:" : "ตำแหน่ง:"}</strong> ${f.position || "-"}</p>
-      <p class="text-meta"><strong>${isEn ? "Role:" : "บทบาท:"}</strong> ${f.role || "-"}</p>
-      <p class="text-meta"><strong>${isEn ? "Department:" : "สาขาวิชา:"}</strong> ${expertise}</p>
-      <p class="text-meta">📞 ${f.phone || "-"} • ✉️ ${f.email || "-"}</p>
+      <div class="faculty-photo">${photo}</div>
+      <div class="faculty-info">
+        <p class="text-item-title">${name}</p>
+        <p class="text-meta"><strong>${isEn ? "Position:" : "ตำแหน่ง:"}</strong> ${f.position || "-"}</p>
+        <p class="text-meta"><strong>${isEn ? "Role:" : "บทบาท:"}</strong> ${f.role || "-"}</p>
+        <p class="text-meta"><strong>${isEn ? "Department:" : "สาขาวิชา:"}</strong> ${expertise}</p>
+        <p class="text-meta">📞 ${f.phone || "-"} • ✉️ ${f.email || "-"}</p>
+      </div>
     `;
     box.appendChild(card);
   });
