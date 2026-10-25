@@ -185,24 +185,15 @@ function buildHeaderHTML() {
 
         <button id="lang-toggle" class="lang-btn" aria-label="สลับภาษา TH / EN">TH | EN</button>
 
-        <button id="member-toggle" class="icon-btn" aria-expanded="false"
-                aria-label="ระบบสมาชิกนิสิต" title="ระบบสมาชิกนิสิต">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-        </button>
-
-        <button id="admin-toggle" class="icon-btn" aria-label="เข้าสู่ระบบผู้ดูแล (Admin)" title="Admin Login">
+        <!-- ปุ่มเข้าสู่ระบบผู้ดูแล ( ลิงก์ไปหน้า login ; หน้าใน admin/ ใช้ path สั้น ) -->
+        <a id="admin-toggle" class="icon-btn" href="${window.location.pathname.includes("/admin/") ? "login.html" : "admin/login.html"}"
+           aria-label="เข้าสู่ระบบผู้ดูแล (Admin)" title="Admin Login">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-        </button>
+        </a>
 
         <button id="menu-toggle" class="icon-btn menu-toggle" aria-expanded="false"
                 aria-controls="nav-drawer" aria-label="เปิดเมนูหลัก" title="เมนู">
