@@ -31,57 +31,12 @@
       </p>
     </section>
 
-    <!-- ============ แท็บสลับหน้าใน ============ -->
-    <nav class="tab-nav" role="tablist" aria-label="หมวดข้อมูลกีฬา">
-      <button class="tab-btn is-active" data-tab="tab-news" role="tab" aria-selected="true">
-        ข่าวกีฬา
-      </button>
-      <button class="tab-btn" data-tab="tab-results" role="tab" aria-selected="false">
-        ผลการแข่งขัน
-      </button>
-      <button class="tab-btn" data-tab="tab-fixtures" role="tab" aria-selected="false">
-        ตารางการแข่งขัน
-      </button>
-    </nav>
-
-    <!-- ============ แท็บ 1 : ข่าวกีฬา ============ -->
-    <section id="tab-news" class="tab-panel is-active" role="tabpanel" aria-label="ข่าวกีฬา">
+    <!-- ============ ข่าวกีฬาและการแข่งขัน ============ -->
+    <section class="content-section-card">
+      <div class="section-head green">
+        <h1 class="text-section-title">ข่าวกีฬาและการแข่งขัน</h1>
+      </div>
       <div id="sports-news-list" class="news-grid"></div>
-    </section>
-
-    <!-- ============ แท็บ 2 : ผลการแข่งขัน ============ -->
-    <section id="tab-results" class="tab-panel" role="tabpanel" aria-label="ผลการแข่งขัน">
-      <div class="content-section-card">
-        <div class="section-head green">
-          <h2 class="text-section-title">ผลการแข่งขันล่าสุด</h2>
-        </div>
-        <div class="table-wrap">
-          <table class="schedule-table">
-            <thead>
-              <tr>
-                <th scope="col">กีฬา</th>
-                <th scope="col">รายการ</th>
-                <th scope="col">วันที่</th>
-                <th scope="col">คู่แข่ง</th>
-                <th scope="col">สกอร์</th>
-                <th scope="col">ผล</th>
-                <th scope="col">รอบ</th>
-              </tr>
-            </thead>
-            <tbody id="match-results-body"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ แท็บ 3 : ตารางการแข่งขัน ============ -->
-    <section id="tab-fixtures" class="tab-panel" role="tabpanel" aria-label="ตารางการแข่งขัน">
-      <div class="content-section-card">
-        <div class="section-head gold">
-          <h2 class="text-section-title">ตารางการแข่งขันที่กำลังจะมาถึง</h2>
-        </div>
-        <div id="match-fixtures-list"></div>
-      </div>
     </section>
 
   </main>

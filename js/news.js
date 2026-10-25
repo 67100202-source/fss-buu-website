@@ -521,15 +521,6 @@ async function initSportsPage() {
   // --- ข่าวกีฬา ---
   renderSportsNewsList();
 
-  // --- ผลการแข่งขัน ---
-  renderMatchResults(await fetchMatchResults());
-
-  // --- ตารางการแข่งขัน ---
-  renderMatchFixtures(await fetchMatchFixtures());
-
-  // --- แท็บสลับ ( ข่าวกีฬา / ผลการแข่งขัน / ตาราง ) ---
-  initTabs();
-
   // เมื่อเปลี่ยนภาษา ให้ re-render รายการข่าวกีฬาทันที
   window.addEventListener("languagechange", () => {
     renderSportsNewsList();
