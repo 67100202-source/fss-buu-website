@@ -44,14 +44,41 @@
       color: var(--color-green, #2e7d32);
     }
     .faculty-info { flex: 1; min-width: 0; }
-    /* หัวข้อกลุ่มตามสาขาวิชา */
-    .faculty-group-title {
-      font-size: 1.1rem;
-      font-weight: 700;
+    /* แท็บสาขาวิชา (เลื่อนแนวนอนได้บนมือถือ) */
+    .dept-tabs {
+      display: flex;
+      gap: 0.25rem;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--color-gray-light, #e0e0e0);
+      margin-bottom: 1rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .dept-tab {
+      flex: 0 0 auto;
+      min-height: 44px;
+      padding: 0 0.9rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-gray-medium, #666);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .dept-tab.is-active {
       color: var(--color-green, #2e7d32);
-      margin: 1.25rem 0 0.5rem;
-      padding-bottom: 0.25rem;
-      border-bottom: 2px solid var(--color-green-soft, #e8f5e9);
+      border-bottom-color: var(--color-green, #2e7d32);
+    }
+    /* การ์ดอาจารย์: 1 คอลัมน์บนมือถือ, 2 คอลัมน์บนจอใหญ่ */
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    @media (min-width: 640px) {
+      .faculty-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -86,7 +113,10 @@
         />
       </div>
 
-      <div id="faculty-list"></div>
+      <!-- แท็บแยกตามสาขาวิชา -->
+      <div id="dept-tabs" class="dept-tabs" role="tablist"></div>
+
+      <div id="faculty-list" class="faculty-grid"></div>
     </section>
 
 
