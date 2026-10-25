@@ -26,10 +26,13 @@ function renderStaffList(items) {
   (items || []).forEach((s) => {
     const card = document.createElement("div");
     card.className = "info-item faculty-card";
-    // กรอบรูป: มีรูปจากฐานข้อมูลก็แสดงรูป ไม่มีก็แสดงตัวอักษรแรกของชื่อแทน
+    // กรอบรูป: ใช้รูปจากฐานข้อมูล (image_url) ถ้ามี
+    // ถ้าไม่มี ลองใช้รูปจากโฟลเดอร์ image/บุคลากร/<ชื่อ>.png
+    // ถ้าโหลดไม่สำเร็จ จะ fallback เป็นตัวอักษรแรกของชื่อ
+    const fallbackInitial = (s.name || "?").charAt(0);
     const photo = s.image_url
-      ? `<img src="${s.image_url}" alt="${s.name || ""}" loading="lazy" />`
-      : `<span class="faculty-photo-placeholder">${(s.name || "?").charAt(0)}</span>`;
+      ? `<img src="${encodeURI(s.image_url)}" alt="${s.name || ""}" loading="lazy" onerror="this.outerHTML='<span class=\\'faculty-photo-placeholder\\'>${fallbackInitial}</span>'" />`
+      : `<img src="image/บุคลากร/${encodeURIComponent(s.name || "")}.png" alt="${s.name || ""}" loading="lazy" onerror="this.outerHTML='<span class=\\'faculty-photo-placeholder\\'>${fallbackInitial}</span>'" />`;
     card.innerHTML = `
       <div class="faculty-photo">${photo}</div>
       <div class="faculty-info">
