@@ -546,36 +546,55 @@ const contactInfo = {
    Banner หน้าแรก / ทางลัด / ไอคอนบริการ / พันธมิตร
    --------------------------------------------------------------------- */
 const sampleBanners = [
-  { id: 1, tag: "รับสมัคร", title: "เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569",
+  { id: 1, tag: "รับสมัคร",
+    tag_en: "รับสมัคร", title: "เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569",
     title_en: "เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569", subtitle: "หลักสูตรศิลปศาสตรบัณฑิต สาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
-    title_en: "หลักสูตรศิลปศาสตรบัณฑิต สาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา", cta: "สมัครเรียน", url: "contact.html", theme: "green" },
-  { id: 2, tag: "กิจกรรม", title: "FSS Fun Run 2026 — วิ่งการกุศล",
+    title_en: "หลักสูตรศิลปศาสตรบัณฑิต สาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา", cta: "สมัครเรียน",
+    cta_en: "สมัครเรียน", url: "contact.html", theme: "green" },
+  { id: 2, tag: "กิจกรรม",
+    tag_en: "Activity", title: "FSS Fun Run 2026 — วิ่งการกุศล",
     title_en: "FSS Fun Run 2026 — วิ่งการกุศล", subtitle: "รายได้สนับสนุนทุนการศึกษานิสิตคณะวิทยาศาสตร์การกีฬา",
-    title_en: "รายได้สนับสนุนทุนการศึกษานิสิตคณะวิทยาศาสตร์การกีฬา", cta: "ดูกิจกรรม", url: "news.html", theme: "gold" },
-  { id: 3, tag: "ข่าวเด่น", title: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์แข่งรถทางเรียบระดับโลก",
+    title_en: "รายได้สนับสนุนทุนการศึกษานิสิตคณะวิทยาศาสตร์การกีฬา", cta: "ดูกิจกรรม",
+    cta_en: "ดูกิจกรรม", url: "news.html", theme: "gold" },
+  { id: 3, tag: "ข่าวเด่น",
+    tag_en: "ข่าวเด่น", title: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์แข่งรถทางเรียบระดับโลก",
     title_en: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์แข่งรถทางเรียบระดับโลก", subtitle: "สร้างชื่อเสียงให้คณะด้วยรางวัลระดับนานาชาติ",
-    title_en: "สร้างชื่อเสียงให้คณะด้วยรางวัลระดับนานาชาติ", cta: "อ่านข่าว", url: "news.html", theme: "dark" },
+    title_en: "สร้างชื่อเสียงให้คณะด้วยรางวัลระดับนานาชาติ", cta: "อ่านข่าว",
+    cta_en: "อ่านข่าว", url: "news.html", theme: "dark" },
 ];
 
 const sampleQuickLinks = [
-  { id: 1, label: "นิสิตปัจจุบัน", desc: "ข่าวคณะ กิจกรรม รับสมัคร", url: "news.html", icon: "student" },
-  { id: 2, label: "ผู้สนใจสมัครเรียน", desc: "หลักสูตร คุณสมบัติ รับสมัคร", url: "curriculum.html", icon: "apply" },
-  { id: 3, label: "ศิษย์เก่า", desc: "ผลงาน เรื่องเล่าความสำเร็จ", url: "achievements.html", icon: "alumni" },
-  { id: 4, label: "อาจารย์/บุคลากร", desc: "ข่าวคณะ ติดต่อสอบถาม", url: "contact.html", icon: "staff" },
+  { id: 1, label: "นิสิตปัจจุบัน",
+    label_en: "Current Students", desc: "ข่าวคณะ กิจกรรม รับสมัคร", url: "news.html", icon: "student" },
+  { id: 2, label: "ผู้สนใจสมัครเรียน",
+    label_en: "ผู้สนใจสมัครเรียน", desc: "หลักสูตร คุณสมบัติ รับสมัคร", url: "curriculum.html", icon: "apply" },
+  { id: 3, label: "ศิษย์เก่า",
+    label_en: "Alumni", desc: "ผลงาน เรื่องเล่าความสำเร็จ", url: "achievements.html", icon: "alumni" },
+  { id: 4, label: "อาจารย์/บุคลากร",
+    label_en: "อาจารย์/บุคลากร", desc: "ข่าวคณะ ติดต่อสอบถาม", url: "contact.html", icon: "staff" },
 ];
 
 const sampleServices = [
-  { id: 1, label: "หลักสูตร", url: "curriculum.html", icon: "book" },
-  { id: 2, label: "ทำเนียบอาจารย์", url: "curriculum.html#faculty", icon: "users" },
-  { id: 3, label: "ทุนการศึกษา", url: "scholarships.html", icon: "award" },
-  { id: 4, label: "คลังภาพและวิดีโอ", url: "gallery.html", icon: "image" },
-  { id: 5, label: "ติดต่อคณะ", url: "contact.html", icon: "phone" },
+  { id: 1, label: "หลักสูตร",
+    label_en: "Programs", url: "curriculum.html", icon: "book" },
+  { id: 2, label: "ทำเนียบอาจารย์",
+    label_en: "ทำเนียบอาจารย์", url: "curriculum.html#faculty", icon: "users" },
+  { id: 3, label: "ทุนการศึกษา",
+    label_en: "Scholarships", url: "scholarships.html", icon: "award" },
+  { id: 4, label: "คลังภาพและวิดีโอ",
+    label_en: "คลังภาพและวิดีโอ", url: "gallery.html", icon: "image" },
+  { id: 5, label: "ติดต่อคณะ",
+    label_en: "ติดต่อคณะ", url: "contact.html", icon: "phone" },
 ];
 
 const samplePartners = [
-  { id: 1, name: "มหาวิทยาลัยบูรพา", url: "https://www.buu.ac.th/" },
-  { id: 2, name: "โรงพยาบาลมหาวิทยาลัยบูรพา", url: "https://www.buu.ac.th/" },
-  { id: 3, name: "ศูนย์วิสาหกิจกีฬา ม.บูรพา", url: "https://fss.buu.ac.th/" },
-  { id: 4, name: "บัณฑิตวิทยาลัย ม.บูรพา", url: "https://www.buu.ac.th/" },
+  { id: 1, name: "มหาวิทยาลัยบูรพา",
+    name_en: "มหาวิทยาลัยบูรพา", url: "https://www.buu.ac.th/" },
+  { id: 2, name: "โรงพยาบาลมหาวิทยาลัยบูรพา",
+    name_en: "โรงพยาบาลมหาวิทยาลัยบูรพา", url: "https://www.buu.ac.th/" },
+  { id: 3, name: "ศูนย์วิสาหกิจกีฬา ม.บูรพา",
+    name_en: "ศูนย์วิสาหกิจกีฬา ม.บูรพา", url: "https://fss.buu.ac.th/" },
+  { id: 4, name: "บัณฑิตวิทยาลัย ม.บูรพา",
+    name_en: "บัณฑิตวิทยาลัย ม.บูรพา", url: "https://www.buu.ac.th/" },
 ];
 
