@@ -1,0 +1,3 @@
+exists: True
+renamed OK to test_rename.pdf
+restored OK
