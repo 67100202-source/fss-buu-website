@@ -44,18 +44,23 @@ function renderCourses(items) {
   if (!box) return;
   box.innerHTML = "";
 
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   (items || []).forEach((c) => {
+    const name = (isEn && c.name_en) ? c.name_en : c.name;
+    const level = (isEn && c.level_en) ? c.level_en : c.level;
+    const degree = (isEn && c.degree_en) ? c.degree_en : c.degree;
+    const detail = (isEn && c.detail_en) ? c.detail_en : (c.detail || "");
     const card = document.createElement("div");
     card.className = "info-item";
     card.innerHTML = `
-      <p class="text-item-title">${c.name}</p>
-      <p class="text-meta"><strong>ระดับ:</strong> ${c.level} • <strong>วุฒิการศึกษา:</strong> ${c.degree}</p>
-      <p class="text-meta"><strong>ปีหลักสูตร:</strong> ${c.years || "-"}</p>
-      <p class="text-meta"><strong>ประธานหลักสูตร:</strong> ${c.chairperson || "-"}</p>
-      <p class="text-meta">${c.detail || ""}</p>
+      <p class="text-item-title">${name}</p>
+      <p class="text-meta"><strong>${isEn ? "Level:" : "ระดับ:"}</strong> ${level} • <strong>${isEn ? "Degree:" : "วุฒิการศึกษา:"}</strong> ${degree}</p>
+      <p class="text-meta"><strong>${isEn ? "Curriculum years:" : "ปีหลักสูตร:"}</strong> ${c.years || "-"}</p>
+      <p class="text-meta"><strong>${isEn ? "Chairperson:" : "ประธานหลักสูตร:"}</strong> ${c.chairperson || "-"}</p>
+      <p class="text-meta">${detail}</p>
       ${
         c.source_url
-          ? `<a href="${c.source_url}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.9rem;margin-top:0.5rem;">ดูรายละเอียดจากเว็บคณะ</a>`
+          ? `<a href="${c.source_url}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.9rem;margin-top:0.5rem;">${isEn ? "View details on faculty website" : "ดูรายละเอียดจากเว็บคณะ"}</a>`
           : ""
       }
     `;
@@ -74,14 +79,17 @@ function renderFacultyList(items) {
     return;
   }
 
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   items.forEach((f) => {
+    const name = (isEn && f.name_en) ? f.name_en : f.name;
+    const expertise = (isEn && f.expertise_en) ? f.expertise_en : (f.expertise || "-");
     const card = document.createElement("div");
     card.className = "info-item";
     card.innerHTML = `
-      <p class="text-item-title">${f.name}</p>
-      <p class="text-meta"><strong>ตำแหน่ง:</strong> ${f.position || "-"}</p>
-      <p class="text-meta"><strong>บทบาท:</strong> ${f.role || "-"}</p>
-      <p class="text-meta"><strong>สาขาวิชา:</strong> ${f.expertise || "-"}</p>
+      <p class="text-item-title">${name}</p>
+      <p class="text-meta"><strong>${isEn ? "Position:" : "ตำแหน่ง:"}</strong> ${f.position || "-"}</p>
+      <p class="text-meta"><strong>${isEn ? "Role:" : "บทบาท:"}</strong> ${f.role || "-"}</p>
+      <p class="text-meta"><strong>${isEn ? "Department:" : "สาขาวิชา:"}</strong> ${expertise}</p>
       <p class="text-meta">📞 ${f.phone || "-"} • ✉️ ${f.email || "-"}</p>
     `;
     box.appendChild(card);

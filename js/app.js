@@ -310,15 +310,20 @@ function renderNews(items) {
     rowTop.appendChild(badge);
     rowTop.appendChild(date);
 
+    // เลือกภาษา ( 2 ภาษา )
+    const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
+    const titleText = (isEn && n.title_en) ? n.title_en : n.title;
+    const excerptText = (isEn && n.excerpt_en) ? n.excerpt_en : n.excerpt;
+
     const title = document.createElement("p");
     title.className = "text-item-title";
-    title.textContent = n.title;
+    title.textContent = titleText;
 
     // ย่อหน้าสั้น ๆ ( ถ้ามีข้อมูล )
-    if (n.excerpt) {
+    if (excerptText) {
       const excerpt = document.createElement("p");
       excerpt.className = "text-meta";
-      excerpt.textContent = n.excerpt;
+      excerpt.textContent = excerptText;
       a.appendChild(rowTop);
       a.appendChild(title);
       a.appendChild(excerpt);
@@ -493,9 +498,12 @@ function renderSportsHighlight(items) {
     rowTop.appendChild(badge);
     rowTop.appendChild(date);
 
+    const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
+    const titleText = (isEn && n.title_en) ? n.title_en : n.title;
+
     const title = document.createElement("p");
     title.className = "text-item-title";
-    title.textContent = n.title;
+    title.textContent = titleText;
 
     a.appendChild(rowTop);
     a.appendChild(title);
@@ -793,9 +801,8 @@ function initLangToggle() {
     const current = localStorage.getItem("fss-lang") || "th";
     const next = current === "th" ? "en" : "th";
     localStorage.setItem("fss-lang", next);
-    updateLangLabel(btn, next);
-    // หมายเหตุ: การแปลเนื้อหาจริงจะต่อยอดโดยใช้ data-i18n
-    // และข้อมูล 2 ภาษาจากฐานข้อมูล ( เพิ่มในรอบถัดไป )
+    // แปลเนื้อหา UI ทั้งหน้า ( header / footer / element ที่มี data-i18n )
+    if (typeof applyLanguage === "function") applyLanguage(next);
   });
 }
 

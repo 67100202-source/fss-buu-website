@@ -66,8 +66,9 @@ function renderContactInfo(info) {
   const box = document.getElementById("contact-info");
   if (!box) return;
 
-  const facultyName = info.facultyName || "คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา";
-  const address = info.address || "169 ถ.แสนสุข ต.แสนสุข อ.เมือง จ.ชลบุรี 20131";
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
+  const facultyName = (isEn && info.facultyName_en) ? info.facultyName_en : (info.facultyName || "Faculty of Sport Science, Burapha University");
+  const address = (isEn && info.address_en) ? info.address_en : (info.address || "169 Long-Hard Bangsaen Rd., Saensuk, Mueang, Chonburi 20131");
   const phone = info.phone || "038-102060";
   const email = info.email || "fss@buu.ac.th";
   const facebook = info.facebook || "";
