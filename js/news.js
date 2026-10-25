@@ -68,6 +68,11 @@ async function initNewsListPage() {
       renderNewsList();
     });
   });
+
+  // เมื่อเปลี่ยนภาษา ให้ re-render รายการข่าวทันที
+  window.addEventListener("languagechange", () => {
+    renderNewsList();
+  });
 }
 
 /** แสดงปุ่มกรองหมวดหมู่ทั้งหมดที่มีในข้อมูล */
@@ -414,6 +419,14 @@ async function initNewsDetailPage() {
   box.appendChild(shareBox);
   box.appendChild(related);
   box.appendChild(backLink);
+
+  // re-render เมื่อเปลี่ยนภาษา (ไม่ซ้ำ listener)
+  if (!window.__newsDetailLangBound) {
+    window.__newsDetailLangBound = true;
+    window.addEventListener("languagechange", () => {
+      initNewsDetailPage();
+    });
+  }
 }
 
 /** แสดงข้อความ "ไม่พบข่าว" */
@@ -519,6 +532,11 @@ async function initSportsPage() {
 
   // --- แท็บสลับ ( ข่าวกีฬา / ผลการแข่งขัน / ตาราง / นักกีฬา ) ---
   initTabs();
+
+  // เมื่อเปลี่ยนภาษา ให้ re-render รายการข่าวกีฬาทันที
+  window.addEventListener("languagechange", () => {
+    renderSportsNewsList();
+  });
 }
 
 /** แสดงรายการข่าวกีฬา */

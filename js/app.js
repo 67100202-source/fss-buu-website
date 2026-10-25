@@ -16,6 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ส่วนที่เฉพาะหน้าแรก
   loadHomepage();
+
+  // เมื่อเปลี่ยนภาษา ให้ re-render เนื้อหาทันที
+  window.addEventListener("languagechange", () => {
+    renderContact();
+    rerenderHomepage();
+  });
 });
 
 /* ---------------------------------------------------------------------
@@ -229,44 +235,75 @@ async function renderSearchResults(query) {
 /* ---------------------------------------------------------------------
    4) โหลดข้อมูลทั้งหมดของหน้าแรก
    --------------------------------------------------------------------- */
+// แคชข้อมูลหน้าแรก เพื่อ re-render เมื่อเปลี่ยนภาษา
+let homeDataCache = null;
+
 async function loadHomepage() {
   // ทำงานเฉพาะหน้าแรกเท่านั้น ( หน้าอื่นมี logic ของตัวเอง )
   if (!document.getElementById("hero-track")) return;
 
+  const data = {
+    banners: await fetchBanners(),
+    services: await fetchServices(),
+    partners: await fetchPartners(),
+    urgent: await fetchUrgent(),
+    news: await fetchNews(),
+    activities: await fetchActivities(),
+    sports: await fetchSportsNews(),
+    courses: await fetchCourses(),
+    faculty: await fetchFaculty(),
+    scholarships: await fetchScholarships(),
+    achievements: await fetchAchievements(),
+    media: await fetchMedia(),
+  };
+  homeDataCache = data;
+
   // Hero slider ( สไลด์ Banner ด้านบนสุด )
-  initHeroSlider(await fetchBanners());
-
-
+  initHeroSlider(data.banners);
 
   // ตารางไอคอนบริการ
-  renderServices(await fetchServices());
+  renderServices(data.services);
 
   // แถบพันธมิตร
-  renderPartners(await fetchPartners());
+  renderPartners(data.partners);
 
   // ประกาศด่วน
-  renderUrgent(await fetchUrgent());
+  renderUrgent(data.urgent);
 
   // ข่าวสารล่าสุด 3 รายการ
-  const news = await fetchNews();
-  renderNews(news.slice(0, 3));
+  renderNews(data.news.slice(0, 3));
 
   // กิจกรรมที่กำลังจะมาถึง
-  renderActivities(await fetchActivities());
+  renderActivities(data.activities);
 
   // ไฮไลต์ข่าวกีฬา ( ข่าวกีฬา 2 ข่าวล่าสุด )
-  renderSportsHighlight(await fetchSportsNews());
+  renderSportsHighlight(data.sports);
 
   // หลักสูตรและอาจารย์
-  renderCourses(await fetchCourses());
-  renderFaculty(await fetchFaculty());
+  renderCourses(data.courses);
+  renderFaculty(data.faculty);
 
   // ทุนล่าสุด
-  renderScholarships(await fetchScholarships());
+  renderScholarships(data.scholarships);
 
   // ผลงานและคลังสื่อ
-  renderAchievements(await fetchAchievements());
-  renderMedia(await fetchMedia());
+  renderAchievements(data.achievements);
+  renderMedia(data.media);
+}
+
+/** re-render เนื้อหาหน้าแรกเมื่อเปลี่ยนภาษา (ไม่ต้องโหลดใหม่) */
+function rerenderHomepage() {
+  if (!homeDataCache) return;
+  const d = homeDataCache;
+  renderUrgent(d.urgent);
+  renderNews(d.news.slice(0, 3));
+  renderActivities(d.activities);
+  renderSportsHighlight(d.sports);
+  renderCourses(d.courses);
+  renderFaculty(d.faculty);
+  renderScholarships(d.scholarships);
+  renderAchievements(d.achievements);
+  renderMedia(d.media);
 }
 
 /** แสดงประกาศด่วน */

@@ -113,6 +113,13 @@ function applyLanguage(lang) {
     langBtn.textContent = l === "th" ? "TH" : "EN";
     langBtn.setAttribute("aria-label", l === "th" ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย");
   }
+
+  // แจ้งหน้าอื่นให้ re-render เนื้อหา (2 ภาษา) ทันที
+  try {
+    window.dispatchEvent(new CustomEvent("languagechange", { detail: { lang: l } }));
+  } catch (e) {
+    /* IE fallback not needed */
+  }
 }
 
 // ให้เรียกจากไฟล์อื่นได้
