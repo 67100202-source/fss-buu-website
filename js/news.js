@@ -154,13 +154,22 @@ function buildNewsCard(n, detailUrl) {
   a.className = "news-item";
   a.href = `${detailUrl}?id=${n.id}`;
 
-  // ภาพประกอบ ( placeholder สีตามหมวด )
+  // ภาพประกอบ ( รูปจริงถ้ามี ไม่งั้น placeholder สีตามหมวด )
   const thumb = document.createElement("div");
   thumb.className = `news-thumb theme-${n.theme || "green"}`;
-  const thumbTag = document.createElement("span");
-  thumbTag.className = "thumb-tag";
-  thumbTag.textContent = n.category;
-  thumb.appendChild(thumbTag);
+  if (n.image_url) {
+    const img = document.createElement("img");
+    img.src = n.image_url;
+    img.alt = n.title;
+    img.loading = "lazy";
+    img.style.cssText = "width:100%;height:100%;object-fit:cover;display:block;";
+    thumb.appendChild(img);
+  } else {
+    const thumbTag = document.createElement("span");
+    thumbTag.className = "thumb-tag";
+    thumbTag.textContent = n.category;
+    thumb.appendChild(thumbTag);
+  }
 
   // เนื้อหา
   const body = document.createElement("div");
@@ -342,7 +351,17 @@ async function initNewsDetailPage() {
   // --- ภาพประกอบ ---
   const hero = document.createElement("div");
   hero.className = `article-hero theme-${news.theme || "green"}`;
-  hero.textContent = news.category;
+  if (news.image_url) {
+    const img = document.createElement("img");
+    img.src = news.image_url;
+    img.alt = news.title;
+    img.loading = "lazy";
+    img.style.cssText = "width:100%;max-height:360px;object-fit:cover;display:block;border-radius:8px;";
+    hero.appendChild(img);
+    hero.textContent = "";
+  } else {
+    hero.textContent = news.category;
+  }
 
   // --- เนื้อหาข่าว ---
   const body = document.createElement("div");

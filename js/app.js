@@ -362,6 +362,16 @@ function renderNews(items) {
     a.href = `news-detail.html?id=${n.id}`; // ไปหน้าอ่านข่าว
     a.className = categoryClass(n.category);
 
+    // ภาพประกอบ (ถ้ามี image_url)
+    if (n.image_url) {
+      const img = document.createElement("img");
+      img.src = n.image_url;
+      img.alt = n.title;
+      img.loading = "lazy";
+      img.style.cssText = "width:100%;height:120px;object-fit:cover;display:block;margin-bottom:0.5rem;border-radius:6px;";
+      a.appendChild(img);
+    }
+
     const rowTop = document.createElement("div");
     rowTop.className = "row-top";
     const badge = document.createElement("span");
