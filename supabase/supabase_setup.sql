@@ -123,6 +123,7 @@ CREATE TABLE public.staff_members (
     id BIGSERIAL PRIMARY KEY,
     name_th TEXT NOT NULL,
     position TEXT NOT NULL,
+    image_url TEXT,
     phone TEXT,
     email TEXT,
     source_url TEXT
