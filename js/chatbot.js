@@ -12,7 +12,7 @@
 // คลังคำถามที่พบบ่อย (FAQ) — อย่างน้อย 10 ข้อ
 const FAQ_LIST = [
   {
-    keywords: ["หลักสูตร", "สาขาวิชา", "เรียน", "วิชา", "program", "course", "major"],
+    keywords: ["หลักสูตร", "สาขาวิชา", "วิชา", "program", "course", "major"],
     q_th: "คณะเปิดสอนหลักสูตรอะไรบ้าง?",
     a_th: "คณะเปิดสอน 3 สาขาในระดับปริญญาตรี: 1) วิทยาศาสตร์การออกกำลังกายและการกีฬา (วท.บ.) 2) การจัดการกีฬาและการเป็นผู้ฝึกสอนกีฬา (ศศ.บ.) 3) สื่อสารมวลชนทางกีฬา (ศศ.บ.) รวมถึงระดับปริญญาโทและเอก",
     q_en: "What programs does the faculty offer?",
@@ -82,7 +82,7 @@ const FAQ_LIST = [
     a_en: "The faculty uses the central library of Burapha University, plus FSS Co-Working Space open until midnight.",
   },
   {
-    keywords: ["หอพัก", "dorm", "ที่พัก", "ที่อยู่"],
+    keywords: ["หอพัก", "dorm", "ที่พัก"],
     q_th: "มีหอพักหรือไม่?",
     a_th: "นิสิตสามารถสมัครหอพักของมหาวิทยาลัยบูรพา (บางแสน) ได้ คณะตั้งอยู่ในเขตบางแสน จ.ชลบุรี",
     q_en: "Is there a dormitory?",
@@ -147,13 +147,20 @@ const FAQ_LIST = [
     const lower = q.toLowerCase();
     let best = null;
     let bestScore = 0;
+    let bestHits = 0;
     FAQ_LIST.forEach((f) => {
       let score = 0;
+      let hits = 0;
       f.keywords.forEach((kw) => {
-        if (lower.includes(kw.toLowerCase())) score += kw.length; // คำที่ยาวกว่ามีน้ำหนักมากกว่า
+        if (lower.includes(kw.toLowerCase())) {
+          score += kw.length; // คำที่ยาวกว่ามีน้ำหนักมากกว่า
+          hits++;
+        }
       });
-      if (score > bestScore) {
+      // เปรียบเทียบทั้งคะแนนและจำนวนคำที่ตรง
+      if (score > bestScore || (score === bestScore && hits > bestHits)) {
         bestScore = score;
+        bestHits = hits;
         best = f;
       }
     });
