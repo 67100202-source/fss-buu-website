@@ -45,12 +45,8 @@ function formatDateTH(isoDate) {
 function categoryClass(category) {
   const map = {
     "ข่าวกีฬาและการแข่งขัน": "news-card sports",
-    "ข่าวสารและกิจกรรมคณะ": "news-card activity",
-    "ความร่วมมือและงานวิจัย": "news-card research",
-    "ประกาศด่วน": "news-card urgent",
-    "ทุน": "news-card scholarship",
-    "กิจกรรม": "news-card activity",
-    "รับสมัคร": "news-card admission",
+    "ข่าวสารกิจกรรมคณะ": "news-card activity",
+    "ข่าวประชาสัมพันธ์": "news-card research",
   };
   return map[category] || "news-card";
 }
@@ -361,16 +357,6 @@ function renderNews(items) {
     const a = document.createElement("a");
     a.href = `news-detail.html?id=${n.id}`; // ไปหน้าอ่านข่าว
     a.className = categoryClass(n.category);
-
-    // ภาพประกอบ (ถ้ามี image_url)
-    if (n.image_url) {
-      const img = document.createElement("img");
-      img.src = n.image_url;
-      img.alt = n.title;
-      img.loading = "lazy";
-      img.style.cssText = "width:100%;height:120px;object-fit:cover;display:block;margin-bottom:0.5rem;border-radius:6px;";
-      a.appendChild(img);
-    }
 
     const rowTop = document.createElement("div");
     rowTop.className = "row-top";

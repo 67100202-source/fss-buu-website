@@ -129,13 +129,9 @@
         <div class="form-row">
           <label>หมวดหมู่</label>
           <select id="fCategory">
-            <option value="ข่าวสารและกิจกรรมคณะ">ข่าวสารและกิจกรรมคณะ</option>
+            <option value="ข่าวสารกิจกรรมคณะ">ข่าวสารกิจกรรมคณะ</option>
             <option value="ข่าวกีฬาและการแข่งขัน">ข่าวกีฬาและการแข่งขัน</option>
-            <option value="ความร่วมมือและงานวิจัย">ความร่วมมือและงานวิจัย</option>
-            <option value="ประกาศด่วน">ประกาศด่วน</option>
-            <option value="ทุน">ทุน</option>
-            <option value="กิจกรรม">กิจกรรม</option>
-            <option value="รับสมัคร">รับสมัคร</option>
+            <option value="ข่าวประชาสัมพันธ์">ข่าวประชาสัมพันธ์</option>
           </select>
         </div>
         <div class="form-row">
@@ -169,7 +165,17 @@
         <div class="form-row">
           <label>รูปภาพประกอบข่าว (ตัวเลือก)</label>
           <input type="file" id="fImageFile" accept="image/*" />
-          <div class="help-text">รองรับไฟล์ JPG/PNG/WebP ขนาดไม่เกิน 5 MB — ระบบจะอัปโหลดเข้า Supabase Storage อัตโนมัติ</div>
+          <div class="help-text">รองรับไฟล์ JPG/PNG/WebP — ระบบจะปรับขนาดแล้วอัปโหลดเข้า Supabase Storage อัตโนมัติ</div>
+        </div>
+        <div class="form-row">
+          <label>ปรับขนาดภาพ (ความกว้างสูงสุด)</label>
+          <select id="fImageSize">
+            <option value="800">800 px</option>
+            <option value="1200" selected>1200 px (แนะนำ)</option>
+            <option value="1600">1600 px</option>
+            <option value="0">ไม่ปรับ (ใช้ขนาดเดิม)</option>
+          </select>
+          <div class="help-text">ภาพที่กว้างเกินค่าที่เลือกจะถูกย่อให้ โดยคงสัดส่วนเดิม</div>
           <div id="fImagePreview" style="margin-top:0.5rem;"></div>
           <input type="hidden" id="fImageUrl" />
         </div>
@@ -233,6 +239,31 @@
       });
     }
 
+    // ปรับขนาดภาพให้กว้างไม่เกิน maxWidth (คงสัดส่วนเดิม) แล้วคืนค่าเป็น Blob แบบ JPEG
+    function resizeImage(file, maxWidth) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+          URL.revokeObjectURL(url);
+          const scale = maxWidth > 0 && img.width > maxWidth ? maxWidth / img.width : 1;
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext("2d");
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("ปรับขนาดภาพไม่สำเร็จ"))), "image/jpeg", 0.85);
+        };
+        img.onerror = () => {
+          URL.revokeObjectURL(url);
+          reject(new Error("อ่านไฟล์ภาพไม่ได้"));
+        };
+        img.src = url;
+      });
+    }
+
     async function loadNews() {
       try {
         const sb = window.getSupabase();
@@ -279,7 +310,8 @@
         if (!data) return;
         document.getElementById("newsId").value = data.id;
         document.getElementById("fTitle").value = data.title || "";
-        document.getElementById("fCategory").value = data.category || "";
+        const catSelect = document.getElementById("fCategory");
+        catSelect.value = [...catSelect.options].some((o) => o.value === data.category) ? data.category : catSelect.options[0].value;
         document.getElementById("fSummary").value = data.summary || "";
         document.getElementById("fContent").value = data.content || "";
         document.getElementById("fStatus").value = data.status || "published";
@@ -331,9 +363,12 @@
         const file = fileInput && fileInput.files && fileInput.files[0];
         let imageUrl = document.getElementById("fImageUrl").value.trim();
         if (file) {
-          const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+          const maxWidth = parseInt(document.getElementById("fImageSize").value, 10) || 0;
+          const blob = maxWidth > 0 ? await resizeImage(file, maxWidth) : file;
+          const ext = maxWidth > 0 ? "jpg" : (file.name.split(".").pop() || "jpg").toLowerCase();
+          const contentType = maxWidth > 0 ? "image/jpeg" : file.type;
           const fileName = "news-" + Date.now() + "." + ext;
-          const { error: upErr } = await sb.storage.from("fss-media").upload(fileName, file, { upsert: true });
+          const { error: upErr } = await sb.storage.from("fss-media").upload(fileName, blob, { upsert: true, contentType });
           if (upErr) throw upErr;
           const { data: pub } = sb.storage.from("fss-media").getPublicUrl(fileName);
           imageUrl = pub.publicUrl;
