@@ -101,7 +101,7 @@
       <h1>ภาพรวมระบบผู้ดูแล</h1>
       <div style="display:flex;align-items:center;gap:0.5rem;">
         <span id="adminUser" class="text-meta"></span>
-        <a href="login.html" class="btn btn-outline" style="height:44px;">ออกจากระบบ</a>
+        <a href="#" onclick="adminLogout();return false;" class="btn btn-outline" style="height:44px;">ออกจากระบบ</a>
       </div>
     </div>
 
@@ -164,6 +164,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/admin.js?v=1"></script>
   <script src="../js/layout.js?v=1"></script>
   <script>
     // ตรวจสอบการล็อกอิน
