@@ -25,11 +25,18 @@ function renderStaffList(items) {
 
   (items || []).forEach((s) => {
     const card = document.createElement("div");
-    card.className = "info-item";
+    card.className = "info-item faculty-card";
+    // กรอบรูป: มีรูปจากฐานข้อมูลก็แสดงรูป ไม่มีก็แสดงตัวอักษรแรกของชื่อแทน
+    const photo = s.image_url
+      ? `<img src="${s.image_url}" alt="${s.name || ""}" loading="lazy" />`
+      : `<span class="faculty-photo-placeholder">${(s.name || "?").charAt(0)}</span>`;
     card.innerHTML = `
-      <p class="text-item-title">${s.name || "-"}</p>
-      <p class="text-meta"><strong>ตำแหน่ง:</strong> ${s.position || "-"}</p>
-      <p class="text-meta">📞 ${s.phone || "-"} • ✉️ ${s.email || "-"}</p>
+      <div class="faculty-photo">${photo}</div>
+      <div class="faculty-info">
+        <p class="text-item-title">${s.name || "-"}</p>
+        <p class="text-meta"><strong>ตำแหน่ง:</strong> ${s.position || "-"}</p>
+        <p class="text-meta">📞 ${s.phone || "-"} • ✉️ ${s.email || "-"}</p>
+      </div>
     `;
     box.appendChild(card);
   });
