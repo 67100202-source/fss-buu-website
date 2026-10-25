@@ -55,13 +55,12 @@ function renderLevelTabs(items) {
   const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
 
   CURRICULUM_LEVELS.forEach((l) => {
-    const count = (items || []).filter((c) => getLevelKey(c) === l.key).length;
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "dept-tab" + (l.key === currentLevelKey ? " is-active" : "");
     btn.setAttribute("role", "tab");
     btn.setAttribute("aria-selected", l.key === currentLevelKey ? "true" : "false");
-    btn.textContent = `${isEn ? l.en : l.th} (${count})`;
+    btn.textContent = isEn ? l.en : l.th;
     btn.addEventListener("click", () => {
       currentLevelKey = l.key;
       renderCoursesView(items);

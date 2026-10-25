@@ -82,13 +82,12 @@ function renderDeptTabs(items) {
   const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
 
   FACULTY_DEPARTMENTS.forEach((d) => {
-    const count = (items || []).filter((f) => getDepartmentKeys(f.expertise).indexOf(d.key) !== -1).length;
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "dept-tab" + (d.key === currentDeptKey ? " is-active" : "");
     btn.setAttribute("role", "tab");
     btn.setAttribute("aria-selected", d.key === currentDeptKey ? "true" : "false");
-    btn.textContent = `${isEn ? d.en : d.th} (${count})`;
+    btn.textContent = isEn ? d.en : d.th;
     btn.addEventListener("click", () => {
       currentDeptKey = d.key;
       renderFacultyView(items);
