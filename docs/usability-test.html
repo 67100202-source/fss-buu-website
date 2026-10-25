@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>แบบทดสอบ Usability Testing — BUU | FSS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Noto Sans Thai', sans-serif; background: #fff; color: #333; }
+    .doc { max-width: 900px; margin: 0 auto; padding: 1.5rem; line-height: 1.7; }
+    h1 { font-size: 1.5rem; color: #1b5e20; border-bottom: 2px solid #2e7d32; padding-bottom: 0.5rem; }
+    h2 { font-size: 1.2rem; color: #1b5e20; margin-top: 1.5rem; }
+    h3 { font-size: 1.05rem; color: #333; margin-top: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 0.95rem; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; }
+    th { background: #e8f5e9; font-weight: 700; }
+    .input-line { border-bottom: 1px dashed #999; display: inline-block; min-width: 120px; padding: 0 0.3rem; }
+    .checkbox { display: inline-block; width: 16px; height: 16px; border: 1px solid #999; margin-right: 0.3rem; vertical-align: middle; }
+    .task-box { background: #f9f9f9; border-left: 4px solid #2e7d32; padding: 0.6rem 1rem; margin: 0.5rem 0; border-radius: 4px; }
+    .note { background: #fff8e1; border-left: 4px solid #f9a825; padding: 0.6rem 1rem; margin: 0.5rem 0; border-radius: 4px; font-size: 0.9rem; }
+    .no-print { }
+    @media print { .no-print { display: none; } body { font-size: 11pt; } }
+  </style>
+</head>
+<body>
+  <div class="doc">
+    <div class="no-print" style="text-align:right;margin-bottom:1rem;">
+      <button onclick="window.print()" style="padding:0.5rem 1rem;background:#2e7d32;color:#fff;border:none;border-radius:8px;cursor:pointer;">พิมพ์/บันทึกเป็น PDF</button>
+    </div>
+
+    <h1>แบบทดสอบ Usability Testing — BUU | FSS Website</h1>
+    <p><strong>URL ที่ทดสอบ:</strong> https://fss-buu-website.67100202.workers.dev<br>
+    <strong>วันที่ทดสอบ:</strong> ___________ &nbsp;&nbsp; <strong>ผู้ทดสอบ/ผู้บันทึก:</strong> ___________</p>
+
+    <h2>ส่วนที่ 1: ข้อมูลผู้ทดสอบ</h2>
+    <table>
+      <tr><th>ฟิลด์</th><th>ค่า</th></tr>
+      <tr><td>ชื่อ/รหัสผู้ทดสอบ</td><td>P__</td></tr>
+      <tr><td>อายุ</td><td></td></tr>
+      <tr><td>กลุ่มผู้ใช้</td><td>[ ] นิสิต  [ ] บุคคลภายนอก  [ ] อาจารย์/เจ้าหน้าที่  [ ] ผู้ปกครอง</td></tr>
+      <tr><td>อุปกรณ์</td><td>[ ] มือถือ Android  [ ] มือถือ iOS  [ ] แท็บเล็ต  [ ] คอมพิวเตอร์</td></tr>
+      <tr><td>เบราว์เซอร์</td><td></td></tr>
+      <tr><td>ความคุ้นเคยกับเว็บคณะเดิม</td><td>[ ] ไม่เคย  [ ] เคยบ้าง  [ ] บ่อย</td></tr>
+    </table>
+
+    <h2>ส่วนที่ 2: ภารกิจ (Task-based Testing)</h2>
+    <p>ให้ผู้ทดสอบทำภารกิจ (ไม่บอกวิธี) บันทึกเวลา/ความสำเร็จ/ข้อผิดพลาด</p>
+
+    <div class="task-box"><strong>T1:</strong> หา "ปฏิทินกิจกรรม" ของเดือนตุลาคม 2569 → เป้าหมาย: เจอภายใน 3 คลิก, ≤ 30 วิ</div>
+    <div class="task-box"><strong>T2:</strong> ค้นหาอาจารย์ "ดร.จิดาภา ศิริวรรณ์" ด้วยช่องค้นหา → เป้าหมาย: เจอชื่อ + สาขาวิชา, ≤ 20 วิ</div>
+    <div class="task-box"><strong>T3:</strong> อ่านข่าวล่าสุด 1 ข่าว แล้วแชร์ไป LINE → เป้าหมาย: อ่าน + กดแชร์, ≤ 45 วิ</div>
+    <div class="task-box"><strong>T4:</strong> กรอกแบบฟอร์มติดต่อ (สมัครกิจกรรม) แล้วส่ง → เป้าหมาย: ส่งสำเร็จ + เห็นข้อความยืนยัน, ≤ 60 วิ</div>
+    <div class="task-box"><strong>T5:</strong> สลับภาษาเป็น English แล้วกลับเป็น Thai → เป้าหมาย: เมนู/เนื้อหาเปลี่ยน, ≤ 10 วิ</div>
+    <div class="task-box"><strong>T6:</strong> (Admin) ล็อกอิน → เพิ่มข่าวใหม่ → ออกจากระบบ → เป้าหมาย: CRUD สำเร็จ, ≤ 90 วิ</div>
+
+    <table>
+      <tr><th>#</th><th>ภารกิจ</th><th>สำเร็จ? (✓/✗)</th><th>เวลา (วิ)</th><th>ข้อผิดพลาด/หมายเหตุ</th></tr>
+      <tr><td>T1</td><td>หาปฏิทินกิจกรรม ต.ค. 2569</td><td></td><td></td><td></td></tr>
+      <tr><td>T2</td><td>ค้นหาอาจารย์</td><td></td><td></td><td></td></tr>
+      <tr><td>T3</td><td>อ่านข่าว + แชร์ LINE</td><td></td><td></td><td></td></tr>
+      <tr><td>T4</td><td>กรอกแบบฟอร์มติดต่อ</td><td></td><td></td><td></td></tr>
+      <tr><td>T5</td><td>สลับภาษา TH/EN</td><td></td><td></td><td></td></tr>
+      <tr><td>T6</td><td>Admin CRUD</td><td></td><td></td><td></td></tr>
+    </table>
+    <div class="note">เกณฑ์สำเร็จ: T1–T5 สำเร็จ ≥ 80%, T6 สำเร็จ 100%</div>
+
+    <h2>ส่วนที่ 3: System Usability Scale (SUS) — 10 ข้อ</h2>
+    <p>ให้ผู้ทดสอบตอบ (1 = ไม่เห็นด้วยอย่างยิ่ง … 5 = เห็นด้วยอย่างยิ่ง)</p>
+    <table>
+      <tr><th>#</th><th>ข้อความ</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+      <tr><td>1</td><td>ฉันคิดว่าฉันจะใช้เว็บไซต์นี้บ่อย</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td>เว็บไซต์นี้ซับซ้อนเกินไป</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td>เว็บไซต์นี้ใช้งานง่าย</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>4</td><td>ฉันต้องการความช่วยเหลือจากผู้เชี่ยวชาญในการใช้เว็บนี้</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>5</td><td>ฟังก์ชันต่าง ๆ ของเว็บไซต์ทำงานได้ดีสอดคล้องกัน</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>6</td><td>เว็บไซต์นี้มีความไม่สอดคล้องกัน (inconsistent) มาก</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>7</td><td>ฉันคิดว่าคนส่วนใหญ่จะเรียนรู้การใช้เว็บนี้ได้เร็ว</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>8</td><td>เว็บไซต์นี้ใช้งานยาก (cumbersome)</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>9</td><td>ฉันรู้สึกมั่นใจในการใช้เว็บไซต์นี้</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>10</td><td>ฉันต้องเรียนรู้หลายอย่างก่อนจะใช้เว็บนี้ได้</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <div class="note">
+      <strong>การคำนวณ SUS:</strong> ข้อคี่ (1,3,5,7,9): คะแนน = ตอบ - 1; ข้อคู่ (2,4,6,8,10): คะแนน = 5 - ตอบ; รวม 10 ข้อ → คูณ 2.5 → ได้คะแนน 0–100; <strong>เกณฑ์: ≥ 68 = ผ่าน</strong>
+    </div>
+
+    <h2>ส่วนที่ 4: ข้อเสนอแนะจากผู้ใช้</h2>
+    <table>
+      <tr><th>คำถาม</th><th>คำตอบ</th></tr>
+      <tr><td>อะไรที่คุณชอบที่สุด?</td><td></td></tr>
+      <tr><td>อะไรที่คุณพบว่ายาก/สับสน?</td><td></td></tr>
+      <tr><td>คุณต้องการฟีเจอร์อะไรเพิ่ม?</td><td></td></tr>
+      <tr><td>ข้อเสนอแนะอื่น ๆ</td><td></td></tr>
+    </table>
+
+    <h2>ส่วนที่ 5: สรุปผลและการปรับปรุง</h2>
+    <table>
+      <tr><th>ปัญหาที่พบ</th><th>ความถี่</th><th>การปรับปรุงที่ทำ</th><th>สถานะ</th></tr>
+      <tr><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p><strong>คะแนน SUS เฉลี่ย:</strong> ____ / 100 &nbsp;&nbsp; <strong>อัตราความสำเร็จ Task:</strong> ____ %</p>
+    <p><strong>สรุป:</strong> _______________________________________________</p>
+
+    <p style="margin-top:2rem;font-size:0.85rem;color:#888;text-align:center;">
+      แบบทดสอบ Usability Testing — คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา<br>
+      ใช้สำหรับการประเมินผลตามเกณฑ์ assignment (ด้านที่ 5: การทดสอบกับผู้ใช้ 10 คะแนน)
+    </p>
+  </div>
+</body>
+</html>
