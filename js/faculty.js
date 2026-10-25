@@ -24,7 +24,10 @@ function __initFacultyWhenReady() {
   if (!document.getElementById("faculty-list")) return;
   initFacultyPage();
 }
-if (document.readyState === "loading") {
+// สคริปต์อยู่ท้าย body จึงเรียกได้ทันที; ถ้า DOM ยังไม่พร้อมให้รอ
+if (document.getElementById("faculty-list")) {
+  initFacultyPage();
+} else if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", __initFacultyWhenReady);
 } else {
   __initFacultyWhenReady();
