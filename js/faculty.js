@@ -12,10 +12,15 @@
 let facultyCache = [];
 let staffCache = [];
 
-document.addEventListener("DOMContentLoaded", () => {
+function __initFacultyWhenReady() {
   if (!document.getElementById("faculty-list")) return;
   initFacultyPage();
-});
+}
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", __initFacultyWhenReady);
+} else {
+  __initFacultyWhenReady();
+}
 
 async function initFacultyPage() {
   const faculty = await fetchFaculty();
