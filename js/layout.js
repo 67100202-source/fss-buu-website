@@ -18,7 +18,7 @@
    --------------------------------------------------------------------- */
 const MENU_ITEMS = [
   { label: "หน้าแรก", url: "index.html", key: "home" },
-  { label: "ปฏิทินกิจกรรม", url: "index.html#activities", key: "calendar" },
+  { label: "ปฏิทินกิจกรรม", url: "calendar.html", key: "calendar" },
   { label: "ข่าวสารและกีฬา", url: "news.html", key: "news" },
   { label: "หลักสูตรและอาจารย์", url: "curriculum.html", key: "curriculum" },
   { label: "ทุนการศึกษาและวิจัย", url: "scholarships.html", key: "scholarships" },
