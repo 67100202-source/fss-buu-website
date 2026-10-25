@@ -38,4 +38,12 @@ UPDATE public.news_articles SET title_en = 'BUU Night Run and Khao Sam Muk run e
 --    แต่ถ้าต้องการให้แสดงชื่อภาษาอังกฤษ ให้รัน UPDATE ด้านล่าง (ตัวอย่าง)
 -- UPDATE public.instructors SET name_en = name_th WHERE name_en IS NULL;
 
+-- 5) บริการ (sport_enterprise_services)
+ALTER TABLE public.sport_enterprise_services ADD COLUMN IF NOT EXISTS service_name_en TEXT;
+ALTER TABLE public.sport_enterprise_services ADD COLUMN IF NOT EXISTS description_en TEXT;
+
+UPDATE public.sport_enterprise_services SET service_name_en = 'Physical Fitness Testing Service' WHERE id = 1;
+UPDATE public.sport_enterprise_services SET service_name_en = 'Exercise Leaders Service' WHERE id = 2;
+UPDATE public.sport_enterprise_services SET service_name_en = 'Sport Event Management, Recreation and BUU House Operation Center' WHERE id = 3;
+
 SELECT 'English fields updated' AS result;
