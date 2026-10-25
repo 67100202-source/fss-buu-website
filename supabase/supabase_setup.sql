@@ -222,7 +222,9 @@ CREATE TABLE public.documents_and_forms (
 CREATE TABLE public.sport_enterprise_services (
     id BIGSERIAL PRIMARY KEY,
     service_name TEXT NOT NULL,
+    service_name_en TEXT,
     description TEXT NOT NULL,
+    description_en TEXT,
     published_date DATE,
     source_url TEXT DEFAULT 'https://fss.buu.ac.th/'
 );

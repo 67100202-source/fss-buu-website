@@ -456,15 +456,16 @@ function renderCourses(items) {
   const box = document.getElementById("course-list");
   if (!box) return;
   box.innerHTML = "";
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   (items || []).forEach((c) => {
     const item = document.createElement("div");
     item.className = "info-item";
     const name = document.createElement("p");
     name.className = "text-item-title";
-    name.textContent = c.name;
+    name.textContent = (isEn && c.name_en) ? c.name_en : c.name;
     const detail = document.createElement("p");
     detail.className = "text-meta";
-    detail.textContent = c.detail;
+    detail.textContent = (isEn && c.detail_en) ? c.detail_en : c.detail;
     item.appendChild(name);
     item.appendChild(detail);
     box.appendChild(item);
@@ -476,15 +477,16 @@ function renderFaculty(items) {
   const box = document.getElementById("faculty-list");
   if (!box) return;
   box.innerHTML = "";
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
   (items || []).slice(0, 5).forEach((f) => {
     const item = document.createElement("div");
     item.className = "info-item";
     const name = document.createElement("p");
     name.className = "text-item-title";
-    name.textContent = f.name;
+    name.textContent = (isEn && f.name_en) ? f.name_en : f.name;
     const exp = document.createElement("p");
     exp.className = "text-meta";
-    exp.textContent = f.expertise || "";
+    exp.textContent = (isEn && f.expertise_en) ? f.expertise_en : (f.expertise || "");
     item.appendChild(name);
     item.appendChild(exp);
     box.appendChild(item);

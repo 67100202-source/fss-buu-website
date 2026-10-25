@@ -365,6 +365,7 @@ async function fetchServices() {
   return db.map((r) => ({
     id: r.id,
     label: r.service_name,
+    label_en: r.service_name_en || "",
     url: "",
     icon: "",
     sort_order: r.id,

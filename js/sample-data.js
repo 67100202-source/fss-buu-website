@@ -575,16 +575,11 @@ const sampleQuickLinks = [
 ];
 
 const sampleServices = [
-  { id: 1, label: "หลักสูตร",
-    label_en: "Programs", url: "curriculum.html", icon: "book" },
-  { id: 2, label: "ทำเนียบอาจารย์",
-    label_en: "ทำเนียบอาจารย์", url: "curriculum.html#faculty", icon: "users" },
-  { id: 3, label: "ทุนการศึกษา",
-    label_en: "Scholarships", url: "scholarships.html", icon: "award" },
-  { id: 4, label: "คลังภาพและวิดีโอ",
-    label_en: "คลังภาพและวิดีโอ", url: "gallery.html", icon: "image" },
-  { id: 5, label: "ติดต่อคณะ",
-    label_en: "ติดต่อคณะ", url: "contact.html", icon: "phone" },
+  { id: 1, label: "หลักสูตร", label_en: "Programs", url: "curriculum.html", icon: "book" },
+  { id: 2, label: "อาจารย์", label_en: "Faculty", url: "curriculum.html#faculty", icon: "users" },
+  { id: 3, label: "ทุนการศึกษา", label_en: "Scholarships", url: "scholarships.html", icon: "award" },
+  { id: 4, label: "คลังภาพ", label_en: "Gallery", url: "gallery.html", icon: "image" },
+  { id: 5, label: "ติดต่อ", label_en: "Contact", url: "contact.html", icon: "phone" },
 ];
 
 const samplePartners = [
