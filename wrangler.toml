@@ -1,7 +1,0 @@
-# Cloudflare Pages configuration
-# Deploy via: wrangler pages deploy . --project-name=fss-buu-website
-# Or connect GitHub repo in Cloudflare Dashboard (recommended)
-
-name = "fss-buu-website"
-pages_build_output_dir = "."
-compatibility_date = "2026-10-25"
