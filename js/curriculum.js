@@ -18,11 +18,17 @@ const CURRICULUM_LEVELS = [
 let curriculumCoursesCache = [];
 let currentLevelKey = CURRICULUM_LEVELS[0].key;
 
-document.addEventListener("DOMContentLoaded", () => {
-  // ทำงานเฉพาะหน้าที่มี #course-list เท่านั้น
+function __initCurriculumWhenReady() {
   if (!document.getElementById("course-list")) return;
   initCurriculumPage();
-});
+}
+if (document.getElementById("course-list")) {
+  initCurriculumPage();
+} else if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", __initCurriculumWhenReady);
+} else {
+  __initCurriculumWhenReady();
+}
 
 async function initCurriculumPage() {
   const courses = await fetchCourses();
