@@ -13,6 +13,34 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* แท็บระดับการศึกษา: ขึ้นบรรทัดใหม่เมื่อพื้นที่ไม่พอ (ไม่ใช้ scroll bar) */
+    .dept-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.5rem;
+      border-bottom: 1px solid var(--color-gray-light, #e0e0e0);
+      margin-bottom: 1rem;
+    }
+    .dept-tab {
+      flex: 0 0 auto;
+      min-height: 44px;
+      padding: 0 0.9rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-gray-medium, #666);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .dept-tab.is-active {
+      color: var(--color-green, #2e7d32);
+      border-bottom-color: var(--color-green, #2e7d32);
+    }
+  </style>
 </head>
 <body data-page="curriculum">
 
@@ -36,6 +64,9 @@
         คณะวิทยาศาสตร์การกีฬา เปิดสอนหลักสูตรตั้งแต่ระดับปริญญาตรีถึงปริญญาเอก
         (หลักสูตรปรับปรุง พ.ศ. 2559, 2564 และ 2569)
       </p>
+      <!-- แท็บระดับการศึกษา -->
+      <div id="level-tabs" class="dept-tabs" role="tablist"></div>
+
       <div id="course-list"></div>
     </section>
 
