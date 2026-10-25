@@ -1,0 +1,25 @@
+# Cache control for static assets (Cloudflare Pages)
+# HTML: no cache (always fresh)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# CSS/JS: cache 1 hour
+/css/*
+  Cache-Control: public, max-age=3600
+
+/js/*
+  Cache-Control: public, max-age=3600
+
+# Images: cache 1 week
+/image/*
+  Cache-Control: public, max-age=604800
+
+# Documents (PDF): cache 1 day
+/documents/*
+  Cache-Control: public, max-age=86400
+
+# Security headers
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
