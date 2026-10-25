@@ -44,14 +44,13 @@
       color: var(--color-green, #2e7d32);
     }
     .faculty-info { flex: 1; min-width: 0; }
-    /* แท็บสาขาวิชา (เลื่อนแนวนอนได้บนมือถือ) */
+    /* แท็บสาขาวิชา: ขึ้นบรรทัดใหม่เมื่อพื้นที่ไม่พอ (ไม่ใช้ scroll bar) */
     .dept-tabs {
       display: flex;
-      gap: 0.25rem;
-      overflow-x: auto;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.5rem;
       border-bottom: 1px solid var(--color-gray-light, #e0e0e0);
       margin-bottom: 1rem;
-      -webkit-overflow-scrolling: touch;
     }
     .dept-tab {
       flex: 0 0 auto;
