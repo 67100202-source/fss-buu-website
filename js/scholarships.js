@@ -73,7 +73,7 @@ function renderScholarships(items) {
       <p class="sch-detail">${detail}</p>
       ${fileHtml}
       <p class="sch-deadline ${isOpen ? "" : "expired"}">
-        ${isOpen ? (isEn ? "Still open for applications" : "ยังเปิดรับสมัครอยู่ค่ะ") : (isEn ? "Applications closed" : "ปิดรับสมัครแล้วค่ะ")}
+        ${isOpen ? (isEn ? "Still open for applications" : "ยังเปิดรับสมัครอยู่") : (isEn ? "Applications closed" : "ปิดรับสมัครแล้วค่ะ")}
       </p>
     `;
 
