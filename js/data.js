@@ -119,6 +119,7 @@ function mapInstructorRow(r) {
     role: r.admin_role || "",
     expertise: r.department || "",
     expertise_en: r.department_en || r.expertise_en || "",
+    image_url: r.image_url || "",
     phone: r.phone || "",
     email: r.email || "",
     source_url: r.source_url || "",
