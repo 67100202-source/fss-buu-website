@@ -14,13 +14,18 @@ document.addEventListener("DOMContentLoaded", () => {
   initCurriculumPage();
 });
 
+let curriculumCoursesCache = [];
+let curriculumFacultyCache = [];
+
 async function initCurriculumPage() {
   // 1) โหลดหลักสูตร
   const courses = await fetchCourses();
+  curriculumCoursesCache = courses;
   renderCourses(courses);
 
   // 2) โหลดอาจารย์
   const faculty = await fetchFaculty();
+  curriculumFacultyCache = faculty;
   renderFacultyList(faculty);
 
   // 3) ระบบค้นหาอาจารย์ (ค้นสดทุกครั้งที่พิมพ์)
@@ -28,7 +33,7 @@ async function initCurriculumPage() {
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       const q = e.target.value.trim().toLowerCase();
-      const filtered = faculty.filter((f) =>
+      const filtered = curriculumFacultyCache.filter((f) =>
         f.name.toLowerCase().includes(q) ||
         (f.expertise || "").toLowerCase().includes(q) ||
         (f.role || "").toLowerCase().includes(q)
@@ -36,6 +41,12 @@ async function initCurriculumPage() {
       renderFacultyList(filtered);
     });
   }
+
+  // เมื่อเปลี่ยนภาษา ให้ re-render ทันที
+  window.addEventListener("languagechange", () => {
+    renderCourses(curriculumCoursesCache);
+    renderFacultyList(curriculumFacultyCache);
+  });
 }
 
 /** แสดงรายการหลักสูตร */

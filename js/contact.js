@@ -13,10 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactPage();
 });
 
+let contactInfoCache = null;
+
 async function initContactPage() {
   // 1) โหลดข้อมูลติดต่อคณะ
   const info = await fetchContactInfo();
+  contactInfoCache = info;
   renderContactInfo(info);
+
+  // re-render เมื่อเปลี่ยนภาษา
+  window.addEventListener("languagechange", () => {
+    if (contactInfoCache) renderContactInfo(contactInfoCache);
+  });
 
   // 2) ตั้งค่าฟอร์มส่งข้อความ
   const form = document.getElementById("contactForm");
