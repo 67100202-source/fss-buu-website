@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ปฏิทินกิจกรรม — BUU | FSS คณะวิทยาศาสตร์การกีฬา</title>
+  <meta name="description" content="ปฏิทินกิจกรรมและปฏิทินการศึกษา คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .calendar-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .calendar-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-green-dark, #1b5e20);
+      margin: 0;
+    }
+    .calendar-nav button {
+      min-width: 44px;
+      min-height: 44px;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.35rem;
+    }
+    .calendar-weekday {
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--color-gray-medium, #666);
+      padding: 0.4rem 0;
+    }
+    .calendar-day {
+      min-height: 72px;
+      background: var(--color-white, #fff);
+      border: 1px solid var(--color-gray-light, #e0e0e0);
+      border-radius: 8px;
+      padding: 0.35rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      transition: background 0.15s;
+      overflow: hidden;
+    }
+    .calendar-day:hover {
+      background: var(--color-gray-bg, #f5f5f5);
+    }
+    .calendar-day.is-today {
+      border-color: var(--color-green, #2e7d32);
+      background: #e8f5e9;
+    }
+    .calendar-day.is-selected {
+      background: var(--color-green, #2e7d32);
+      color: #fff;
+    }
+    .calendar-day.is-other-month {
+      opacity: 0.35;
+    }
+    .calendar-day .day-num {
+      font-weight: 600;
+    }
+    .calendar-day .ev-badge {
+      font-size: 0.72rem;
+      background: var(--color-green, #2e7d32);
+      color: #fff;
+      border-radius: 4px;
+      padding: 0.1rem 0.3rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      display: block;
+    }
+    .calendar-day.is-selected .ev-badge {
+      background: #fff;
+      color: var(--color-green, #2e7d32);
+    }
+    .event-detail {
+      background: var(--color-gray-bg, #f5f5f5);
+      border-radius: 10px;
+      padding: 1rem;
+      min-height: 80px;
+    }
+    .event-detail h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+      color: var(--color-green-dark, #1b5e20);
+    }
+    .event-detail .ev-item {
+      background: var(--color-white, #fff);
+      border: 1px solid var(--color-gray-light, #e0e0e0);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+    .event-detail .ev-item:last-child {
+      margin-bottom: 0;
+    }
+    .event-detail .ev-title {
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+    }
+    .event-detail .ev-meta {
+      font-size: 0.9rem;
+      color: var(--color-gray-medium, #666);
+      margin: 0 0 0.4rem;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 1rem;
+      color: var(--color-gray-medium, #666);
+    }
+    @media (max-width: 480px) {
+      .calendar-day { min-height: 56px; font-size: 0.8rem; }
+      .calendar-day .ev-badge { font-size: 0.65rem; }
+    }
+  </style>
+</head>
+<body data-page="calendar">
+
+  <div id="site-header"></div>
+
+  <main class="page-main">
+
+    <p class="sample-notice">
+      ⚠️ หน้านี้กำลังแสดง<strong>ข้อมูลตัวอย่าง</strong>เพื่อการพัฒนา —
+      เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน
+    </p>
+
+    <section class="content-section-card" aria-labelledby="calendar-title">
+      <div class="section-head green">
+        <h1 id="calendar-title" class="text-section-title">ปฏิทินกิจกรรม</h1>
+      </div>
+      <p class="text-meta">
+        กิจกรรมและปฏิทินการศึกษาของคณะวิทยาศาสตร์การกีฬา — คลิกวันที่เพื่อดูรายละเอียดกิจกรรม
+      </p>
+
+      <div class="calendar-wrap">
+        <div class="calendar-nav">
+          <button id="cal-prev" class="btn btn-outline" aria-label="เดือนก่อนหน้า">‹</button>
+          <h2 id="cal-month-title" class="calendar-title"></h2>
+          <button id="cal-next" class="btn btn-outline" aria-label="เดือนถัดไป">›</button>
+        </div>
+
+        <div id="calendar-grid" class="calendar-grid"></div>
+
+        <p class="text-meta" style="text-align:center;margin:0.5rem 0 0;">
+          💡 คลิกวันที่บนปฏิทินเพื่อดูรายละเอียดกิจกรรม (แสดงเป็นหน้าต่าง)
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="js/layout.js?v=1"></script>
+  <script src="js/sample-data.js?v=1"></script>
+  <script src="js/data.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+  <script src="js/calendar.js?v=1"></script>
+
+</body>
+</html>
