@@ -173,15 +173,20 @@ function buildNewsCard(n, detailUrl) {
   top.appendChild(cat);
   top.appendChild(date);
 
+  // เลือกภาษา ( 2 ภาษา )
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
+  const titleText = (isEn && n.title_en) ? n.title_en : n.title;
+  const excerptText = (isEn && n.excerpt_en) ? n.excerpt_en : n.excerpt;
+
   // หัวข้อข่าว
   const title = document.createElement("p");
   title.className = "ni-title";
-  title.textContent = n.title;
+  title.textContent = titleText;
 
   // ย่อหน้า
   const excerpt = document.createElement("p");
   excerpt.className = "ni-excerpt";
-  excerpt.textContent = n.excerpt;
+  excerpt.textContent = excerptText;
 
   // แถวล่าง: ผู้เขียน + เวลาอ่าน
   const foot = document.createElement("div");
@@ -306,9 +311,12 @@ async function initNewsDetailPage() {
   cat.className = "article-cat";
   cat.textContent = news.category;
 
+  const isEn = (typeof getCurrentLang === "function") && getCurrentLang() === "en";
+  const titleText = (isEn && news.title_en) ? news.title_en : news.title;
+
   const title = document.createElement("h1");
   title.className = "article-title";
-  title.textContent = news.title;
+  title.textContent = titleText;
 
   const meta = document.createElement("div");
   meta.className = "article-meta";
@@ -334,7 +342,8 @@ async function initNewsDetailPage() {
   // --- เนื้อหาข่าว ---
   const body = document.createElement("div");
   body.className = "article-body";
-  (news.body || [news.excerpt]).forEach((para) => {
+  const bodyParas = (isEn && news.body_en && news.body_en.length) ? news.body_en : (news.body || [news.excerpt]);
+  bodyParas.forEach((para) => {
     const p = document.createElement("p");
     p.textContent = para;
     body.appendChild(p);

@@ -17,14 +17,108 @@
    รายการเมนูหลัก 7 รายการ ( ตาม docs/sitemap.md )
    --------------------------------------------------------------------- */
 const MENU_ITEMS = [
-  { label: "หน้าแรก", url: "index.html", key: "home" },
-  { label: "ปฏิทินกิจกรรม", url: "calendar.html", key: "calendar" },
-  { label: "ข่าวสารและกีฬา", url: "news.html", key: "news" },
-  { label: "หลักสูตรและอาจารย์", url: "curriculum.html", key: "curriculum" },
-  { label: "ทุนการศึกษาและวิจัย", url: "scholarships.html", key: "scholarships" },
-  { label: "ผลงานและคลังสื่อ", url: "achievements.html", key: "achievements" },
-  { label: "ติดต่อและสมัครเรียน", url: "contact.html", key: "contact" },
+  { label: "หน้าแรก", url: "index.html", key: "home", i18n: "menu.home" },
+  { label: "ปฏิทินกิจกรรม", url: "calendar.html", key: "calendar", i18n: "menu.calendar" },
+  { label: "ข่าวสารและกีฬา", url: "news.html", key: "news", i18n: "menu.news" },
+  { label: "หลักสูตรและอาจารย์", url: "curriculum.html", key: "curriculum", i18n: "menu.curriculum" },
+  { label: "ทุนการศึกษาและวิจัย", url: "scholarships.html", key: "scholarships", i18n: "menu.scholarships" },
+  { label: "ผลงานและคลังสื่อ", url: "achievements.html", key: "achievements", i18n: "menu.achievements" },
+  { label: "ติดต่อและสมัครเรียน", url: "contact.html", key: "contact", i18n: "menu.contact" },
 ];
+
+/* ---------------------------------------------------------------------
+   ระบบ 2 ภาษา ( i18n ) — พจนานุกรม UI
+   --------------------------------------------------------------------- */
+const I18N = {
+  th: {
+    "menu.home": "หน้าแรก",
+    "menu.calendar": "ปฏิทินกิจกรรม",
+    "menu.news": "ข่าวสารและกีฬา",
+    "menu.curriculum": "หลักสูตรและอาจารย์",
+    "menu.scholarships": "ทุนการศึกษาและวิจัย",
+    "menu.achievements": "ผลงานและคลังสื่อ",
+    "menu.contact": "ติดต่อและสมัครเรียน",
+    "search.placeholder": "ค้นหาข่าว ทุน อาจารย์ หลักสูตร...",
+    "footer.contact": "ติดต่อคณะ",
+    "footer.quicklinks": "ลิงก์ด่วน",
+    "footer.staff": "สำหรับเจ้าหน้าที่",
+    "footer.apply": "สมัครเรียนต่อ",
+    "footer.scholarship": "ทุนการศึกษา",
+    "footer.admin": "เข้าสู่ระบบผู้ดูแล (Admin)",
+    "sample.notice": "หน้านี้กำลังแสดงข้อมูลตัวอย่างเพื่อการพัฒนา — เมื่อเชื่อมฐานข้อมูล Supabase แล้วจะดึงข้อมูลจริงมาแสดงแทน",
+    "common.loading": "กำลังโหลด...",
+    "page.curriculum": "หลักสูตร",
+    "page.faculty": "อาจารย์",
+    "page.contact": "ข้อมูลติดต่อคณะ",
+    "page.map": "แผนที่คณะ",
+    "page.contactform": "แบบฟอร์มติดต่อ / สมัครกิจกรรม",
+    "page.news": "ข่าวสารล่าสุด",
+  },
+  en: {
+    "menu.home": "Home",
+    "menu.calendar": "Calendar & Events",
+    "menu.news": "News & Sports",
+    "menu.curriculum": "Curriculum & Faculty",
+    "menu.scholarships": "Scholarships & Research",
+    "menu.achievements": "Achievements & Media",
+    "menu.contact": "Contact & Admission",
+    "search.placeholder": "Search news, scholarships, faculty, programs...",
+    "footer.contact": "Contact Faculty",
+    "footer.quicklinks": "Quick Links",
+    "footer.staff": "For Staff",
+    "footer.apply": "Apply for Admission",
+    "footer.scholarship": "Scholarships",
+    "footer.admin": "Admin Login",
+    "sample.notice": "This page shows sample data for development — real data will be loaded once Supabase is connected.",
+    "common.loading": "Loading...",
+    "page.curriculum": "Curriculum",
+    "page.faculty": "Faculty",
+    "page.contact": "Contact Information",
+    "page.map": "Faculty Map",
+    "page.contactform": "Contact / Activity Registration Form",
+    "page.news": "Latest News",
+  },
+};
+
+function getCurrentLang() {
+  return localStorage.getItem("fss-lang") || "th";
+}
+
+function t(key) {
+  const lang = getCurrentLang();
+  return (I18N[lang] && I18N[lang][key]) || (I18N.th[key] || key);
+}
+
+function applyLanguage(lang) {
+  if (lang) localStorage.setItem("fss-lang", lang);
+  const l = getCurrentLang();
+  document.documentElement.lang = l === "en" ? "en" : "th";
+
+  // แปลง element ที่มี data-i18n
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    const val = t(key);
+    if (val) el.textContent = val;
+  });
+  // แปลง placeholder
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    const val = t(key);
+    if (val) el.setAttribute("placeholder", val);
+  });
+
+  // อัปเดตปุ่มสลับภาษา (ถ้ามี)
+  const langBtn = document.getElementById("lang-toggle");
+  if (langBtn) {
+    langBtn.textContent = l === "th" ? "TH" : "EN";
+    langBtn.setAttribute("aria-label", l === "th" ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย");
+  }
+}
+
+// ให้เรียกจากไฟล์อื่นได้
+window.applyLanguage = applyLanguage;
+window.getCurrentLang = getCurrentLang;
+window.t = t;
 
 /* ---------------------------------------------------------------------
    สร้าง HTML ของ Header
@@ -37,13 +131,13 @@ function buildHeaderHTML() {
   // --- เมนูแนวนอนสำหรับจอใหญ่ ---
   const desktopLinks = MENU_ITEMS.map((m) => {
     const active = m.key === currentPage ? ' class="is-active"' : "";
-    return `<a href="${m.url}"${active}>${m.label}</a>`;
+    return `<a href="${m.url}"${active} data-i18n="${m.i18n}">${m.label}</a>`;
   }).join("\n        ");
 
   // --- เมนูแนวตั้งสำหรับมือถือ ( ใน Drawer ) ---
   const mobileLinks = MENU_ITEMS.map((m) => {
     const active = m.key === currentPage ? " is-active" : "";
-    let html = `<a class="nav-link${active}" href="${m.url}">${m.label}</a>`;
+    let html = `<a class="nav-link${active}" href="${m.url}" data-i18n="${m.i18n}">${m.label}</a>`;
     // ถ้ามีเมนูย่อย ให้เพิ่มรายการย่อยต่อท้าย
     if (m.sub) {
       const subs = m.sub
@@ -122,7 +216,8 @@ function buildHeaderHTML() {
       <div class="search-box">
         <input id="search-input" class="search-input" type="search"
                placeholder="ค้นหาข่าว ทุน อาจารย์ หลักสูตร..."
-               aria-label="พิมพ์คำค้นหา" />
+               data-i18n-placeholder="search.placeholder"
+aria-label="พิมพ์คำค้นหา" />
         <button id="search-clear" class="icon-btn" aria-label="ล้างคำค้น">✕</button>
         <button id="search-close" class="icon-btn" aria-label="ปิดการค้นหา">ปิด</button>
       </div>
@@ -154,7 +249,7 @@ function buildFooterHTML() {
     <div class="footer-inner">
 
       <div id="footer-contact" class="footer-group">
-        <h3>ติดต่อคณะ</h3>
+        <h3 data-i18n="footer.contact">ติดต่อคณะ</h3>
         <p class="faculty-name"></p>
         <p class="address"></p>
         <p class="phone"></p>
@@ -169,14 +264,14 @@ function buildFooterHTML() {
       </div>
 
       <div class="footer-group">
-        <h3>ลิงก์ด่วน</h3>
-        <p><a href="contact.html">สมัครเรียนต่อ</a></p>
-        <p><a href="scholarships.html">ทุนการศึกษา</a></p>
+        <h3 data-i18n="footer.quicklinks">ลิงก์ด่วน</h3>
+        <p><a href="contact.html" data-i18n="footer.apply">สมัครเรียนต่อ</a></p>
+        <p><a href="scholarships.html" data-i18n="footer.scholarship">ทุนการศึกษา</a></p>
       </div>
 
       <div class="footer-group">
-        <h3>สำหรับเจ้าหน้าที่</h3>
-        <p><a href="admin/login.html">เข้าสู่ระบบผู้ดูแล (Admin)</a></p>
+        <h3 data-i18n="footer.staff">สำหรับเจ้าหน้าที่</h3>
+        <p><a href="admin/login.html" data-i18n="footer.admin">เข้าสู่ระบบผู้ดูแล (Admin)</a></p>
       </div>
 
     </div>
@@ -235,4 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </svg>`;
     section.insertBefore(icon, section.firstChild);
   });
+
+  // ใช้ภาษาที่เลือกไว้ (2 ภาษา)
+  if (typeof applyLanguage === "function") applyLanguage(getCurrentLang());
 });
