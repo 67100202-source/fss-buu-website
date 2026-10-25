@@ -97,9 +97,11 @@ function renderCourses(items) {
       <p class="text-meta"><strong>${isEn ? "Chairperson:" : "ประธานหลักสูตร:"}</strong> ${c.chairperson || "-"}</p>
       <p class="text-meta">${detail}</p>
       ${
-        c.source_url
-          ? `<a href="${c.source_url}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.9rem;margin-top:0.5rem;">${isEn ? "View details on faculty website" : "ดูรายละเอียดจากเว็บคณะ"}</a>`
-          : ""
+        (typeof PROGRAM_DOCUMENTS !== "undefined" && PROGRAM_DOCUMENTS[c.id])
+          ? `<a href="${encodeURI(PROGRAM_DOCUMENTS[c.id])}" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.9rem;margin-top:0.5rem;">${isEn ? "Download document" : "ดาวน์โหลดเอกสาร"}</a>`
+          : (c.source_url
+              ? `<a href="${c.source_url}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.9rem;margin-top:0.5rem;">${isEn ? "View details on faculty website" : "ดูรายละเอียดจากเว็บคณะ"}</a>`
+              : "")
       }
     `;
     box.appendChild(card);
