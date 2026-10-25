@@ -40,7 +40,8 @@ truncate table public.contact_info            restart identity cascade;
 -- =====================================================================
 insert into public.admin_users (username, password_plain_demo, full_name, role, email) values
 ('admin_fss', 'demo_password', 'นายอัฐพร โสวัตร์ (ผู้ดูแลระบบ)', 'superadmin', 'attaporns@go.buu.ac.th'),
-('pr_staff',  'demo_password', 'นางพรรณปพร เผ่าจินดา (งานประชาสัมพันธ์)', 'editor', 'phanpaporn@go.buu.ac.th')
+('pr_staff',  'demo_password', 'นางพรรณปพร เผ่าจินดา (งานประชาสัมพันธ์)', 'editor', 'phanpaporn@go.buu.ac.th'),
+('67100202',  'demo_password', 'ผู้ดูแลระบบ (67100202)', 'superadmin', '67100202@go.buu.ac.th')
 on conflict (username) do nothing;
 
 
