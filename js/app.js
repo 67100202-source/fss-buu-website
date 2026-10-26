@@ -664,19 +664,20 @@ function initHeroSlider(banners) {
     const cta = (isEn && b.cta_en) ? b.cta_en : b.cta;
     const slide = document.createElement("div");
     slide.className = `hero-slide theme-${b.theme || "green"}`;
-    // ถ้ามีรูปภาพพื้นหลัง ให้ใช้รูปแทนสีพื้นหลัง (inline style ให้ความสำคัญสูงกว่า CSS class)
-    if (b.image) {
-      slide.style.backgroundImage = `url("${b.image}")`;
-      slide.style.backgroundSize = "cover";
-      slide.style.backgroundPosition = "center";
-      slide.style.backgroundRepeat = "no-repeat";
-    }
     slide.innerHTML = `
       <span class="hero-tag">${tag}</span>
       <h2 class="hero-title">${title}</h2>
       <p class="hero-subtitle">${subtitle}</p>
       <a class="hero-cta" href="${b.url}">${cta}</a>
     `;
+    // ถ้ามีรูป ให้วางแถบรูปไว้ด้านบนของสไลด์ (แยกจากข้อความ เพื่อไม่ให้ตัวหนังสือทับรูป)
+    if (b.image) {
+      const imgBox = document.createElement("div");
+      imgBox.className = "hero-img";
+      imgBox.style.backgroundImage = `url("${b.image}")`;
+      slide.insertBefore(imgBox, slide.firstChild);
+      slide.classList.add("has-image");
+    }
     track.appendChild(slide);
   });
 
