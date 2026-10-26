@@ -162,7 +162,7 @@ function buildNewsCard(n, detailUrl) {
     img.src = n.image_url;
     img.alt = n.title;
     img.loading = "lazy";
-    img.style.cssText = "width:100%;height:100%;object-fit:cover;display:block;";
+    img.style.cssText = "width:100%;height:100%;object-fit:contain;display:block;";
     thumb.appendChild(img);
   } else {
     thumb.className = "news-thumb-empty";
