@@ -664,6 +664,13 @@ function initHeroSlider(banners) {
     const cta = (isEn && b.cta_en) ? b.cta_en : b.cta;
     const slide = document.createElement("div");
     slide.className = `hero-slide theme-${b.theme || "green"}`;
+    // ถ้ามีรูปประกอบข่าว ให้ใช้รูปเป็นพื้นหลังแทนสีไล่ระดับ
+    if (b.image) {
+      slide.classList.add("has-image");
+      // แปลงเป็น URL เต็ม เพื่อไม่ให้ถูกตีความเทียบกับไฟล์ CSS (css/style.css)
+      const imgUrl = new URL(b.image, document.baseURI).href;
+      slide.style.setProperty("--slide-img", `url("${imgUrl}")`);
+    }
     slide.innerHTML = `
       <span class="hero-tag">${tag}</span>
       <h2 class="hero-title">${title}</h2>
