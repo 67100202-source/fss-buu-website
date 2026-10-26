@@ -664,12 +664,12 @@ function initHeroSlider(banners) {
     const cta = (isEn && b.cta_en) ? b.cta_en : b.cta;
     const slide = document.createElement("div");
     slide.className = `hero-slide theme-${b.theme || "green"}`;
-    // ถ้ามีรูปประกอบข่าว ให้ใช้รูปเป็นพื้นหลังแทนสีไล่ระดับ
+    // ถ้ามีรูปภาพพื้นหลัง ให้ใช้รูปแทนสีพื้นหลัง (inline style ให้ความสำคัญสูงกว่า CSS class)
     if (b.image) {
-      slide.classList.add("has-image");
-      // แปลงเป็น URL เต็ม เพื่อไม่ให้ถูกตีความเทียบกับไฟล์ CSS (css/style.css)
-      const imgUrl = new URL(b.image, document.baseURI).href;
-      slide.style.setProperty("--slide-img", `url("${imgUrl}")`);
+      slide.style.backgroundImage = `url("${b.image}")`;
+      slide.style.backgroundSize = "cover";
+      slide.style.backgroundPosition = "center";
+      slide.style.backgroundRepeat = "no-repeat";
     }
     slide.innerHTML = `
       <span class="hero-tag">${tag}</span>
