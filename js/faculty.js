@@ -123,7 +123,7 @@ function renderFacultyList(items) {
     const fallbackInitial = (name || "?").charAt(0);
     const photo = f.image_url
       ? `<img src="${encodeURI(f.image_url)}" alt="${name}" loading="lazy" onerror="this.outerHTML='<span class=\\'faculty-photo-placeholder\\'>${fallbackInitial}</span>'" />`
-      : `<img src="image/อาจารย์/${encodeURIComponent(name)}.png" alt="${name}" loading="lazy" onerror="this.outerHTML='<span class=\\'faculty-photo-placeholder\\'>${fallbackInitial}</span>'" />`;
+      : `<img src="image/อาจาร์ย/${encodeURIComponent(name)}.png" alt="${name}" loading="lazy" onerror="this.outerHTML='<span class=\\'faculty-photo-placeholder\\'>${fallbackInitial}</span>'" />`;
     card.innerHTML = `
       <div class="faculty-photo">${photo}</div>
       <div class="faculty-info">
