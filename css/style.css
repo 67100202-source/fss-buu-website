@@ -724,21 +724,11 @@ ol {
 .hero-slide.theme-green { background: linear-gradient(135deg, var(--color-green), #14542f); }
 .hero-slide.theme-gold { background: linear-gradient(135deg, var(--color-yellow), #b38603); }
 .hero-slide.theme-dark { background: linear-gradient(135deg, var(--color-gray-dark), #000000); }
-/* สไลด์ที่มีรูป: รูปอยู่แถบบน ข้อความอยู่บนพื้นสีธีม ไม่ทับกัน */
-.hero-slide.has-image {
-  padding-top: 1.25rem;
-}
-.hero-slide .hero-img {
-  flex: 0 0 auto;
-  height: 150px;
-  margin-bottom: 0.75rem;
-  border-radius: 8px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-@media (min-width: 640px) {
-  .hero-slide .hero-img { height: 200px; }
+/* สไลด์ที่มีรูป: เพิ่มเงาให้ตัวหนังสือเพื่อให้อ่านง่ายบนพื้นหลังที่เป็นรูป */
+.hero-slide.has-image .hero-tag,
+.hero-slide.has-image .hero-title,
+.hero-slide.has-image .hero-subtitle {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
 }
 
 .hero-tag {

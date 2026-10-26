@@ -670,13 +670,13 @@ function initHeroSlider(banners) {
       <p class="hero-subtitle">${subtitle}</p>
       <a class="hero-cta" href="${b.url}">${cta}</a>
     `;
-    // ถ้ามีรูป ให้วางแถบรูปไว้ด้านบนของสไลด์ (แยกจากข้อความ เพื่อไม่ให้ตัวหนังสือทับรูป)
+    // ถ้ามีรูป ให้ใช้เป็นพื้นหลังเต็มสไลด์ พร้อมชั้นมืดบาง ๆ ให้ตัวหนังสืออ่านง่าย
     if (b.image) {
-      const imgBox = document.createElement("div");
-      imgBox.className = "hero-img";
-      imgBox.style.backgroundImage = `url("${b.image}")`;
-      slide.insertBefore(imgBox, slide.firstChild);
       slide.classList.add("has-image");
+      slide.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.45)), url("${b.image}")`;
+      slide.style.backgroundSize = "cover";
+      slide.style.backgroundPosition = "center";
+      slide.style.backgroundRepeat = "no-repeat";
     }
     track.appendChild(slide);
   });
