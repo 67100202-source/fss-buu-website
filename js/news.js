@@ -352,11 +352,11 @@ async function initNewsDetailPage() {
   // --- ภาพประกอบ ---
   const hero = document.createElement("div");
   if (news.image_url) {
-    hero.className = "article-hero";
+    hero.className = "article-hero has-img";
     const img = document.createElement("img");
     img.src = news.image_url;
     img.alt = news.title;
-    img.style.cssText = "width:100%;border-radius:8px;object-fit:cover;max-height:400px;";
+    img.style.cssText = "width:100%;height:auto;display:block;border-radius:10px;";
     hero.appendChild(img);
   } else {
     hero.className = `article-hero theme-${news.theme || "green"}`;

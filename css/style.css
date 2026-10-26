@@ -1249,6 +1249,14 @@ ol {
   margin-bottom: 1rem;
   background: linear-gradient(135deg, var(--color-green), #14542f);
 }
+/* เมื่อมีรูปภาพ กรอบจะยืดตามขนาดรูปจริง ไม่บังคับสัดส่วนคงที่ */
+.article-hero.has-img {
+  aspect-ratio: auto;
+  background: none;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+}
 .article-hero.theme-gold { background: linear-gradient(135deg, var(--color-yellow), #b38603); }
 .article-hero.theme-dark { background: linear-gradient(135deg, var(--color-gray-dark), #000000); }
 
