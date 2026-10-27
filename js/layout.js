@@ -354,7 +354,7 @@ function buildFooterHTML() {
       <div class="footer-group">
         <h3 data-i18n="footer.staff">สำหรับเจ้าหน้าที่</h3>
         <p><a href="${resolveUrl("admin/login.html")}" data-i18n="footer.admin">เข้าสู่ระบบผู้ดูแล (Admin)</a></p>
-        <p><a href="${resolveUrl("admin/manual.html")}" data-i18n="footer.manual">คู่มือการใช้งาน Admin</a></p>
+        ${pathPrefix() === "../" ? `<p><a href="${resolveUrl("admin/manual.html")}" data-i18n="footer.manual">คู่มือการใช้งาน Admin</a></p>` : ""}
       </div>
 
     </div>
