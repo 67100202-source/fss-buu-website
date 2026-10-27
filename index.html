@@ -37,14 +37,14 @@
       <div class="hero-controls">
         <div id="hero-dots" class="hero-dots" role="tablist" aria-label="เลือกสไลด์"></div>
         <!-- คำใบ้ว่าให้ปัดสไลด์ ( จะหายไปเองใน 4 วินาที ) -->
-        <span id="hero-hint" class="hero-hint" aria-hidden="true">ปัดเพื่อเลื่อนสไลด์</span>
+        <span id="hero-hint" class="hero-hint" aria-hidden="true" data-i18n="home.swipe">ปัดเพื่อเลื่อนสไลด์</span>
       </div>
     </section>
 
     <!-- ============ แถบการ์ดทางลัดด่วน 4 กล่อง (ใต้แบนเนอร์) ============ -->
     <section class="content-section-card" aria-labelledby="quick-actions-title">
       <div class="section-head gold">
-        <h2 id="quick-actions-title" class="text-section-title">ทางลัดด่วน</h2>
+        <h2 id="quick-actions-title" class="text-section-title" data-i18n="home.quicklinks">ทางลัดด่วน</h2>
       </div>
       <div class="quick-actions-grid">
         <a href="calendar.html" class="quick-action-card" aria-label="ปฏิทินการศึกษาและกิจกรรมคณะ">
@@ -54,7 +54,7 @@
               <path d="M16 2v4M8 2v4M3 10h18"/>
             </svg>
           </span>
-          <span class="qa-label">ปฏิทินการศึกษาและกิจกรรมคณะ</span>
+          <span class="qa-label" data-i18n="home.qa.calendar">ปฏิทินการศึกษาและกิจกรรมคณะ</span>
           <span class="qa-arrow">→</span>
         </a>
         <a href="news.html" class="quick-action-card" aria-label="ข่าวสารและกิจกรรมกีฬา">
@@ -65,7 +65,7 @@
               <path d="M9 15h6"/>
             </svg>
           </span>
-          <span class="qa-label">ข่าวสารและกิจกรรมกีฬา</span>
+          <span class="qa-label" data-i18n="home.qa.sports">ข่าวสารและกิจกรรมกีฬา</span>
           <span class="qa-arrow">→</span>
         </a>
         <a href="curriculum.html" class="quick-action-card" aria-label="หลักสูตร ป.ตรี-โท-เอก และคณาจารย์">
@@ -75,7 +75,7 @@
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>
             </svg>
           </span>
-          <span class="qa-label">หลักสูตรที่เปิดสอน</span>
+          <span class="qa-label" data-i18n="home.qa.programs">หลักสูตรที่เปิดสอน</span>
           <span class="qa-arrow">→</span>
         </a>
         <a href="scholarships.html" class="quick-action-card" aria-label="ทุนการศึกษาและการรับสมัคร TCAS">
@@ -85,7 +85,7 @@
               <path d="M12 5a7 7 0 1 0 0 14 7 7 0 0 0 0-14"/>
             </svg>
           </span>
-          <span class="qa-label">ทุนการศึกษาและการรับสมัคร TCAS</span>
+          <span class="qa-label" data-i18n="home.qa.scholarship">ทุนการศึกษาและการรับสมัคร TCAS</span>
           <span class="qa-arrow">→</span>
         </a>
       </div>
@@ -95,7 +95,7 @@
     <!-- ============ กิจกรรมที่กำลังจะมาถึง ( badge วันที่แบบ KMITL ) ============ -->
     <section class="content-section-card" aria-labelledby="activity-title" id="activities">
       <div class="section-head green">
-        <h2 id="activity-title" class="text-section-title">กิจกรรมที่กำลังจะมาถึง</h2>
+        <h2 id="activity-title" class="text-section-title" data-i18n="home.activity">กิจกรรมที่กำลังจะมาถึง</h2>
       </div>
       <div id="activity-list"></div>
     </section>
@@ -104,7 +104,7 @@
     <section class="content-section-card" aria-labelledby="news-title">
       <div class="section-head green">
         <h2 id="news-title" class="text-section-title" data-i18n="page.news">ข่าวสารล่าสุด</h2>
-        <a class="section-more" href="news.html">ดูทั้งหมด →</a>
+        <a class="section-more" href="news.html" data-i18n="common.viewall">ดูทั้งหมด →</a>
       </div>
 
 
@@ -115,8 +115,8 @@
     <!-- ============ ไฮไลต์ข่าวกีฬา ( เข้าถึงหน้าที่ 3 ได้ใน 1 คลิก ) ============ -->
     <section class="content-section-card" aria-labelledby="sports-title">
       <div class="section-head gold">
-        <h2 id="sports-title" class="text-section-title">ไฮไลต์ข่าวกีฬา</h2>
-        <a class="section-more" href="sports-news.html">ดูทั้งหมด →</a>
+        <h2 id="sports-title" class="text-section-title" data-i18n="home.sports">ไฮไลต์ข่าวกีฬา</h2>
+        <a class="section-more" href="sports-news.html" data-i18n="common.viewall">ดูทั้งหมด →</a>
       </div>
       <div id="sports-highlight-list"></div>
       <a class="btn btn-primary" href="sports-news.html" style="margin-top: 0.5rem">
@@ -129,15 +129,15 @@
       <section class="content-section-card" aria-labelledby="curriculum-title">
         <div class="section-head green">
           <h2 id="curriculum-title" class="text-section-title" data-i18n="page.curriculum">หลักสูตรที่เปิดสอน</h2>
-          <a class="section-more" href="curriculum.html">ดูทั้งหมด →</a>
+          <a class="section-more" href="curriculum.html" data-i18n="common.viewall">ดูทั้งหมด →</a>
         </div>
         <div id="course-list"></div>
       </section>
 
       <section class="content-section-card" aria-labelledby="scholarship-title">
         <div class="section-head gold">
-          <h2 id="scholarship-title" class="text-section-title">ประกาศทุนล่าสุด</h2>
-          <a class="section-more" href="scholarships.html">ดูทั้งหมด →</a>
+          <h2 id="scholarship-title" class="text-section-title" data-i18n="home.scholarship">ประกาศทุนล่าสุด</h2>
+          <a class="section-more" href="scholarships.html" data-i18n="common.viewall">ดูทั้งหมด →</a>
         </div>
         <div id="scholarship-list"></div>
       </section>
@@ -147,16 +147,16 @@
     <div class="two-col">
       <section class="content-section-card" aria-labelledby="achievement-title">
         <div class="section-head green">
-          <h2 id="achievement-title" class="text-section-title">ผลงานนิสิตและศิษย์เก่า</h2>
-          <a class="section-more" href="achievements.html">ดูทั้งหมด →</a>
+          <h2 id="achievement-title" class="text-section-title" data-i18n="home.achievement">ผลงานนิสิตและศิษย์เก่า</h2>
+          <a class="section-more" href="achievements.html" data-i18n="common.viewall">ดูทั้งหมด →</a>
         </div>
         <div id="achievement-list"></div>
       </section>
 
       <section class="content-section-card" aria-labelledby="media-title">
         <div class="section-head gold">
-          <h2 id="media-title" class="text-section-title">คลังภาพและวิดีโอ</h2>
-          <a class="section-more" href="gallery.html">ดูทั้งหมด →</a>
+          <h2 id="media-title" class="text-section-title" data-i18n="home.media">คลังภาพและวิดีโอ</h2>
+          <a class="section-more" href="gallery.html" data-i18n="common.viewall">ดูทั้งหมด →</a>
         </div>
         <div id="media-list" class="gallery-grid"></div>
       </section>
@@ -165,7 +165,7 @@
     <!-- ============ แถบพันธมิตร ( Partners แบบ KMITL ) ============ -->
     <section class="content-section-card" aria-labelledby="partners-title">
       <div class="section-head gold">
-        <h2 id="partners-title" class="text-section-title">หน่วยงานที่เกี่ยวข้อง</h2>
+        <h2 id="partners-title" class="text-section-title" data-i18n="home.partners">หน่วยงานที่เกี่ยวข้อง</h2>
       </div>
       <div id="partners-strip" class="partners-strip"></div>
     </section>
