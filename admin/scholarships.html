@@ -128,8 +128,16 @@
           <input type="text" id="fTitle" required placeholder="เช่น ทุนส่งเสริมการศึกษานิสิต" />
         </div>
         <div class="form-row">
+          <label>ชื่อทุน (English)</label>
+          <input type="text" id="fTitleEn" placeholder="e.g. Scholarship for Potential Students" />
+        </div>
+        <div class="form-row">
           <label>ประเภททุน</label>
           <input type="text" id="fType" placeholder="เช่น ทุนการศึกษาระดับปริญญาตรี" />
+        </div>
+        <div class="form-row">
+          <label>ประเภททุน (English)</label>
+          <input type="text" id="fTypeEn" placeholder="e.g. Undergraduate Scholarship" />
         </div>
         <div class="form-row">
           <label>จำนวนเงิน (บาท)</label>
@@ -142,6 +150,10 @@
         <div class="form-row">
           <label>คุณสมบัติและรายละเอียด <span style="color:var(--color-danger);">*</span></label>
           <textarea id="fEligibility" required placeholder="เขียนคุณสมบัติผู้สมัคร"></textarea>
+        </div>
+        <div class="form-row">
+          <label>คุณสมบัติและรายละเอียด (English)</label>
+          <textarea id="fEligibilityEn" placeholder="Eligibility and details in English"></textarea>
         </div>
         <div class="form-row">
           <label>ชื่อไฟล์เอกสารแนบ (ตัวเลือก)</label>
@@ -247,7 +259,10 @@
         if (!data) return;
         document.getElementById("scholarshipId").value = data.id;
         document.getElementById("fTitle").value = data.title || "";
+        document.getElementById("fTitleEn").value = data.title_en || "";
         document.getElementById("fType").value = data.scholarship_type || "";
+        document.getElementById("fTypeEn").value = data.scholarship_type_en || "";
+        document.getElementById("fEligibilityEn").value = data.eligibility_en || "";
         document.getElementById("fAmount").value = data.amount_baht || "";
         document.getElementById("fDeadline").value = data.deadline ? data.deadline.split("T")[0] : "";
         document.getElementById("fEligibility").value = data.eligibility || "";
@@ -278,7 +293,10 @@
       const id = document.getElementById("scholarshipId").value;
       const row = {
         title: document.getElementById("fTitle").value.trim(),
+        title_en: document.getElementById("fTitleEn").value.trim(),
         scholarship_type: document.getElementById("fType").value.trim(),
+        scholarship_type_en: document.getElementById("fTypeEn").value.trim(),
+        eligibility_en: document.getElementById("fEligibilityEn").value.trim(),
         amount_baht: document.getElementById("fAmount").value ? parseInt(document.getElementById("fAmount").value) : null,
         deadline: document.getElementById("fDeadline").value,
         eligibility: document.getElementById("fEligibility").value.trim(),
