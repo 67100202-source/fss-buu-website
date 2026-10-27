@@ -82,7 +82,9 @@
     .action-btn:hover { background: var(--color-green-soft); border-color: var(--color-green); color: var(--color-green); }
     .action-btn.primary { background: var(--color-green); color: var(--color-white); border-color: var(--color-green); }
     .action-btn.primary:hover { background: #14542f; }
-    .recent-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+    .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .recent-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 1rem; }
+    .recent-table td:last-child { white-space: nowrap; }
     .recent-table th, .recent-table td {
       padding: 0.6rem;
       text-align: left;
@@ -148,6 +150,7 @@
       <div class="section-head green">
         <h2 class="text-section-title">ข่าวสารล่าสุด</h2>
       </div>
+      <div class="table-scroll">
       <table class="recent-table">
         <thead>
           <tr>
@@ -162,6 +165,7 @@
           <tr><td colspan="5" class="text-meta">กำลังโหลด...</td></tr>
         </tbody>
       </table>
+      </div>
     </section>
   </main>
   <div id="site-footer"></div>
