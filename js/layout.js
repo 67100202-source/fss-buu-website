@@ -94,6 +94,8 @@ const I18N = {
     "home.partners": "หน่วยงานที่เกี่ยวข้อง",
     "home.swipe": "ปัดเพื่อเลื่อนสไลด์",
     "common.viewall": "ดูทั้งหมด →",
+    "nav.title": "เมนูหลัก",
+    "search.close": "ปิด",
   },
   en: {
     "menu.home": "Home",
@@ -138,6 +140,8 @@ const I18N = {
     "home.partners": "Related Organizations",
     "home.swipe": "Swipe to change slide",
     "common.viewall": "View all →",
+    "nav.title": "Menu",
+    "search.close": "Close",
   },
 };
 
@@ -226,7 +230,7 @@ function buildHeaderHTML() {
     // ถ้ามีเมนูย่อย ให้เพิ่มรายการย่อยต่อท้าย
     if (m.sub) {
       const subs = m.sub
-        .map((s) => `<a href="${s.url}">${s.label}</a>`)
+        .map((s) => `<a href="${s.url}" data-i18n="${s.i18n}">${s.label}</a>`)
         .join("\n          ");
       html += `
         <div class="nav-submenu">
@@ -295,7 +299,7 @@ function buildHeaderHTML() {
                data-i18n-placeholder="search.placeholder"
 aria-label="พิมพ์คำค้นหา" />
         <button id="search-clear" class="icon-btn" aria-label="ล้างคำค้น">✕</button>
-        <button id="search-close" class="icon-btn" aria-label="ปิดการค้นหา">ปิด</button>
+        <button id="search-close" class="icon-btn" aria-label="ปิดการค้นหา" data-i18n="search.close">ปิด</button>
       </div>
       <div id="search-results" class="search-results" role="region" aria-live="polite"></div>
     </div>
@@ -307,7 +311,7 @@ aria-label="พิมพ์คำค้นหา" />
   <!-- เมนู Drawer สำหรับมือถือ -->
   <nav id="nav-drawer" class="nav-drawer" hidden aria-label="เมนูหลัก">
     <div class="nav-drawer-header">
-      <span class="text-item-title">เมนูหลัก</span>
+      <span class="text-item-title" data-i18n="nav.title">เมนูหลัก</span>
       <button id="nav-close" class="icon-btn" aria-label="ปิดเมนู">✕</button>
     </div>
     <ul class="nav-list">
