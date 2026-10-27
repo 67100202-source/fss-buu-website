@@ -535,7 +535,7 @@ const sampleBanners = [
     title_en: "New Student Admissions, Academic Year 2026",
     subtitle: "หลักสูตรศิลปศาสตรบัณฑิต สาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
     subtitle_en: "Bachelor's programs in Exercise and Sport Science",
-    cta: "สมัครเรียน", cta_en: "Apply now", url: "contact.html", theme: "green", image: "image/header.jpg" },
+    cta: "", cta_en: "", url: "", theme: "green", image: "image/headแรก.jpg" },
   { id: 2, tag: "ข่าวประชาสัมพันธ์", tag_en: "Announcement",
     title: "การแข่งขันกีฬาภายใน \"Sport Science Games\" เสริมสร้างทักษะการจัดการงานกีฬา",
     title_en: "Sport Science Games build event management skills",

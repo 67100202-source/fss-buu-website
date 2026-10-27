@@ -651,7 +651,7 @@ function initHeroSlider(banners) {
   const hint = document.getElementById("hero-hint");
   if (!track || !banners || banners.length === 0) return;
 
-  let current = 0;
+  let current = banners && banners.length > 1 ? 1 : 0;
   let timer = null;
 
   // --- สร้างสไลด์ ---
@@ -668,7 +668,7 @@ function initHeroSlider(banners) {
       <span class="hero-tag">${tag}</span>
       <h2 class="hero-title">${title}</h2>
       <p class="hero-subtitle">${subtitle}</p>
-      <a class="hero-cta" href="${b.url}">${cta}</a>
+      ${cta && b.url ? `<a class="hero-cta" href="${b.url}">${cta}</a>` : ""}
     `;
     // ถ้ามีรูป ให้ใช้เป็นพื้นหลังเต็มสไลด์ พร้อมชั้นมืดบาง ๆ ให้ตัวหนังสืออ่านง่าย
     if (b.image) {
@@ -695,6 +695,9 @@ function initHeroSlider(banners) {
   });
 
   const dots = Array.from(dotsBox.children);
+
+  // เริ่มที่สไลด์ที่ 2 (index 1) ตามที่ต้องการ แล้วเลื่อนต่อตามลำดับ
+  if (banners.length > 1) goTo(current);
 
   /** เลื่อนไปสไลด์ที่ index */
   function goTo(index) {
