@@ -22,8 +22,9 @@ function pathPrefix() {
 function resolveUrl(url) {
   if (!url) return url;
   // ลิงก์ภายใน admin/ ( เช่น login.html ) อยู่โฟลเดอร์เดียวกัน
+  // ตัด admin/ ออกเฉพาะตอนที่หน้าปัจจุบันอยู่ในโฟลเดอร์ admin/ เท่านั้น
   if (url.indexOf("admin/") === 0) {
-    return pathPrefix() + url.replace("admin/", "");
+    return pathPrefix() === "../" ? url.replace("admin/", "") : url;
   }
   return pathPrefix() + url;
 }
