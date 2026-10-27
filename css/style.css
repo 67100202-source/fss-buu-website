@@ -731,6 +731,18 @@ ol {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
 }
 
+/* สไลด์ที่เป็นรูปอย่างเดียว: ให้รูปแสดงเต็มกรอบโดยไม่ครอป (mobile-first) */
+.hero-slide.image-only.has-image {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 160px;
+  padding: 0;
+}
+@media (min-width: 640px) {
+  .hero-slide.image-only.has-image { min-height: 220px; }
+}
+
 .hero-tag {
   display: inline-block;
   align-self: flex-start;
