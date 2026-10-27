@@ -540,12 +540,12 @@ const sampleBanners = [
     subtitle: "การแข่งขันกีฬาภายใน Sport Science Games เสริมสร้างทักษะการจัดการงานกีฬา ความเป็นผู้นำ และการทำงานเป็นทีม",
     subtitle_en: "Sport Science Games build event management skills, leadership, and teamwork",
     cta: "อ่านข่าว", cta_en: "Read news", url: "news-detail.html?id=9", theme: "gold", image: "image/รูปสำหรับข่าว/sport science games.jpeg" },
-  { id: 3, tag: "ข่าวเด่น", tag_en: "Highlight",
-    title: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์แข่งรถทางเรียบระดับโลก",
-    title_en: "BUU Sport Science student wins world-class road racing championship",
-    subtitle: "สร้างชื่อเสียงให้คณะด้วยรางวัลระดับนานาชาติ",
-    subtitle_en: "Bringing international recognition to the faculty",
-    cta: "อ่านข่าว", cta_en: "Read news", url: "news-detail.html?id=6", theme: "dark" },
+  { id: 3, tag: "รับสมัคร", tag_en: "Admissions",
+    title: "เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569",
+    title_en: "New Student Admissions, Academic Year 2026",
+    subtitle: "หลักสูตรศิลปศาสตรบัณฑิต สาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    subtitle_en: "Bachelor's programs in Exercise and Sport Science",
+    cta: "สมัครเรียน", cta_en: "Apply now", url: "contact.html", theme: "green" },
 ];
 
 const sampleQuickLinks = [
