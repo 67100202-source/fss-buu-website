@@ -530,12 +530,10 @@ const contactInfo = {
    Banner หน้าแรก / ทางลัด / ไอคอนบริการ / พันธมิตร
    --------------------------------------------------------------------- */
 const sampleBanners = [
-  { id: 1, tag: "รับสมัคร", tag_en: "Admissions",
-    title: "เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569",
-    title_en: "New Student Admissions, Academic Year 2026",
-    subtitle: "หลักสูตรศิลปศาสตรบัณฑิต สาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
-    subtitle_en: "Bachelor's programs in Exercise and Sport Science",
-    cta: "", cta_en: "", url: "", theme: "green", image: "image/headแรก.jpg" },
+  { id: 1, tag: "", tag_en: "",
+    title: "", title_en: "",
+    subtitle: "", subtitle_en: "",
+    cta: "", cta_en: "", url: "", theme: "green", image: "image/headแรก.jpg", imageOnly: true },
   { id: 2, tag: "ข่าวประชาสัมพันธ์", tag_en: "Announcement",
     title: "การแข่งขันกีฬาภายใน \"Sport Science Games\" เสริมสร้างทักษะการจัดการงานกีฬา",
     title_en: "Sport Science Games build event management skills",

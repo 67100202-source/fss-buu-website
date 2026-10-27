@@ -663,17 +663,22 @@ function initHeroSlider(banners) {
     const subtitle = (isEn && b.subtitle_en) ? b.subtitle_en : b.subtitle;
     const cta = (isEn && b.cta_en) ? b.cta_en : b.cta;
     const slide = document.createElement("div");
-    slide.className = `hero-slide theme-${b.theme || "green"}`;
-    slide.innerHTML = `
-      <span class="hero-tag">${tag}</span>
-      <h2 class="hero-title">${title}</h2>
-      <p class="hero-subtitle">${subtitle}</p>
-      ${cta && b.url ? `<a class="hero-cta" href="${b.url}">${cta}</a>` : ""}
-    `;
+    slide.className = `hero-slide theme-${b.theme || "green"}` + (b.imageOnly ? " image-only" : "");
+    if (b.imageOnly) {
+      slide.innerHTML = "";
+    } else {
+      slide.innerHTML = `
+        <span class="hero-tag">${tag}</span>
+        <h2 class="hero-title">${title}</h2>
+        <p class="hero-subtitle">${subtitle}</p>
+        ${cta && b.url ? `<a class="hero-cta" href="${b.url}">${cta}</a>` : ""}
+      `;
+    }
     // ถ้ามีรูป ให้ใช้เป็นพื้นหลังเต็มสไลด์ พร้อมชั้นมืดบาง ๆ ให้ตัวหนังสืออ่านง่าย
     if (b.image) {
       slide.classList.add("has-image");
-      slide.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.45)), url("${b.image}")`;
+      const overlay = b.imageOnly ? "" : "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.45)), ";
+      slide.style.backgroundImage = `${overlay}url("${b.image}")`;
       slide.style.backgroundSize = "cover";
       slide.style.backgroundPosition = "center";
       slide.style.backgroundRepeat = "no-repeat";
