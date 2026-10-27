@@ -126,6 +126,23 @@
           <input type="url" id="fSourceUrl" placeholder="https://..." />
         </div>
         <div class="form-row">
+          <label>รูปภาพประกอบ (อัปโหลดจากเครื่อง)</label>
+          <input type="file" id="fImageFile" accept="image/*" />
+          <div class="help-text">รองรับไฟล์ JPG/PNG/WebP — ระบบจะปรับขนาดแล้วอัปโหลดเข้า Supabase Storage อัตโนมัติ</div>
+        </div>
+        <div class="form-row">
+          <label>ปรับขนาดภาพ (ความกว้างสูงสุด)</label>
+          <select id="fImageSize">
+            <option value="800">800 px</option>
+            <option value="1200" selected>1200 px (แนะนำ)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>หรือใส่ URL รูปภาพโดยตรง</label>
+          <input type="url" id="fImageUrl" placeholder="https://... หรือ image/..." />
+          <div id="fImagePreview" style="margin-top:0.5rem;"></div>
+        </div>
+        <div class="form-row">
           <label>สถานะ</label>
           <select id="fStatus">
             <option value="published">เผยแพร่</option>
@@ -164,6 +181,27 @@
         form.reset();
         modal.classList.add("is-open");
       });
+
+      function resizeImage(file, maxWidth) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          const url = URL.createObjectURL(file);
+          img.onload = () => {
+            URL.revokeObjectURL(url);
+            const scale = maxWidth > 0 && img.width > maxWidth ? maxWidth / img.width : 1;
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+            const ctx = canvas.getContext("2d");
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("ปรับขนาดภาพไม่สำเร็จ"))), "image/jpeg", 0.85);
+          };
+          img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("อ่านไฟล์ภาพไม่ได้")); };
+          img.src = url;
+        });
+      }
 
       async function loadAchievements() {
         try {
@@ -217,6 +255,12 @@
           document.getElementById("fYear").value = data.award_year || "";
           document.getElementById("fImageUrl").value = data.image_url || "";
           document.getElementById("fSourceUrl").value = data.source_url || "";
+          document.getElementById("fImageUrl").value = data.image_url || "";
+          if (data.image_url) {
+            document.getElementById("fImagePreview").innerHTML = '<img src="' + data.image_url + '" alt="preview" style="max-width:100%;max-height:180px;border-radius:8px;border:1px solid var(--color-gray-light);" />';
+          } else {
+            document.getElementById("fImagePreview").innerHTML = "";
+          }
           document.getElementById("fStatus").value = data.status || "published";
           modal.classList.add("is-open");
         } catch (err) {
@@ -252,10 +296,26 @@
           category: document.getElementById("fCategory").value.trim(),
           category_en: document.getElementById("fCategoryEn").value.trim(),
           award_year: document.getElementById("fYear").value.trim(),
-          image_url: document.getElementById("fImageUrl").value.trim(),
           source_url: document.getElementById("fSourceUrl").value.trim(),
           status: document.getElementById("fStatus").value,
         };
+        let imageUrl = document.getElementById("fImageUrl").value.trim();
+        const fileInput = document.getElementById("fImageFile");
+        const file = fileInput && fileInput.files && fileInput.files[0];
+        if (file) {
+          const maxWidth = parseInt(document.getElementById("fImageSize").value, 10) || 0;
+          const blob = maxWidth > 0 ? await resizeImage(file, maxWidth) : file;
+          const ext = maxWidth > 0 ? "jpg" : (file.name.split(".").pop() || "jpg").toLowerCase();
+          const contentType = maxWidth > 0 ? "image/jpeg" : file.type;
+          const fileName = "achievement-" + Date.now() + "." + ext;
+          const { error: upErr } = await sb.storage.from("fss-media").upload(fileName, blob, { upsert: true, contentType });
+          if (upErr) throw upErr;
+          const { data: pub } = sb.storage.from("fss-media").getPublicUrl(fileName);
+          imageUrl = pub.publicUrl;
+          document.getElementById("fImageUrl").value = imageUrl;
+        }
+        row.image_url = imageUrl || null;
+
         try {
           const sb2 = window.getSupabase();
           if (id) {
