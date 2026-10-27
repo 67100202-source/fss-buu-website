@@ -541,13 +541,13 @@ const sampleBanners = [
     title_en: "BUU athletes win medals at 48th University Games",
     subtitle: "นิสิตคณะวิทยาศาสตร์การกีฬาเป็นกำลังหลักของทัพนักกีฬามหาวิทยาลัยบูรพา",
     subtitle_en: "FSS students are the main force of BUU sports team",
-    cta: "อ่านข่าว", cta_en: "Read news", url: "news.html", theme: "gold" },
+    cta: "อ่านข่าว", cta_en: "Read news", url: "news-detail.html?id=7", theme: "gold" },
   { id: 3, tag: "ข่าวเด่น", tag_en: "Highlight",
     title: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์แข่งรถทางเรียบระดับโลก",
     title_en: "BUU Sport Science student wins world-class road racing championship",
     subtitle: "สร้างชื่อเสียงให้คณะด้วยรางวัลระดับนานาชาติ",
     subtitle_en: "Bringing international recognition to the faculty",
-    cta: "อ่านข่าว", cta_en: "Read news", url: "news.html", theme: "dark" },
+    cta: "อ่านข่าว", cta_en: "Read news", url: "news-detail.html?id=6", theme: "dark" },
 ];
 
 const sampleQuickLinks = [
