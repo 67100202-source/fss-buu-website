@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>จัดการผลงานนิสิตและศิษย์เก่า — BUU | FSS Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .admin-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.5rem; padding-bottom:0.75rem; border-bottom:1px solid var(--color-gray-light); }
+    .admin-header h1 { font-size:1.25rem; font-weight:700; color:var(--color-gray-dark); margin:0; flex:1 1 200px; }
+    .action-btn { height:44px; padding:0 1rem; display:inline-flex; align-items:center; }
+    .table-scroll { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .admin-table { width:100%; min-width:720px; border-collapse:collapse; font-size:1rem; }
+    .admin-table th, .admin-table td { padding:0.6rem 0.75rem; border-bottom:1px solid var(--color-gray-light); text-align:left; vertical-align:top; }
+    .admin-table th { background:var(--color-gray-bg); font-weight:700; color:var(--color-gray-dark); white-space:nowrap; }
+    .btn-small { height:36px; padding:0 0.75rem; font-size:0.9rem; }
+    .modal { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:1000; padding:1rem; }
+    .modal.is-open { display:flex; }
+    .modal-card { background:#fff; border-radius:12px; width:100%; max-width:720px; max-height:90vh; overflow:auto; padding:1.5rem; box-shadow:0 8px 24px rgba(0,0,0,0.18); }
+    .form-row { margin-bottom:1rem; }
+    .form-row label { display:block; font-weight:600; margin-bottom:0.35rem; color:var(--color-gray-medium); }
+    .form-row input, .form-row textarea, .form-row select { width:100%; padding:0.5rem 0.75rem; font-family:inherit; font-size:1rem; border:1px solid var(--color-gray-light); border-radius:8px; box-sizing:border-box; }
+    .form-row textarea { min-height:90px; resize:vertical; }
+    .modal-actions { display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem; }
+    .empty-state { text-align:center; padding:2rem; color:var(--color-gray-medium); }
+    .help-text { font-size:0.85rem; color:var(--color-gray-medium); margin-top:0.25rem; }
+  </style>
+</head>
+<body data-page="admin-achievements">
+  <div id="site-header"></div>
+  <main class="page-main">
+    <div class="admin-header">
+      <h1>จัดการผลงานนิสิตและศิษย์เก่า</h1>
+      <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+        <span id="adminUser" class="text-meta"></span>
+        <a href="dashboard.html" class="btn btn-outline" style="height:44px;">กลับ Dashboard</a>
+        <a href="#" onclick="adminLogout();return false;" class="btn btn-outline" style="height:44px;white-space:nowrap;flex-shrink:0;padding:0 1rem;display:inline-flex;align-items:center;">ออกจากระบบ</a>
+      </div>
+    </div>
+
+    <div style="margin-bottom:1rem;">
+      <button id="addBtn" class="btn btn-primary" style="height:44px;">+ เพิ่มผลงาน</button>
+    </div>
+
+    <section class="content-section-card">
+      <div class="table-scroll">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ชื่อผู้รับ</th>
+              <th>รางวัล/ผลงาน</th>
+              <th>หมวด</th>
+              <th>ปี</th>
+              <th>สถานะ</th>
+              <th style="width:150px;">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="achTableBody">
+            <tr><td colspan="6" class="text-meta">กำลังโหลด...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="noData" class="empty-state" style="display:none;">ยังไม่มีข้อมูลผลงาน</p>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+
+  <div id="achModal" class="modal">
+    <div class="modal-card">
+      <h3 id="modalTitle">เพิ่มผลงาน</h3>
+      <form id="achForm">
+        <input type="hidden" id="achId" />
+        <div class="form-row">
+          <label>ชื่อผู้รับ <span style="color:var(--color-danger);">*</span></label>
+          <input type="text" id="fPerson" required placeholder="เช่น นายภาคภูมิ พิลึก" />
+        </div>
+        <div class="form-row">
+          <label>ชื่อผู้รับ (English)</label>
+          <input type="text" id="fPersonEn" placeholder="e.g. Mr. Phakphum Piluek" />
+        </div>
+        <div class="form-row">
+          <label>บทบาท/ตำแหน่ง <span style="color:var(--color-danger);">*</span></label>
+          <input type="text" id="fRole" required placeholder="เช่น นิสิตระดับปริญญาเอก" />
+        </div>
+        <div class="form-row">
+          <label>บทบาท/ตำแหน่ง (English)</label>
+          <input type="text" id="fRoleEn" placeholder="e.g. Doctoral student" />
+        </div>
+        <div class="form-row">
+          <label>รางวัล/ผลงาน <span style="color:var(--color-danger);">*</span></label>
+          <input type="text" id="fTitle" required placeholder="เช่น ได้รับทุนสนับสนุนการทำวิจัยดุษฎีนิพนธ์" />
+        </div>
+        <div class="form-row">
+          <label>รางวัล/ผลงาน (English)</label>
+          <input type="text" id="fTitleEn" placeholder="e.g. Thesis research support scholarship" />
+        </div>
+        <div class="form-row">
+          <label>รายละเอียดเพิ่มเติม</label>
+          <textarea id="fDetail" placeholder="รายละเอียดเพิ่มเติม (ไม่บังคับ)"></textarea>
+        </div>
+        <div class="form-row">
+          <label>รายละเอียดเพิ่มเติม (English)</label>
+          <textarea id="fDetailEn" placeholder="Additional details in English"></textarea>
+        </div>
+        <div class="form-row">
+          <label>หมวดหมู่ <span style="color:var(--color-danger);">*</span></label>
+          <input type="text" id="fCategory" required placeholder="เช่น ผลงานวิชาการและวิจัย" />
+        </div>
+        <div class="form-row">
+          <label>หมวดหมู่ (English)</label>
+          <input type="text" id="fCategoryEn" placeholder="e.g. Academic & Research" />
+        </div>
+        <div class="form-row">
+          <label>ปีที่ได้รับ</label>
+          <input type="text" id="fYear" placeholder="เช่น 2569" />
+        </div>
+        <div class="form-row">
+          <label>รูปภาพประกอบ (URL)</label>
+          <input type="url" id="fImageUrl" placeholder="https://... หรือ image/..." />
+        </div>
+        <div class="form-row">
+          <label>ลิงก์ต้นฉบับ (URL)</label>
+          <input type="url" id="fSourceUrl" placeholder="https://..." />
+        </div>
+        <div class="form-row">
+          <label>สถานะ</label>
+          <select id="fStatus">
+            <option value="published">เผยแพร่</option>
+            <option value="draft">ฉบับร่าง</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึก</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js?v=1"></script>
+  <script src="../js/layout.js?v=1"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const sb = window.getSupabase();
+      if (!sb) { alert("ไม่สามารถเชื่อม Supabase"); return; }
+
+      const user = JSON.parse(localStorage.getItem("sb-admin-user") || "{}");
+      document.getElementById("adminUser").textContent = user.email || "";
+
+      const modal = document.getElementById("achModal");
+      const form = document.getElementById("achForm");
+      const tableBody = document.getElementById("achTableBody");
+      const noData = document.getElementById("noData");
+
+      window.closeModal = function () { modal.classList.remove("is-open"); form.reset(); };
+
+      document.getElementById("addBtn").addEventListener("click", () => {
+        document.getElementById("modalTitle").textContent = "เพิ่มผลงาน";
+        document.getElementById("achId").value = "";
+        form.reset();
+        modal.classList.add("is-open");
+      });
+
+      async function loadAchievements() {
+        try {
+          const { data, error } = await sb.from("achievements").select("*").order("id", { ascending: false });
+          if (error) throw error;
+          renderTable(data || []);
+        } catch (err) {
+          console.error(err);
+          tableBody.innerHTML = '<tr><td colspan="6" class="text-meta">โหลดข้อมูลไม่สำเร็จ: ' + (err.message || err) + '</td></tr>';
+        }
+      }
+
+      function renderTable(rows) {
+        if (!rows || rows.length === 0) {
+          tableBody.innerHTML = "";
+          noData.style.display = "block";
+          return;
+        }
+        noData.style.display = "none";
+        tableBody.innerHTML = rows.map((r) => `
+          <tr>
+            <td>${r.person_name || "-"}</td>
+            <td>${r.award_title || "-"}</td>
+            <td>${r.category || "-"}</td>
+            <td>${r.award_year || "-"}</td>
+            <td>${r.status || "-"}</td>
+            <td>
+              <button class="btn btn-outline btn-small" onclick="editAchievement(${r.id})">แก้ไข</button>
+              <button class="btn btn-outline btn-small" onclick="deleteAchievement(${r.id})" style="color:var(--color-danger);">ลบ</button>
+            </td>
+          </tr>
+        `).join("");
+      }
+
+      window.editAchievement = async function (id) {
+        try {
+          const { data } = await sb.from("achievements").select("*").eq("id", id).single();
+          if (!data) return;
+          document.getElementById("modalTitle").textContent = "แก้ไขผลงาน";
+          document.getElementById("achId").value = data.id;
+          document.getElementById("fPerson").value = data.person_name || "";
+          document.getElementById("fPersonEn").value = data.person_name_en || "";
+          document.getElementById("fRole").value = data.person_role || "";
+          document.getElementById("fRoleEn").value = data.person_role_en || "";
+          document.getElementById("fTitle").value = data.award_title || "";
+          document.getElementById("fTitleEn").value = data.award_title_en || "";
+          document.getElementById("fDetail").value = data.story_detail || "";
+          document.getElementById("fDetailEn").value = data.story_detail_en || "";
+          document.getElementById("fCategory").value = data.category || "";
+          document.getElementById("fCategoryEn").value = data.category_en || "";
+          document.getElementById("fYear").value = data.award_year || "";
+          document.getElementById("fImageUrl").value = data.image_url || "";
+          document.getElementById("fSourceUrl").value = data.source_url || "";
+          document.getElementById("fStatus").value = data.status || "published";
+          modal.classList.add("is-open");
+        } catch (err) {
+          console.error(err);
+          alert("โหลดข้อมูลไม่สำเร็จ");
+        }
+      };
+
+      window.deleteAchievement = async function (id) {
+        if (!confirm("ยืนยันการลบผลงานนี้หรือไม่?")) return;
+        try {
+          const { error } = await sb.from("achievements").delete().eq("id", id);
+          if (error) throw error;
+          loadAchievements();
+        } catch (err) {
+          console.error(err);
+          alert("ลบข้อมูลไม่สำเร็จ: " + err.message);
+        }
+      };
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const id = document.getElementById("achId").value;
+        const row = {
+          person_name: document.getElementById("fPerson").value.trim(),
+          person_name_en: document.getElementById("fPersonEn").value.trim(),
+          person_role: document.getElementById("fRole").value.trim(),
+          person_role_en: document.getElementById("fRoleEn").value.trim(),
+          award_title: document.getElementById("fTitle").value.trim(),
+          award_title_en: document.getElementById("fTitleEn").value.trim(),
+          story_detail: document.getElementById("fDetail").value.trim(),
+          story_detail_en: document.getElementById("fDetailEn").value.trim(),
+          category: document.getElementById("fCategory").value.trim(),
+          category_en: document.getElementById("fCategoryEn").value.trim(),
+          award_year: document.getElementById("fYear").value.trim(),
+          image_url: document.getElementById("fImageUrl").value.trim(),
+          source_url: document.getElementById("fSourceUrl").value.trim(),
+          status: document.getElementById("fStatus").value,
+        };
+        try {
+          const sb2 = window.getSupabase();
+          if (id) {
+            const { error } = await sb2.from("achievements").update(row).eq("id", id);
+            if (error) throw error;
+          } else {
+            const { error } = await sb2.from("achievements").insert(row);
+            if (error) throw error;
+          }
+          modal.classList.remove("is-open");
+          form.reset();
+          loadAchievements();
+        } catch (err) {
+          console.error(err);
+          alert("บันทึกไม่สำเร็จ: " + err.message);
+        }
+      });
+
+      loadAchievements();
+    });
+  </script>
+  <script src="../js/chatbot.js?v=4"></script>
+</body>
+</html>
