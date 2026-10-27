@@ -541,7 +541,7 @@ const sampleBanners = [
     title_en: "Sport Science Games build event management skills",
     subtitle: "การแข่งขันกีฬาภายใน Sport Science Games เสริมสร้างทักษะการจัดการงานกีฬา ความเป็นผู้นำ และการทำงานเป็นทีม",
     subtitle_en: "Sport Science Games build event management skills, leadership, and teamwork",
-    cta: "อ่านข่าว", cta_en: "Read news", url: "news-detail.html?id=9", theme: "gold" },
+    cta: "อ่านข่าว", cta_en: "Read news", url: "news-detail.html?id=9", theme: "gold", image: "image/รูปสำหรับข่าว/sport science games.jpeg" },
   { id: 3, tag: "ข่าวเด่น", tag_en: "Highlight",
     title: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์แข่งรถทางเรียบระดับโลก",
     title_en: "BUU Sport Science student wins world-class road racing championship",
