@@ -127,6 +127,11 @@
           <input type="text" id="fTitle" required placeholder="เช่น เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569" />
         </div>
         <div class="form-row">
+          <label>หัวข้อข่าว (English)</label>
+          <input type="text" id="fTitleEn" placeholder="e.g. New Student Admissions, Academic Year 2026" />
+          <div class="help-text">ไม่บังคับ ใช้แสดงเมื่อเลือกภาษาอังกฤษ</div>
+        </div>
+        <div class="form-row">
           <label>หมวดหมู่</label>
           <select id="fCategory">
             <option value="ข่าวสารกิจกรรมคณะ">ข่าวสารกิจกรรมคณะ</option>
@@ -140,8 +145,16 @@
           <div class="help-text">ใช้แสดงในรายการข่าวและหน้าแรก</div>
         </div>
         <div class="form-row">
+          <label>สาระสั้น (English)</label>
+          <textarea id="fSummaryEn" placeholder="Short summary in English"></textarea>
+        </div>
+        <div class="form-row">
           <label>เนื้อหาเต็ม (Content)</label>
           <textarea id="fContent" required placeholder="เขียนเนื้อหาข่าวแบบละเอียด"></textarea>
+        </div>
+        <div class="form-row">
+          <label>เนื้อหาเต็ม (English)</label>
+          <textarea id="fContentEn" placeholder="Full article in English"></textarea>
         </div>
         <div class="form-row">
           <label>สถานะ</label>
@@ -310,6 +323,9 @@
         if (!data) return;
         document.getElementById("newsId").value = data.id;
         document.getElementById("fTitle").value = data.title || "";
+        document.getElementById("fTitleEn").value = data.title_en || "";
+        document.getElementById("fSummaryEn").value = data.summary_en || "";
+        document.getElementById("fContentEn").value = data.content_en || "";
         const catSelect = document.getElementById("fCategory");
         catSelect.value = [...catSelect.options].some((o) => o.value === data.category) ? data.category : catSelect.options[0].value;
         document.getElementById("fSummary").value = data.summary || "";
@@ -348,9 +364,12 @@
       const id = document.getElementById("newsId").value;
       const row = {
         title: document.getElementById("fTitle").value.trim(),
+        title_en: document.getElementById("fTitleEn").value.trim(),
         category: document.getElementById("fCategory").value,
         summary: document.getElementById("fSummary").value.trim(),
+        summary_en: document.getElementById("fSummaryEn").value.trim(),
         content: document.getElementById("fContent").value.trim(),
+        content_en: document.getElementById("fContentEn").value.trim(),
         status: document.getElementById("fStatus").value,
         published_date: document.getElementById("fDate").value,
         author: document.getElementById("fAuthor").value.trim() || "งานประชาสัมพันธ์คณะ",
