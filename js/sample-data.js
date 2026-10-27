@@ -335,12 +335,213 @@ const sampleFaculty = [
   { id: 1, name: "ผศ.ดร.วิรัตน์ สนธิ์จันทร์",
     name_en: "ผศ.ดร.วิรัตน์ สนธิ์จันทร์", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "คณบดีคณะวิทยาศาสตร์การกีฬา / ประธานหลักสูตรฯ", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
     expertise_en: "Exercise and Sport Science", phone: "038102060", email: "wirats@go.buu.ac.th" },
-  { id: 2, tag: "ข่าวประชาสัมพันธ์", tag_en: "Announcement",
-    title: "การแข่งขันกีฬาภายใน \"Sport Science Games\" เสริมสร้างทักษะการจัดการงานกีฬา",
-    title_en: "Sport Science Games build event management skills",
-    subtitle: "การแข่งขันกีฬาภายใน Sport Science Games เสริมสร้างทักษะการจัดการงานกีฬา ความเป็นผู้นำ และการทำงานเป็นทีม",
-    subtitle_en: "Sport Science Games build event management skills, leadership, and teamwork",
-    cta: "อ่านข่าว", cta_en: "Read news", url: "news-detail.html?id=9", theme: "gold" },
+  { id: 2, name: "รศ.ดร.ธนิดา จุลวนิชย์พงษ์",
+    name_en: "รศ.ดร.ธนิดา จุลวนิชย์พงษ์", position: "รองศาสตราจารย์ ดร.", role: "อาจารย์ประจำสาขา (ปริญญาตรี-โท-เอก)", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    expertise_en: "Exercise and Sport Science", phone: "038102060", email: "tanida@go.buu.ac.th" },
+  { id: 3, name: "ผศ.ดร.สุกัญญา เจริญวัฒนะ",
+    name_en: "ผศ.ดร.สุกัญญา เจริญวัฒนะ", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "ประธานสาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา ระดับบัณฑิตศึกษา", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา / สื่อสารมวลชนทางกีฬา",
+    expertise_en: "Sport Communication", phone: "038102060", email: "sukanyac@go.buu.ac.th" },
+  { id: 4, name: "รศ.ดร.ฉัตรกมล สิงห์น้อย",
+    name_en: "รศ.ดร.ฉัตรกมล สิงห์น้อย", position: "รองศาสตราจารย์ ดร.", role: "อาจารย์ / ประธานหลักสูตรระดับปริญญาโท", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    expertise_en: "Exercise and Sport Science", phone: "038102060", email: "chatkamon@go.buu.ac.th" },
+  { id: 5, name: "ผศ.ดร.พรพจน์ ไชยนอก",
+    name_en: "ผศ.ดร.พรพจน์ ไชยนอก", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "ประธานสาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา ระดับบัณฑิตศึกษา", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    expertise_en: "Exercise and Sport Science", phone: "038102060", email: "phornpot@go.buu.ac.th" },
+  { id: 6, name: "ผศ.ดร.อรวรีย์ อิงคเตชะ",
+    name_en: "ผศ.ดร.อรวรีย์ อิงคเตชะ", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    expertise_en: "Exercise and Sport Science", phone: "038102060", email: "onwaree@go.buu.ac.th" },
+  { id: 7, name: "ผศ.ดร.กวีญา สินธารา",
+    name_en: "ผศ.ดร.กวีญา สินธารา", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "ประธานสาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา (ระดับปริญญาตรี)", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    expertise_en: "Exercise and Sport Science", phone: "038102060", email: "kawiya@go.buu.ac.th" },
+  { id: 8, name: "อาจารย์จิรภา น้าคณาคุปต์",
+    name_en: "อาจารย์จิรภา น้าคณาคุปต์", position: "อาจารย์", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    expertise_en: "Exercise and Sport Science", phone: "038102060", email: "chirapan@go.buu.ac.th" },
+  { id: 9, name: "ผศ.ดร.อัตถสิทธิ์ ไชยณรงค์",
+    name_en: "ผศ.ดร.อัตถสิทธิ์ ไชยณรงค์", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    expertise_en: "Exercise and Sport Science", phone: "038102060", email: "austtasit@go.buu.ac.th" },
+  { id: 10, name: "ดร.เสกข์ศักย์ ธิติศักดิ์",
+    name_en: "ดร.เสกข์ศักย์ ธิติศักดิ์", position: "ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    expertise_en: "Exercise and Sport Science", phone: "038102060", email: "sagsak.th@buu.ac.th" },
+  { id: 11, name: "ดร.จิดาภา ศิริวรรณ์",
+    name_en: "ดร.จิดาภา ศิริวรรณ์", position: "ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    expertise_en: "Exercise and Sport Science", phone: "038102060", email: "Chidapha.si@buu.ac.th" },
+  { id: 12, name: "ดร.วัชชริน ผดุงรัชดากิจ",
+    name_en: "ดร.วัชชริน ผดุงรัชดากิจ", position: "ดร.", role: "ผู้ช่วยคณบดีฝ่ายสื่อสารองค์กรและวิเทศสัมพันธ์ / ประธานหลักสูตรฯ", expertise: "สาขาวิชาสื่อสารมวลชนทางกีฬา",
+    expertise_en: "Sport Communication", phone: "038102060", email: "wacharin@go.buu.ac.th" },
+  { id: 13, name: "ผศ.ดร.สราลี สนธิ์จันทร์",
+    name_en: "ผศ.ดร.สราลี สนธิ์จันทร์", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "ประธานสาขาวิชาสื่อสารมวลชนทางกีฬา", expertise: "สาขาวิชาสื่อสารมวลชนทางกีฬา",
+    expertise_en: "Sport Communication", phone: "038102060", email: "saralee@go.buu.ac.th" },
+  { id: 14, name: "ดร.สมพร ส่งตระกูล",
+    name_en: "ดร.สมพร ส่งตระกูล", position: "ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาสื่อสารมวลชนทางกีฬา",
+    expertise_en: "Sport Communication", phone: "038102060", email: "somporn_s@go.buu.ac.th" },
+  { id: 15, name: "ว่าที่ร้อยตรี(หญิง) ดร.เพ็ญนภา วัยเวก",
+    name_en: "ว่าที่ร้อยตรี(หญิง) ดร.เพ็ญนภา วัยเวก", position: "ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาสื่อสารมวลชนทางกีฬา",
+    expertise_en: "Sport Communication", phone: "038102060", email: "pennapa.wa@go.buu.ac.th" },
+  { id: 16, name: "ดร.สุภวุฒิ ภูมิรัตน",
+    name_en: "ดร.สุภวุฒิ ภูมิรัตน", position: "ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาสื่อสารมวลชนทางกีฬา",
+    expertise_en: "Sport Communication", phone: "038102060", email: "supawut.pu@go.buu.ac.th" },
+  { id: 17, name: "ผศ.ดร.ปัญญา อินทเจริญ",
+    name_en: "ผศ.ดร.ปัญญา อินทเจริญ", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "รองคณบดีฝ่ายบริหาร", expertise: "สาขาวิชาการจัดการและการสอนกีฬา",
+    expertise_en: "Sport Management and Coaching", phone: "038102060", email: "panya@go.buu.ac.th" },
+  { id: 18, name: "ผศ.ดร.ไพโรจน์ สว่างไพร",
+    name_en: "ผศ.ดร.ไพโรจน์ สว่างไพร", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "รองคณบดีฝ่ายวิชาการและวิจัย / ประธานสาขาวิชาการจัดการและการสอนกีฬา", expertise: "สาขาวิชาการจัดการและการสอนกีฬา",
+    expertise_en: "Sport Management and Coaching", phone: "038102060", email: "pairot@go.buu.ac.th" },
+  { id: 19, name: "ผศ.ดร.นาคิน คำศรี",
+    name_en: "ผศ.ดร.นาคิน คำศรี", position: "ผู้ช่วยศาสตราจารย์ ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาการจัดการและการสอนกีฬา",
+    expertise_en: "Sport Management and Coaching", phone: "038102060", email: "Nakin@go.buu.ac.th" },
+  { id: 20, name: "รศ.ดร.รังสฤษฏ์ จำเริญ",
+    name_en: "รศ.ดร.รังสฤษฏ์ จำเริญ", position: "รองศาสตราจารย์ ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาการจัดการและการสอนกีฬา",
+    expertise_en: "Sport Management and Coaching", phone: "038102060", email: "rangsaritj@go.buu.ac.th" },
+  { id: 21, name: "ดร.รดมยศ มาตเจือ",
+    name_en: "ดร.รดมยศ มาตเจือ", position: "ดร.", role: "อาจารย์ประจำสาขา", expertise: "สาขาวิชาการจัดการและการสอนกีฬา",
+    expertise_en: "Sport Management and Coaching", phone: "038102060", email: "radomyos.ma@go.buu.ac.th" },
+];
+
+/* ---------------------------------------------------------------------
+   บุคลากรสำนักงานคณบดี ( ตาราง: staff_members )
+   --------------------------------------------------------------------- */
+const sampleStaff = [
+  { id: 1, name: "นายอัฐพร โสวัตร์",
+    name_en: "นายอัฐพร โสวัตร์", position: "นักวิชาการศึกษา ชำนาญการ / ผู้ช่วยคณบดีฝ่ายพัฒนานิสิต บริการวิชาการ และแผนยุทธศาสตร์ และผู้รักษาการแทนหัวหน้าสำนักงานคณบดี", phone: "038102060", email: "attaporns@go.buu.ac.th" },
+  { id: 2, name: "นางสาวนวลพร สุวรรณพิทักษ์",
+    name_en: "นางสาวนวลพร สุวรรณพิทักษ์", position: "นักวิชาการศึกษา ชำนาญการ", phone: "038102060", email: "nuanporn@go.buu.ac.th" },
+  { id: 3, name: "นางสาววนิษา ศรีรอบรู้",
+    name_en: "นางสาววนิษา ศรีรอบรู้", position: "นักวิชาการศึกษา", phone: "038102083", email: "wanisa@go.buu.ac.th" },
+  { id: 4, name: "นางพรรณปพร เผ่าจินดา",
+    name_en: "นางพรรณปพร เผ่าจินดา", position: "นักวิชาการศึกษา", phone: "038102060", email: "phanpaporn@go.buu.ac.th" },
+  { id: 5, name: "นางนันทวรรณ บำรุงเอี่ยมปัญญา",
+    name_en: "นางนันทวรรณ บำรุงเอี่ยมปัญญา", position: "นักวิชาการพัสดุ", phone: "038102059", email: "nuntawun@go.buu.ac.th" },
+  { id: 6, name: "นางสาวนิภาพร จั่นแพ",
+    name_en: "นางสาวนิภาพร จั่นแพ", position: "นักวิชาการเงินและบัญชี", phone: "038102059", email: "nipapornc@go.buu.ac.th" },
+  { id: 7, name: "นางสาวชนณิการณ์ นามชัยยา",
+    name_en: "นางสาวชนณิการณ์ นามชัยยา", position: "เจ้าหน้าที่บริหารงานทั่วไป", phone: "038102083", email: "chonnikarn@go.buu.ac.th" },
+  { id: 8, name: "นายเจษฎา รัตนวงษ์",
+    name_en: "นายเจษฎา รัตนวงษ์", position: "เจ้าหน้าที่ดูแลห้องอุปกรณ์กีฬา", phone: "-", email: "-" },
+  { id: 9, name: "นางสาวศศิประภา ลิ้มภักดี",
+    name_en: "นางสาวศศิประภา ลิ้มภักดี", position: "เจ้าหน้าที่ศูนย์วิสาหกิจกีฬา", phone: "-", email: "-" },
+];
+
+/* ---------------------------------------------------------------------
+   ทุนการศึกษา/ทุนวิจัย ( ตาราง: scholarships )
+   --------------------------------------------------------------------- */
+const sampleScholarships = [
+  {
+    id: 1,
+    title: "ทุนสนับสนุนการทำวิจัยดุษฎีนิพนธ์ บัณฑิตวิทยาลัย มหาวิทยาลัยบูรพา",
+    title_en: "Scholarship for Doctoral Thesis Research, Graduate School, Burapha University",
+    type: "ทุนวิจัยระดับบัณฑิตศึกษา",
+    type_en: "ทุนวิจัยระดับบัณฑิตศึกษา",
+    amount: 10000,
+    deadline: "2026-10-31",
+    detail: "นิสิตระดับปริญญาโท-เอก สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา ที่ได้รับอนุมัติหัวข้อวิทยานิพนธ์/ดุษฎีนิพนธ์",
+    file_name: "แบบรายงานความก้าวหน้าและขอรับทุนอุดหนุนการวิจัย.pdf",
+    source_url: "https://fss.buu.ac.th/news/frontend/detail/MTZ8fFl6WUd8Qmtz",
+  },
+  {
+    id: 2,
+    title: "ทุนโครงการผู้มีความสามารถพิเศษทางกีฬา (โครงการช้างเผือก) ปีการศึกษา 2569",
+    title_en: "Special Talent in Sports Program (Chang Suek Project) Academic Year 2026",
+    type: "ทุนรับสมัครนิสิตใหม่ความสามารถพิเศษทางกีฬา",
+    type_en: "ทุนรับสมัครนิสิตใหม่ความสามารถพิเศษทางกีฬา",
+    amount: null,
+    deadline: "2026-10-30",
+    detail: "ผู้สมัครเข้าศึกษาระดับปริญญาตรีที่มีประวัติและผลงานการแข่งขันกีฬาระดับชาติ เยาวชนแห่งชาติ หรือตัวแทนจังหวัด",
+    file_name: "ระเบียบการรับสมัครโครงการช้างเผือก_2569.pdf",
+    source_url: "https://fss.buu.ac.th/",
+  },
+  {
+    id: 3,
+    title: "ทุนส่งเสริมการศึกษาสำหรับนิสิตผู้มีศักยภาพและนิสิตจิตอาสา คณะวิทยาศาสตร์การกีฬา",
+    title_en: "Scholarship for Potential and Volunteer Students, Faculty of Sport Science",
+    type: "ทุนการศึกษาระดับปริญญาตรี",
+    type_en: "ทุนการศึกษาระดับปริญญาตรี",
+    amount: 5000,
+    deadline: "2026-11-15",
+    detail: "นิสิตปัจจุบันระดับปริญญาตรี ชั้นปีที่ 1–4 ที่มีความประพฤติดี ขาดแคลนทุนทรัพย์ หรือมีผลงานจิตอาสาช่วยเหลือกิจกรรมคณะ",
+    file_name: "ใบสมัครทุนส่งเสริมการศึกษานิสิต_FSS.pdf",
+    source_url: "https://fss.buu.ac.th/document/frontend/index",
+  },
+];
+
+/* ---------------------------------------------------------------------
+   ผลงานนิสิตและศิษย์เก่า ( ตาราง: achievements )
+   --------------------------------------------------------------------- */
+const sampleAchievements = [
+  { id: 1, title: "ได้รับการพิจารณาอนุมัติทุนสนับสนุนการทำวิจัยดุษฎีนิพนธ์ (10,000 บาท) จากบัณฑิตวิทยาลัย มหาวิทยาลัยบูรพา",
+    title_en: "Thesis Research Support Scholarship, Graduate School, Burapha University (10,000 THB)", person: "นายภาคภูมิ พิลึก", role: "นิสิตระดับปริญญาเอก หลักสูตรปรัชญาดุษฎีบัณฑิต สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา", category: "ผลงานวิชาการและวิจัย", year: "2569", source_url: "https://fss.buu.ac.th/news/frontend/detail/MTZ8fFl6WUd8Qmtz" },
+  { id: 2, title: "รางวัลชนะเลิศ รายการ Suzuka 4 Hours Endurance Japan รุ่น ST 600 ณ ประเทศญี่ปุ่น",
+    title_en: "Kiattisak Singharphong wins Suzuka 4 Hours Endurance ST600", person: "นายเกียรติศักดิ์ สิงหพงษ์", role: "นิสิตชั้นปีที่ 1 สาขาวิชาวิทยาศาสตร์การออกกำลังกายและการกีฬา (นักกีฬารถจักรยานยนต์ทางเรียบ)", category: "ผลงานกีฬาสร้างชื่อเสียงระดับนานาชาติ", year: "2567", source_url: "https://fss.buu.ac.th/" },
+  { id: 3, title: "ตีพิมพ์ผลงานวิจัยเรื่อง 'Follow-Up Weekly Training Distribution and Accumulated Internal Load Effects on Young Football Players' ในวารสารวิชาการนานาชาติ Sports",
+    title_en: "Follow-Up Weekly Training Distribution and Accumulated Internal Load Effects on Young Football Players (Sports Science Journal)", person: "ผศ.ดร.พรพจน์ ไชยนอก และคณะ", role: "คณาจารย์คณะวิทยาศาสตร์การกีฬา", category: "ผลงานวิจัยระดับนานาชาติ", year: "2567", source_url: "https://fss.buu.ac.th/" },
+  { id: 4, title: "คว้าเหรียญรางวัลจากการแข่งขันกีฬามหาวิทยาลัยแห่งประเทศไทย ครั้งที่ 48 รอบมหกรรม 'ดอกจานบ้านเชียงเกมส์'",
+    title_en: "BUU athletes win medals at 48th University Games", person: "ทัพนักกีฬานิสิตคณะวิทยาศาสตร์การกีฬา ม.บูรพา", role: "นิสิตปัจจุบันตัวแทนมหาวิทยาลัยบูรพา", category: "ผลงานการแข่งขันกีฬาระดับชาติ", year: "2566", source_url: "https://fss.buu.ac.th/" },
+];
+
+/* ---------------------------------------------------------------------
+   คลังภาพและวิดีโอ ( ตาราง: media_gallery )
+   --------------------------------------------------------------------- */
+const sampleMedia = [
+  { id: 1, title: "วีดิทัศน์แนะนำคณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา",
+    title_en: "Faculty introduction video", type: "video",
+    type_en: "video", image_url: "https://fss.buu.ac.th/public/backend/upload/fss.buu.ac.th/slide/original/slide153985357075708200.jpg", youtube_url: "https://www.youtube.com/watch?v=_lxIy2d78Lg", date: "2023-06-14", source_url: "https://fss.buu.ac.th/" },
+  { id: 2, title: "การดำเนินโครงการยกระดับเศรษฐกิจและสังคมรายตำบลแบบบูรณาการ (1 ตำบล 1 มหาวิทยาลัย - U2T)",
+    title_en: "U2T project: 1 Tambon 1 University", type: "video",
+    type_en: "video", image_url: "https://fss.buu.ac.th/public/backend/upload/fss.buu.ac.th/slide/original/slide153985357075708200.jpg", youtube_url: "https://www.youtube.com/watch?v=_lxIy2d78Lg", date: "2021-10-20", source_url: "https://fss.buu.ac.th/" },
+  { id: 3, title: "อัลบั้มภาพบรรยากาศพื้นที่การเรียนรู้ FSS Co-Working Space และห้องปฏิบัติการวิทยาศาสตร์การกีฬา",
+    title_en: "FSS Co-Working Space and laboratories album", type: "image",
+    type_en: "image", image_url: "http://fss.buu.ac.th/public/backend/upload/fss.buu.ac.th/summernote/b3e3e393c77e35a4a3f3cbd1e429b5dc.jpg", youtube_url: "", date: "2026-09-15", source_url: "https://fss.buu.ac.th/history/frontend/index" },
+];
+
+/* ---------------------------------------------------------------------
+   ผลการแข่งขัน / ตารางแข่งขัน / นักกีฬาคณะ
+   --------------------------------------------------------------------- */
+const sampleMatchResults = [
+  { id: 1, sport: "ตะกร้อ", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-20", opponent: "คณะวิทยาศาสตร์", score: "70-58", result: "win", note: "รอบชนะเลิศ" },
+  { id: 2, sport: "วอลเลย์บอล", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-19", opponent: "คณะวิชาการจัดการ", score: "3-0", result: "win", note: "รอบชนะเลิศ" },
+  { id: 3, sport: "ฟุตซอล", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-18", opponent: "คณะศึกษาการจัดการ", score: "0-1", result: "loss", note: "รอบรองชนะเลิศ" },
+  { id: 4, sport: "วิ่ง 400 ม.", competition: "รอบชมรมวิชาการ", match_date: "2026-10-18", opponent: "คณะวิชาการฯ", score: "1:06.8", result: "win", note: "รอบชนะเลิศ" },
+  { id: 5, sport: "แบดมินตัน", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-17", opponent: "คณะวิทยาศาสตร์", score: "2-1", result: "win", note: "รอบกลุ่ม" },
+  { id: 6, sport: "วอลเลย์บอล", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-16", opponent: "คณะเศรษฐศาสตร์", score: "3-1", result: "win", note: "รอบกลุ่ม" },
+  { id: 7, sport: "ว่ายน้ำ", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-16", opponent: "คณะวิทยาศาสตร์", score: "1:58.4", result: "win", note: "รอบกลุ่ม" },
+  { id: 8, sport: "ตะกร้อ", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-15", opponent: "คณะวิชาการจัดการ", score: "65-61", result: "win", note: "รอบกลุ่ม" },
+];
+
+const sampleMatchFixtures = [
+  { id: 1, sport: "วอลเลย์บอล", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-24", time: "08:00", opponent: "คณะศึกษาการจัดการ", venue: "หอประชุมกีฬา" },
+  { id: 2, sport: "ตะกร้อ", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-25", time: "08:30", opponent: "คณะวิทยาศาสตร์", venue: "สนามกีฬากลาง" },
+  { id: 3, sport: "ฟุตซอล", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-25", time: "14:00", opponent: "คณะวิชาการจัดการ", venue: "สนามฟุตซอลมหาวิทยาลัย" },
+  { id: 4, sport: "ว่ายน้ำ", competition: "กีฬามหาวิทยาลัย", match_date: "2026-10-26", time: "07:00", opponent: "คณะเศรษฐศาสตร์", venue: "สระมหาวิทยาลัย" },
+];
+
+/* ---------------------------------------------------------------------
+   ข้อมูลติดต่อของคณะ ( ตาราง: contact_info )
+   --------------------------------------------------------------------- */
+const contactInfo = {
+  facultyName: "คณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา",
+  address: "169 ถ.แสนสุข ต.แสนสุข อ.เมือง จ.ชลบุรี 20131",
+  phone: "038-102060",
+  email: "fss@buu.ac.th",
+  facebook: "https://www.facebook.com/",
+  youtube: "https://www.youtube.com/",
+  tiktok: "https://www.tiktok.com/",
+};
+
+/* ---------------------------------------------------------------------
+   Banner หน้าแรก / ทางลัด / ไอคอนบริการ / พันธมิตร
+   --------------------------------------------------------------------- */
+const sampleBanners = [
+  { id: 1, tag: "รับสมัคร", tag_en: "Admissions",
+    title: "เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569",
+    title_en: "New Student Admissions, Academic Year 2026",
+    subtitle: "หลักสูตรศิลปศาสตรบัณฑิต สาขาวิทยาศาสตร์การออกกำลังกายและการกีฬา",
+    subtitle_en: "Bachelor's programs in Exercise and Sport Science",
+    cta: "สมัครเรียน", cta_en: "Apply now", url: "contact.html", theme: "green", image: "image/header.jpg" },
+  { id: 2, tag: "ข่าวกีฬา", tag_en: "Sports News",
+    title: "ทัพนักกีฬานิสิต ม.บูรพา คว้าเหรียญรางวัล ดอกจานบ้านเชียงเกมส์",
+    title_en: "BUU athletes win medals at 48th University Games",
+    subtitle: "นิสิตคณะวิทยาศาสตร์การกีฬาเป็นกำลังหลักของทัพนักกีฬามหาวิทยาลัยบูรพา",
+    subtitle_en: "FSS students are the main force of BUU sports team",
+    cta: "อ่านข่าว", cta_en: "Read news", url: "news-detail.html?id=7", theme: "gold" },
   { id: 3, tag: "ข่าวเด่น", tag_en: "Highlight",
     title: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์แข่งรถทางเรียบระดับโลก",
     title_en: "BUU Sport Science student wins world-class road racing championship",
