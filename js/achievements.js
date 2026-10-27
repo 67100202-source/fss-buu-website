@@ -41,6 +41,8 @@ function renderAchievements(items) {
   items.forEach((a) => {
     const card = document.createElement("div");
     card.className = "achievement-card";
+    card.style.cursor = "pointer";
+    card.addEventListener("click", () => { window.location.href = "achievements-detail.html?id=" + a.id; });
 
     const title = (isEn && a.title_en) ? a.title_en : a.title;
     const person = (isEn && a.person_en) ? a.person_en : (a.person || "-");
@@ -55,10 +57,7 @@ function renderAchievements(items) {
         <span class="ach-category">${category}</span>
         ${a.year ? `<span class="ach-meta">📅 ${isEn ? "Year" : "ปี"} ${a.year}</span>` : ""}
       </div>
-      ${a.source_url
-        ? `<a href="${a.source_url}" target="_blank" rel="noopener" style="font-size:0.9rem;color:var(--color-green);text-decoration:underline;">${isEn ? "Source" : "ดูที่มา"}</a>`
-        : ""
-      }
+            <p class="ach-more" style="margin-top:0.5rem;font-size:0.9rem;color:var(--color-green);">${isEn ? "View details →" : "ดูรายละเอียด →"}</p>
     `;
 
     box.appendChild(card);

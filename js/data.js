@@ -284,6 +284,16 @@ async function fetchAchievements() {
   return db.map(mapAchievementRow);
 }
 
+/** fetch achievement by id */
+async function fetchAchievementById(id) {
+  const db = await queryDB("achievements", { eq: { id: id } });
+  if (db === null) {
+    return (sampleAchievements || []).find((a) => a.id === id) || null;
+  }
+  if (!db || db.length === 0) return null;
+  return mapAchievementRow(db[0]);
+}
+
 /**
  * ดึงคลังภาพและวิดีโอ
  */
