@@ -104,7 +104,7 @@ function renderCourses(items) {
       <p class="text-meta">${detail}</p>
       ${
         (typeof PROGRAM_DOCUMENTS !== "undefined" && PROGRAM_DOCUMENTS[c.id])
-          ? `<a href="${PROGRAM_DOCUMENTS[c.id]}" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.9rem;margin-top:0.5rem;">${isEn ? "Curriculum structure (PDF)" : "โครงสร้างหลักสูตร (PDF)"}</a>`
+          ? `<a href="${PROGRAM_DOCUMENTS[c.id]}" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.9rem;margin-top:0.5rem;">${isEn ? "Curriculum structure" : "โครงสร้างหลักสูตร"}</a>`
           : (c.source_url
               ? `<a href="${c.source_url}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.9rem;margin-top:0.5rem;">${isEn ? "View details on faculty website" : "ดูรายละเอียดจากเว็บคณะ"}</a>`
               : "")
