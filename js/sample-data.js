@@ -207,6 +207,29 @@ const sampleNews = [
     source_url: "https://fss.buu.ac.th/document/frontend/index",
     created_at: "2025-08-14",
   },
+  {
+    id: 11,
+    category: "ข่าวกีฬาและการแข่งขัน",
+    title: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์เจ็ตสกีระดับโลก",
+    title_en: "BUU Sport Science student wins world jet ski championship",
+    excerpt: "นิสิตคณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา คว้าแชมป์การแข่งขันเจ็ตสกีระดับโลก สร้างชื่อเสียงให้คณะและมหาวิทยาลัย",
+    excerpt_en: "A FSS, Burapha University student wins the world jet ski championship, bringing pride to the faculty and university.",
+    body: [
+      "นิสิตคณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา คว้าแชมป์การแข่งขันเจ็ตสกีระดับโลก สร้างชื่อเสียงให้คณะและมหาวิทยาลัย",
+      "ความสำเร็จนี้เป็นผลจากความมุ่งมั่นในการฝึกซ้อมและการสนับสนุนจากคณาจารย์และคณะ",
+    ],
+    body_en: [
+      "A FSS, Burapha University student wins the world jet ski championship, bringing pride to the faculty and university.",
+      "This success comes from dedication in training and support from faculty members.",
+    ],
+    author: "งานประชาสัมพันธ์คณะ",
+    read_minutes: 2,
+    theme: "green",
+    is_urgent: false,
+    image_url: "image/headแรก.jpg",
+    source_url: "https://fss.buu.ac.th/",
+    created_at: "2026-10-27",
+  },
 ];
 
 /* ---------------------------------------------------------------------
@@ -530,10 +553,12 @@ const contactInfo = {
    Banner หน้าแรก / ทางลัด / ไอคอนบริการ / พันธมิตร
    --------------------------------------------------------------------- */
 const sampleBanners = [
-  { id: 1, tag: "", tag_en: "",
-    title: "", title_en: "",
-    subtitle: "", subtitle_en: "",
-    cta: "", cta_en: "", url: "", theme: "green", image: "image/headแรก.jpg", imageOnly: true },
+  { id: 1, tag: "ข่าวกีฬาและการแข่งขัน", tag_en: "Sports News",
+    title: "นิสิตวิทย์กีฬา ม.บูรพา คว้าแชมป์เจ็ตสกีระดับโลก",
+    title_en: "BUU Sport Science student wins world jet ski championship",
+    subtitle: "นิสิตคณะวิทยาศาสตร์การกีฬา มหาวิทยาลัยบูรพา คว้าแชมป์การแข่งขันเจ็ตสกีระดับโลก",
+    subtitle_en: "A FSS, Burapha University student wins the world jet ski championship",
+    cta: "อ่านข่าว", cta_en: "Read news", url: "news-detail.html?id=11", theme: "green", image: "image/headแรก.jpg" },
   { id: 2, tag: "ข่าวประชาสัมพันธ์", tag_en: "Announcement",
     title: "การแข่งขันกีฬาภายใน \"Sport Science Games\" เสริมสร้างทักษะการจัดการงานกีฬา",
     title_en: "Sport Science Games build event management skills",
